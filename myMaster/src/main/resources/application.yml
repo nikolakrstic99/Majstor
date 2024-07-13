@@ -1,0 +1,9 @@
+spring:
+    application:
+        name: myMaster
+    datasource:
+      url: jdbc:mysql://localhost:3306/mymaster
+      username: root
+      password: root
+    flyway:
+      enabled: true
