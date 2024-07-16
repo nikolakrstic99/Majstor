@@ -10,7 +10,7 @@ data class BlogInfo(
 )
 
 data class Blog(
-    val preview: BlogInfo,
+    val info: BlogInfo,
     val text: String,
     val pictures: List<String>,
 )
