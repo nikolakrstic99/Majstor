@@ -1,4 +1,4 @@
-package com.master.app.ui.compose.blog
+package com.master.app.ui.blog
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement

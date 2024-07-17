@@ -1,4 +1,4 @@
-package com.master.app.ui.compose.repairment
+package com.master.app.ui.repairment
 
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid

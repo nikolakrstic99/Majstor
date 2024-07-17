@@ -7,10 +7,11 @@ import androidx.activity.enableEdgeToEdge
 import com.master.app.data.model.Blog
 import com.master.app.data.model.BlogInfo
 import com.master.app.data.model.RepairmentCategory
-import com.master.app.ui.compose.blog.BlogPreview
-import com.master.app.ui.compose.blog.BlogScreen
-import com.master.app.ui.compose.repairment.RepairmentCategoryList
-import com.master.app.ui.compose.repairment.exampleCategoryList
+import com.master.app.ui.blog.BlogPreview
+import com.master.app.ui.blog.BlogScreen
+import com.master.app.ui.repairment.RepairmenSearchScreen
+import com.master.app.ui.repairment.RepairmentCategoryList
+import com.master.app.ui.repairment.exampleCategoryList
 import com.master.app.ui.theme.AndroidAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -20,7 +21,15 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             AndroidAppTheme {
-                RepairmentCategoryList(repairmentCategories = exampleCategoryList)
+                RepairmenSearchScreen(
+                    RepairmentCategory(
+                        1,
+                        "Gradjevinski radovi",
+                        136,
+                        "pictureURL"
+                    ),
+                    listOf()
+                )
             }
         }
     }

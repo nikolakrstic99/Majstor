@@ -1,4 +1,4 @@
-package com.master.app.ui.compose.repairment
+package com.master.app.ui.repairment
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

@@ -1,5 +1,6 @@
-package com.master.app.ui.compose.blog
+package com.master.app.ui.blog
 
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Divider
@@ -7,6 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.master.app.data.model.BlogInfo
 import com.master.app.ui.theme.AndroidAppTheme
 
@@ -19,7 +21,10 @@ fun BlogList(
         items(
             items = blogs
         ) {
-            BlogPreview(blog = it)
+            BlogPreview(
+                blog = it,
+                Modifier.size(width = 500.dp, height = 150.dp)
+            )
             Divider(color = MaterialTheme.colorScheme.primary)
         }
     }
