@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.master.app.data.model.Blog
 import com.master.app.data.model.BlogInfo
+import com.master.app.data.model.Repairman
 import com.master.app.data.model.RepairmentCategory
 import com.master.app.ui.blog.BlogPreview
 import com.master.app.ui.blog.BlogScreen
@@ -28,7 +29,26 @@ class MainActivity : ComponentActivity() {
                         136,
                         "pictureURL"
                     ),
-                    listOf()
+                    listOf(
+                        Repairman(
+                            1,
+                            "Milojko Pantic",
+                            8.3723725,
+                            listOf("Moler", "Parketar")
+                        ),
+                        Repairman(
+                            2,
+                            "Petar Vojinovic",
+                            7.2,
+                            listOf("Parketar")
+                        ),
+                        Repairman(
+                            3,
+                            "David Zlatkovic",
+                            10.0,
+                            listOf("Moler")
+                        )
+                    )
                 )
             }
         }

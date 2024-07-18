@@ -8,6 +8,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -16,6 +19,7 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -95,11 +99,19 @@ fun RepairmenSearchScreen(
                         contentDescription = "Search for repairmen"
                     )
                 }
-                selectedFilters.forEach {
+                selectedFilters.forEach { selectedFilter ->
                     ClippedIconButton(
-                        text = it,
+                        text = selectedFilter,
                         onClick = { /*TODO*/ },
                         Modifier.size(width = 100.dp, height = 40.dp)
+                    )
+                }
+            }
+            LazyColumn {
+                items(repairmen) { repairman ->
+                    RepairmanPreview(
+                        repairman = repairman,
+                        Modifier.padding(2.dp)
                     )
                 }
             }
@@ -118,7 +130,26 @@ fun RepairmenSearchScreenPreview() {
                 136,
                 "pictureURL"
             ),
-            listOf()
+            listOf(
+                Repairman(
+                    1,
+                    "Milojko Pantic",
+                    8.3723725,
+                    listOf("Moler", "Parketar")
+                ),
+                Repairman(
+                    2,
+                    "Petar Vojinovic",
+                    7.2,
+                    listOf("Parketar")
+                ),
+                Repairman(
+                    3,
+                    "David Zlatkovic",
+                    10.0,
+                    listOf("Moler")
+                )
+            )
         )
     }
 }

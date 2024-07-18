@@ -3,6 +3,7 @@ package com.master.app.data.model
 data class Repairman(
     val id: Int,
     val name: String,
-    val averageScore: Float,
-    val categoryId: Int // Subcategory ID
+    val averageRating: Double,
+    // One repairman can be in multiple categories (e.g. parquet or ceramist)
+    val categories: List<String>
 )
