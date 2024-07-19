@@ -1,5 +1,6 @@
 package com.master.app.ui.repairment
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
@@ -31,9 +32,13 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -46,11 +51,13 @@ import com.master.app.ui.theme.AndroidAppTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RepairmenSearchScreen(
-    repairmentCategory: RepairmentCategory,
+    topLevelCategory: RepairmentCategory,
     repairmen: List<Repairman>,
+    categories: List<RepairmentCategory>,
     modifier: Modifier = Modifier
 ) {
     val selectedFilters = listOf("Moler", "Keramicar", "Gradjevinski limar", "Tesar", "Secenje i Busenje")
+    var showFilterMenu by remember { mutableStateOf(false)}
 
     Scaffold(
         topBar = {
@@ -61,7 +68,7 @@ fun RepairmenSearchScreen(
                 ),
                 title = {
                     Text(
-                        text = repairmentCategory.name,
+                        text = topLevelCategory.name,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
@@ -98,7 +105,7 @@ fun RepairmenSearchScreen(
                     .padding(10.dp)
                     .horizontalScroll(scrollState)
             ) {
-                IconButton(onClick = { /* do something */ }) {
+                IconButton(onClick = { showFilterMenu = true }) {
                     Icon(
                         imageVector = Icons.Filled.AddCircle,
                         contentDescription = "Search for repairmen"
@@ -114,10 +121,17 @@ fun RepairmenSearchScreen(
                 selectedFilters.forEach { selectedFilter ->
                     ClippedIconButton(
                         text = selectedFilter,
-                        onClick = { /*TODO*/ },
-                        Modifier.size(width = 100.dp, height = 40.dp)
+                        onClick = { /*TODO*/ }
                     )
                 }
+            }
+            AnimatedVisibility(showFilterMenu) {
+                FilterRepairmen(
+                    categories = categories,
+                    Modifier
+                        .clip(MaterialTheme.shapes.medium)
+                        .background(MaterialTheme.colorScheme.primaryContainer)
+                )
             }
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -283,6 +297,44 @@ fun RepairmenSearchScreenPreview() {
                     "David Zlatkovic",
                     10.0,
                     listOf("Moler")
+                )
+            ),
+            listOf(
+                RepairmentCategory(
+                    1,
+                    "Keramicar",
+                    136,
+                    "pictureURL"
+                ),
+                RepairmentCategory(
+                    2,
+                    "Moler",
+                    26,
+                    "pictureURL"
+                ),
+                RepairmentCategory(
+                    3,
+                    "Parketar",
+                    8,
+                    "pictureURL"
+                ),
+                RepairmentCategory(
+                    1,
+                    "Keramicar",
+                    136,
+                    "pictureURL"
+                ),
+                RepairmentCategory(
+                    2,
+                    "Moler",
+                    26,
+                    "pictureURL"
+                ),
+                RepairmentCategory(
+                    3,
+                    "Parketar",
+                    8,
+                    "pictureURL"
                 )
             )
         )

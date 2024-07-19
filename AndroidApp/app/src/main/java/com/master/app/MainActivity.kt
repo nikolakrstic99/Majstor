@@ -47,6 +47,134 @@ class MainActivity : ComponentActivity() {
                             "David Zlatkovic",
                             10.0,
                             listOf("Moler")
+                        ),
+                        Repairman(
+                            1,
+                            "Milojko Pantic",
+                            8.3723725,
+                            listOf("Moler", "Parketar")
+                        ),
+                        Repairman(
+                            2,
+                            "Petar Vojinovic",
+                            7.2,
+                            listOf("Parketar")
+                        ),
+                        Repairman(
+                            3,
+                            "David Zlatkovic",
+                            10.0,
+                            listOf("Moler")
+                        ),
+                        Repairman(
+                            1,
+                            "Milojko Pantic",
+                            8.3723725,
+                            listOf("Moler", "Parketar")
+                        ),
+                        Repairman(
+                            2,
+                            "Petar Vojinovic",
+                            7.2,
+                            listOf("Parketar")
+                        ),
+                        Repairman(
+                            3,
+                            "David Zlatkovic",
+                            10.0,
+                            listOf("Moler")
+                        ),
+                        Repairman(
+                            1,
+                            "Milojko Pantic",
+                            8.3723725,
+                            listOf("Moler", "Parketar")
+                        ),
+                        Repairman(
+                            2,
+                            "Petar Vojinovic",
+                            7.2,
+                            listOf("Parketar")
+                        ),
+                        Repairman(
+                            3,
+                            "David Zlatkovic",
+                            10.0,
+                            listOf("Moler")
+                        ),
+                        Repairman(
+                            1,
+                            "Milojko Pantic",
+                            8.3723725,
+                            listOf("Moler", "Parketar")
+                        ),
+                        Repairman(
+                            2,
+                            "Petar Vojinovic",
+                            7.2,
+                            listOf("Parketar")
+                        ),
+                        Repairman(
+                            3,
+                            "David Zlatkovic",
+                            10.0,
+                            listOf("Moler")
+                        ),
+                        Repairman(
+                            1,
+                            "Milojko Pantic",
+                            8.3723725,
+                            listOf("Moler", "Parketar")
+                        ),
+                        Repairman(
+                            2,
+                            "Petar Vojinovic",
+                            7.2,
+                            listOf("Parketar")
+                        ),
+                        Repairman(
+                            3,
+                            "David Zlatkovic",
+                            10.0,
+                            listOf("Moler")
+                        )
+                    ),
+                    listOf(
+                        RepairmentCategory(
+                            1,
+                            "Keramicar",
+                            136,
+                            "pictureURL"
+                        ),
+                        RepairmentCategory(
+                            2,
+                            "Moler",
+                            26,
+                            "pictureURL"
+                        ),
+                        RepairmentCategory(
+                            3,
+                            "Parketar",
+                            8,
+                            "pictureURL"
+                        ),
+                        RepairmentCategory(
+                            1,
+                            "Keramicar",
+                            136,
+                            "pictureURL"
+                        ),
+                        RepairmentCategory(
+                            2,
+                            "Moler",
+                            26,
+                            "pictureURL"
+                        ),
+                        RepairmentCategory(
+                            3,
+                            "Parketar",
+                            8,
+                            "pictureURL"
                         )
                     )
                 )
