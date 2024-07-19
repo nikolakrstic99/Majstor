@@ -30,6 +30,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -43,9 +44,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.max
 import com.master.app.data.model.Repairman
 import com.master.app.data.model.RepairmentCategory
 import com.master.app.ui.component.ClippedIconButton
+import com.master.app.ui.component.SearchBar
 import com.master.app.ui.theme.AndroidAppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -58,6 +61,7 @@ fun RepairmenSearchScreen(
 ) {
     val selectedFilters = listOf("Moler", "Keramicar", "Gradjevinski limar", "Tesar", "Secenje i Busenje")
     var showFilterMenu by remember { mutableStateOf(false)}
+    var searchText by remember { mutableStateOf("") }
 
     Scaffold(
         topBar = {
@@ -81,14 +85,6 @@ fun RepairmenSearchScreen(
                         )
                     }
                 },
-                actions = {
-                    IconButton(onClick = { /* do something */ }) {
-                        Icon(
-                            imageVector = Icons.Filled.Search,
-                            contentDescription = "Search for repairmen"
-                        )
-                    }
-                },
                 scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
             )
         },
@@ -108,7 +104,7 @@ fun RepairmenSearchScreen(
                 IconButton(onClick = { showFilterMenu = true }) {
                     Icon(
                         imageVector = Icons.Filled.AddCircle,
-                        contentDescription = "Search for repairmen"
+                        contentDescription = "Add category filters"
                     )
                 }
                 if (selectedFilters.isEmpty()) {
@@ -133,6 +129,10 @@ fun RepairmenSearchScreen(
                         .background(MaterialTheme.colorScheme.primaryContainer)
                 )
             }
+            SearchBar(
+                onValueChanged = {},
+                placeholder = "Search repairmen"
+            )
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -172,7 +172,7 @@ fun RepairmenSearchScreen(
             }
             RepairmenList(
                 repairmen = repairmen,
-                pageSize = 10
+                pageSize = 8
             )
         }
     }
