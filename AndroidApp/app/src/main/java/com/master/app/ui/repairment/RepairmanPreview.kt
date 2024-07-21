@@ -54,6 +54,7 @@ fun RepairmanPreviewPreview() {
                 1,
                 "Milojko Pantic",
                 8.3723725,
+                "0621482242",
                 listOf("Moler", "Parketar")
             )
         )

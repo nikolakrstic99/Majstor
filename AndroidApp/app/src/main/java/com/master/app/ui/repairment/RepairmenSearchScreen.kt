@@ -61,7 +61,6 @@ fun RepairmenSearchScreen(
 ) {
     val selectedFilters = listOf("Moler", "Keramicar", "Gradjevinski limar", "Tesar", "Secenje i Busenje")
     var showFilterMenu by remember { mutableStateOf(false)}
-    var searchText by remember { mutableStateOf("") }
 
     Scaffold(
         topBar = {
@@ -194,108 +193,126 @@ fun RepairmenSearchScreenPreview() {
                     1,
                     "Milojko Pantic",
                     8.3723725,
+                    "0621482242",
                     listOf("Moler", "Parketar")
                 ),
                 Repairman(
                     2,
                     "Petar Vojinovic",
                     7.2,
+                    "0621482242",
                     listOf("Parketar")
                 ),
                 Repairman(
                     3,
                     "David Zlatkovic",
                     10.0,
+                    "0621482242",
                     listOf("Moler")
                 ),
                 Repairman(
                     1,
                     "Milojko Pantic",
                     8.3723725,
+                    "0621482242",
                     listOf("Moler", "Parketar")
                 ),
                 Repairman(
                     2,
                     "Petar Vojinovic",
                     7.2,
+                    "0621482242",
                     listOf("Parketar")
                 ),
                 Repairman(
                     3,
                     "David Zlatkovic",
                     10.0,
+                    "0621482242",
                     listOf("Moler")
                 ),
                 Repairman(
                     1,
                     "Milojko Pantic",
                     8.3723725,
+                    "0621482242",
                     listOf("Moler", "Parketar")
                 ),
                 Repairman(
                     2,
                     "Petar Vojinovic",
                     7.2,
+                    "0621482242",
                     listOf("Parketar")
                 ),
                 Repairman(
                     3,
                     "David Zlatkovic",
                     10.0,
+                    "0621482242",
                     listOf("Moler")
                 ),
                 Repairman(
                     1,
                     "Milojko Pantic",
                     8.3723725,
+                    "0621482242",
                     listOf("Moler", "Parketar")
                 ),
                 Repairman(
                     2,
                     "Petar Vojinovic",
                     7.2,
+                    "0621482242",
                     listOf("Parketar")
                 ),
                 Repairman(
                     3,
                     "David Zlatkovic",
                     10.0,
+                    "0621482242",
                     listOf("Moler")
                 ),
                 Repairman(
                     1,
                     "Milojko Pantic",
                     8.3723725,
+                    "0621482242",
                     listOf("Moler", "Parketar")
                 ),
                 Repairman(
                     2,
                     "Petar Vojinovic",
                     7.2,
+                    "0621482242",
                     listOf("Parketar")
                 ),
                 Repairman(
                     3,
                     "David Zlatkovic",
                     10.0,
+                    "0621482242",
                     listOf("Moler")
                 ),
                 Repairman(
                     1,
                     "Milojko Pantic",
                     8.3723725,
+                    "0621482242",
                     listOf("Moler", "Parketar")
                 ),
                 Repairman(
                     2,
                     "Petar Vojinovic",
                     7.2,
+                    "0621482242",
                     listOf("Parketar")
                 ),
                 Repairman(
                     3,
                     "David Zlatkovic",
                     10.0,
+                    "0621482242",
                     listOf("Moler")
                 )
             ),

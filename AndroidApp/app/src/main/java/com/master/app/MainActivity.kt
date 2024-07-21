@@ -10,6 +10,7 @@ import com.master.app.data.model.Repairman
 import com.master.app.data.model.RepairmentCategory
 import com.master.app.ui.blog.BlogPreview
 import com.master.app.ui.blog.BlogScreen
+import com.master.app.ui.repairment.RepairmanScreen
 import com.master.app.ui.repairment.RepairmenSearchScreen
 import com.master.app.ui.repairment.RepairmentCategoryList
 import com.master.app.ui.repairment.exampleCategoryList
@@ -22,162 +23,14 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             AndroidAppTheme {
-                RepairmenSearchScreen(
-                    RepairmentCategory(
+                RepairmanScreen(
+                    repairman = Repairman(
                         1,
-                        "Gradjevinski radovi",
-                        136,
-                        "pictureURL"
-                    ),
-                    listOf(
-                        Repairman(
-                            1,
-                            "Milojko Pantic",
-                            8.3723725,
-                            listOf("Moler", "Parketar")
-                        ),
-                        Repairman(
-                            2,
-                            "Petar Vojinovic",
-                            7.2,
-                            listOf("Parketar")
-                        ),
-                        Repairman(
-                            3,
-                            "David Zlatkovic",
-                            10.0,
-                            listOf("Moler")
-                        ),
-                        Repairman(
-                            1,
-                            "Milojko Pantic",
-                            8.3723725,
-                            listOf("Moler", "Parketar")
-                        ),
-                        Repairman(
-                            2,
-                            "Petar Vojinovic",
-                            7.2,
-                            listOf("Parketar")
-                        ),
-                        Repairman(
-                            3,
-                            "David Zlatkovic",
-                            10.0,
-                            listOf("Moler")
-                        ),
-                        Repairman(
-                            1,
-                            "Milojko Pantic",
-                            8.3723725,
-                            listOf("Moler", "Parketar")
-                        ),
-                        Repairman(
-                            2,
-                            "Petar Vojinovic",
-                            7.2,
-                            listOf("Parketar")
-                        ),
-                        Repairman(
-                            3,
-                            "David Zlatkovic",
-                            10.0,
-                            listOf("Moler")
-                        ),
-                        Repairman(
-                            1,
-                            "Milojko Pantic",
-                            8.3723725,
-                            listOf("Moler", "Parketar")
-                        ),
-                        Repairman(
-                            2,
-                            "Petar Vojinovic",
-                            7.2,
-                            listOf("Parketar")
-                        ),
-                        Repairman(
-                            3,
-                            "David Zlatkovic",
-                            10.0,
-                            listOf("Moler")
-                        ),
-                        Repairman(
-                            1,
-                            "Milojko Pantic",
-                            8.3723725,
-                            listOf("Moler", "Parketar")
-                        ),
-                        Repairman(
-                            2,
-                            "Petar Vojinovic",
-                            7.2,
-                            listOf("Parketar")
-                        ),
-                        Repairman(
-                            3,
-                            "David Zlatkovic",
-                            10.0,
-                            listOf("Moler")
-                        ),
-                        Repairman(
-                            1,
-                            "Milojko Pantic",
-                            8.3723725,
-                            listOf("Moler", "Parketar")
-                        ),
-                        Repairman(
-                            2,
-                            "Petar Vojinovic",
-                            7.2,
-                            listOf("Parketar")
-                        ),
-                        Repairman(
-                            3,
-                            "David Zlatkovic",
-                            10.0,
-                            listOf("Moler")
-                        )
-                    ),
-                    listOf(
-                        RepairmentCategory(
-                            1,
-                            "Keramicar",
-                            136,
-                            "pictureURL"
-                        ),
-                        RepairmentCategory(
-                            2,
-                            "Moler",
-                            26,
-                            "pictureURL"
-                        ),
-                        RepairmentCategory(
-                            3,
-                            "Parketar",
-                            8,
-                            "pictureURL"
-                        ),
-                        RepairmentCategory(
-                            1,
-                            "Keramicar",
-                            136,
-                            "pictureURL"
-                        ),
-                        RepairmentCategory(
-                            2,
-                            "Moler",
-                            26,
-                            "pictureURL"
-                        ),
-                        RepairmentCategory(
-                            3,
-                            "Parketar",
-                            8,
-                            "pictureURL"
-                        )
-                    )
-                )
+                        "Milojko Pantic",
+                        8.3723725,
+                        "0621482242",
+                        listOf("Moler", "Parketar")
+                    ))
             }
         }
     }

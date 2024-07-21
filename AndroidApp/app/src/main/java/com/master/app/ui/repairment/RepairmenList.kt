@@ -2,7 +2,6 @@ package com.master.app.ui.repairment
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -98,72 +97,84 @@ fun RepairmenListPreview() {
                     1,
                     "Milojko Pantic",
                     8.3723725,
+                    "0621482242",
                     listOf("Moler", "Parketar")
                 ),
                 Repairman(
                     2,
                     "Petar Vojinovic",
                     7.2,
+                    "0621482242",
                     listOf("Parketar")
                 ),
                 Repairman(
                     3,
                     "David Zlatkovic",
                     10.0,
+                    "0621482242",
                     listOf("Moler")
                 ),
                 Repairman(
                     1,
                     "Milojko Pantic",
                     8.3723725,
+                    "0621482242",
                     listOf("Moler", "Parketar")
                 ),
                 Repairman(
                     2,
                     "Petar Vojinovic",
                     7.2,
+                    "0621482242",
                     listOf("Parketar")
                 ),
                 Repairman(
                     3,
                     "David Zlatkovic",
                     10.0,
+                    "0621482242",
                     listOf("Moler")
                 ),
                 Repairman(
                     1,
                     "Milojko Pantic",
                     8.3723725,
+                    "0621482242",
                     listOf("Moler", "Parketar")
                 ),
                 Repairman(
                     2,
                     "Petar Vojinovic",
                     7.2,
+                    "0621482242",
                     listOf("Parketar")
                 ),
                 Repairman(
                     3,
                     "David Zlatkovic",
                     10.0,
+                    "0621482242",
                     listOf("Moler")
                 ),
                 Repairman(
                     1,
                     "Milojko Pantic",
                     8.3723725,
+                    "0621482242",
                     listOf("Moler", "Parketar")
                 ),
                 Repairman(
                     2,
                     "Petar Vojinovic",
                     7.2,
+                    "0621482242",
                     listOf("Parketar")
                 ),
                 Repairman(
                     3,
                     "David Zlatkovic",
                     10.0,
+                    "0621482242",
                     listOf("Moler")
                 )
             ),
