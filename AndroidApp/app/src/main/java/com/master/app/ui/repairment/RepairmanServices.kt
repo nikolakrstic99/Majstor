@@ -13,8 +13,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -34,10 +33,6 @@ fun RepairmanServices(
     providedServices: List<String>,
     modifier: Modifier = Modifier
 ) {
-    val allServices = listOf(
-        "Postavljanje parketa", "Postavljanje laminata", "Hoblovanje parketa",
-        "Postavljanje lajsni", "Lakiranje parketa", "Brodski pod", "Skidanje parketa")
-
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -64,21 +59,20 @@ fun RepairmanServices(
         }
         Divider()
         LazyColumn {
-           items(allServices) { service ->
+           items(providedServices) { service ->
                Spacer(modifier = Modifier.height(8.dp))
                ServiceCard(
-                   service = service,
-                   isProvided = service in providedServices
+                   service = service
                )
            }
         }
+        Spacer(modifier = Modifier.height(8.dp))
     }
 }
 
 @Composable
 fun ServiceCard(
     service: String,
-    isProvided: Boolean,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -91,7 +85,7 @@ fun ServiceCard(
             .padding(5.dp)
     ) {
         Icon(
-            imageVector = if (isProvided) Icons.Filled.Check else Icons.Filled.Clear,
+            imageVector = Icons.Filled.CheckCircle,
             contentDescription = "Service provided icon"
         )
         Spacer(modifier = Modifier.width(10.dp))

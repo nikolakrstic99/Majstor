@@ -27,6 +27,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.master.app.data.model.Repairman
+import com.master.app.data.model.Review
 import com.master.app.ui.component.CallButton
 import com.master.app.ui.theme.AndroidAppTheme
 
@@ -83,12 +84,12 @@ fun RepairmanScreen(
                 )
                 NavigationBarItem(
                     selected = selectedItem == 1,
-                    label = { Text(text = "Comments") },
+                    label = { Text(text = "Reviews") },
                     onClick = { selectedItem = 1 },
                     icon = {
                         Icon(
                             imageVector = Icons.Filled.Email,
-                            contentDescription = "Comments icon"
+                            contentDescription = "Reviews icon"
                         )
                     }
                 )
@@ -107,12 +108,46 @@ fun RepairmanScreen(
         }
     ) {
         Column(
-            modifier = Modifier.padding(it).padding(10.dp)
+            modifier = Modifier
+                .padding(it)
+                .padding(10.dp)
         ) {
-            RepairmanServices(
-                averageRating = 8.7,
-                providedServices = listOf("Postavljanje laminata", "Skidanje parketa", "Postavljanje parketa")
-            )
+            if (selectedItem == 0) {
+                RepairmanServices(
+                    averageRating = 8.7,
+                    providedServices = listOf("Postavljanje laminata", "Skidanje parketa", "Postavljanje parketa")
+                )
+            }
+            if (selectedItem == 1) {
+                RepairmanReviews(
+                    reviews = listOf(
+                        Review(
+                            1,
+                            "Andrej Jokic",
+                            1,
+                            2,
+                            "Sasvim solidan majstor. Mogao bi malo brze da radi i manje da prica.",
+                            "11.08.2024."
+                        ),
+                        Review(
+                            2,
+                            "Nikola Krstic",
+                            1,
+                            2,
+                            "Sasvim solidan majstor. Mogao bi malo brze da radi i manje da prica. Sasvim solidan majstor. Mogao bi malo brze da radi i manje da prica. Sasvim solidan majstor. Mogao bi malo brze da radi i manje da prica.",
+                            "08.02.2024."
+                        ),
+                        Review(
+                            3,
+                            "Sara Kolarevic",
+                            1,
+                            3,
+                            "Volim da pricam Volim da pricamv Volim da pricam Volim da pricam. Volim da pricam Volim da pricamv Volim da pricam Volim da pricam. Volim da pricam Volim da pricamv Volim da pricam Volim da pricam. Volim da pricam Volim da pricamv Volim da pricam Volim da pricam. Volim da pricam Volim da pricamv Volim da pricam Volim da pricam.",
+                            "11.12.2024."
+                        )
+                    )
+                )
+            }
         }
     }
 }
