@@ -18,6 +18,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -32,6 +36,7 @@ fun RepairmanScreen(
     repairman: Repairman,
     modifier: Modifier = Modifier
 ) {
+    var selectedItem by remember { mutableIntStateOf(0) }
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -66,9 +71,9 @@ fun RepairmanScreen(
         bottomBar = {
             NavigationBar {
                 NavigationBarItem(
-                    selected = false,
+                    selected = selectedItem == 0,
                     label = { Text(text = "Services") },
-                    onClick = { /*TODO*/ },
+                    onClick = { selectedItem = 0 },
                     icon = {
                         Icon(
                             imageVector = Icons.Filled.Build,
@@ -77,9 +82,9 @@ fun RepairmanScreen(
                     }
                 )
                 NavigationBarItem(
-                    selected = false,
+                    selected = selectedItem == 1,
                     label = { Text(text = "Comments") },
-                    onClick = { /*TODO*/ },
+                    onClick = { selectedItem = 1 },
                     icon = {
                         Icon(
                             imageVector = Icons.Filled.Email,
@@ -88,9 +93,9 @@ fun RepairmanScreen(
                     }
                 )
                 NavigationBarItem(
-                    selected = false,
+                    selected = selectedItem == 2,
                     label = { Text(text = "Contact") },
-                    onClick = { /*TODO*/ },
+                    onClick = { selectedItem = 2 },
                     icon = {
                         Icon(
                             imageVector = Icons.Filled.Person,
@@ -102,9 +107,12 @@ fun RepairmanScreen(
         }
     ) {
         Column(
-            modifier = Modifier.padding(it)
+            modifier = Modifier.padding(it).padding(10.dp)
         ) {
-
+            RepairmanServices(
+                averageRating = 8.7,
+                providedServices = listOf("Postavljanje laminata", "Skidanje parketa", "Postavljanje parketa")
+            )
         }
     }
 }
