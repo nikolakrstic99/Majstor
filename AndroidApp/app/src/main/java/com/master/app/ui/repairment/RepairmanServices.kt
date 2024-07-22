@@ -58,9 +58,10 @@ fun RepairmanServices(
             )
         }
         Divider()
-        LazyColumn {
+        LazyColumn(
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
            items(providedServices) { service ->
-               Spacer(modifier = Modifier.height(8.dp))
                ServiceCard(
                    service = service
                )

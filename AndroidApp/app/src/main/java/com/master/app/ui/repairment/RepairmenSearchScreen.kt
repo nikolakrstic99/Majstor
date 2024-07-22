@@ -91,14 +91,13 @@ fun RepairmenSearchScreen(
         Column(
             modifier = Modifier.padding(it)
         ) {
-            val scrollState = rememberScrollState()
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(10.dp),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(10.dp)
-                    .horizontalScroll(scrollState)
+                    .horizontalScroll(rememberScrollState())
             ) {
                 IconButton(onClick = { showFilterMenu = true }) {
                     Icon(

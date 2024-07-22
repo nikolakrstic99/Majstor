@@ -1,10 +1,14 @@
 package com.master.app.ui.repairment
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Build
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -119,7 +123,7 @@ fun RepairmanScreen(
                 )
             }
             if (selectedItem == 1) {
-                RepairmanReviews(
+                RepairmanReviewsScreenContent(
                     reviews = listOf(
                         Review(
                             1,
@@ -145,7 +149,8 @@ fun RepairmanScreen(
                             "Volim da pricam Volim da pricamv Volim da pricam Volim da pricam. Volim da pricam Volim da pricamv Volim da pricam Volim da pricam. Volim da pricam Volim da pricamv Volim da pricam Volim da pricam. Volim da pricam Volim da pricamv Volim da pricam Volim da pricam. Volim da pricam Volim da pricamv Volim da pricam Volim da pricam.",
                             "11.12.2024."
                         )
-                    )
+                    ),
+                    onReviewRepairmanClicked = { /* TODO */ }
                 )
             }
         }
