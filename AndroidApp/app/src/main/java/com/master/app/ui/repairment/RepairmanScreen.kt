@@ -150,7 +150,7 @@ fun RepairmanScreen(
                             "11.12.2024."
                         )
                     ),
-                    onReviewRepairmanClicked = { /* TODO */ }
+                    onSubmitReviewClicked = { /* TODO */ }
                 )
             }
         }

@@ -58,6 +58,7 @@ fun RepairmanServices(
             )
         }
         Divider()
+        Spacer(modifier = Modifier.height(10.dp))
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
