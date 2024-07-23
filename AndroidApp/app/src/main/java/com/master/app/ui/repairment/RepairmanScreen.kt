@@ -153,6 +153,9 @@ fun RepairmanScreen(
                     onSubmitReviewClicked = { /* TODO */ }
                 )
             }
+            if (selectedItem == 2) {
+                RepairmanContactScreen()
+            }
         }
     }
 }
