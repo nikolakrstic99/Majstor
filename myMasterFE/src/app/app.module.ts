@@ -5,11 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BlogComponent } from './blog/blog.component';
 import { MastersComponent } from './masters/masters.component';
+import {ServiceblogService} from "./blog/blog-service.service";
 
 @NgModule({
   declarations: [
     AppComponent,
-    MastersComponent,
     BlogComponent,
     MastersComponent
   ],
@@ -17,7 +17,7 @@ import { MastersComponent } from './masters/masters.component';
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [ServiceblogService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

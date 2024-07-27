@@ -4,8 +4,8 @@ import {MastersComponent} from "./masters/masters.component";
 import {BlogComponent} from "./blog/blog.component";
 
 const routes: Routes = [
+  {path: "blog", component: BlogComponent},
   {path: "masters", component: MastersComponent},
-  {path: "blog", component: BlogComponent}
 ]
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
