@@ -1,0 +1,19 @@
+.static-slider-head {
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: auto;
+  background-size: cover;
+  background-position: center center;
+  .title {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 70px;
+    line-height: 100px;
+  }
+  .subtitle {
+    color: #FFFFFF;
+    line-height: 30px;
+  }
+}

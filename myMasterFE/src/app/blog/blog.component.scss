@@ -1,0 +1,111 @@
+
+.static-slider-head {
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: auto;
+  background-size: cover;
+  background-position: center center;
+  .title {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 70px;
+    line-height: 100px;
+  }
+  .subtitle {
+    color: #FFFFFF;
+    line-height: 30px;
+  }
+}
+
+.spacer {
+  padding: 90px 0;
+}
+
+/*******************
+Blog homepage 2
+*******************/
+
+.blog-home2 {
+  [class*="col-"] {
+    transition: 0.2s ease-in;
+    &:hover {
+      transform: translateY(-10px);
+    }
+  }
+  .no-trans {
+    transition: unset;
+    &:hover {
+      transform: unset;
+    }
+  }
+  .date-pos {
+    padding: 5px 10px;
+    display: inline-block;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: #ffffff;
+    border-radius: 4px;
+    text-align: center;
+    span {
+      display: block;
+      font-size: 14px;
+    }
+  }
+}
+
+.subtitle {
+  color: #8d97ad;
+  line-height: 24px;
+}
+
+.title {
+  margin: 20px 0 15px;
+}
+
+.card {
+  border: 0px;
+  margin-bottom: 30px;
+  &.card-shadow {
+    box-shadow: 0px 0px 30px rgba(115, 128, 157, 0.1);
+  }
+}
+
+.card-subtitle {
+  color: #8d97ad;
+  margin-bottom: 30px;
+  font-size: 14px;
+}
+
+.card-inverse .card-bodyquote .blockquote-footer,
+.card-inverse .card-link,
+.card-inverse .card-subtitle,
+.card-inverse .card-text {
+  color: rgba(255, 255, 255, .65);
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.ti-arrow-right:before {
+  content: "\e628";
+}
+
+.ti-arrow-right {
+  *zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe628;');
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.font-14 {
+  font-size: 14px;
+}
+
+.font-18 {
+  font-size: 18px;
+}
