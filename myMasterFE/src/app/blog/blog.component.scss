@@ -1,4 +1,4 @@
-
+@import "~@fortawesome/fontawesome-free/css/all.css";
 .static-slider-head {
   min-height: 600px;
   display: flex;
@@ -84,10 +84,6 @@ Blog homepage 2
 .card-inverse .card-subtitle,
 .card-inverse .card-text {
   color: rgba(255, 255, 255, .65);
-}
-
-.cursor-pointer {
-  cursor: pointer;
 }
 
 .ti-arrow-right:before {

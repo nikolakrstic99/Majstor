@@ -6,7 +6,7 @@
     <!-- Row  -->
     <div class="row justify-content-center">
       <!-- Column -->
-      <div class="col-lg-9 col-md-6 align-self-center text-center">
+      <div class="col-9 align-self-center text-center">
         <h1 class="title">BLOG DETAIL PAGE</h1>
         <h5 class="subtitle op-5">
           We are Small Team of Creative People working together
@@ -22,6 +22,13 @@
   <div class="row justify-content-center">
     <div class="col-md-8 no-trans">
       <div class="mini-spacer">
+        <a
+          class="linking font-medium text-themecolor m-t-10 cursor-pointer"
+        >
+          <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+          <span> Blogovi</span>
+        </a>
+        <hr>
         <img [src]="blogDetail?.image" alt="wrapkit" class="img-fluid" />
         <div
           class="d-flex align-items-center text-uppercase m-t-40 font-13 font-medium"
@@ -41,12 +48,18 @@
           {{ blogDetail?.blogDetail }}
         </p>
 
+        <hr>
+        <a
+          class="linking font-medium text-themecolor m-t-10 cursor-pointer"
+        >
+        <i class="fa-solid fa-3x fa-trash cursor-pointer" (click)="delete()"></i>
+        </a>
         <div class="m-t-30">
           <button type="button" class="btn bg-facebook btn-rounded mr-3">
-            <i class="fa fa-facebook"></i> Facebook
+            <i class="fa-brands fa-facebook"></i> Facebook
           </button>
           <button type="button" class="btn bg-twitter btn-rounded">
-            <i class="fa fa-twitter"></i> Twitter
+            <i class="fa-brands fa-x-twitter"></i> Twitter
           </button>
         </div>
       </div>

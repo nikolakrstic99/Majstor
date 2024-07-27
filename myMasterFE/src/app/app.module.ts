@@ -6,16 +6,20 @@ import { AppComponent } from './app.component';
 import { BlogComponent } from './blog/blog.component';
 import { MastersComponent } from './masters/masters.component';
 import {ServiceblogService} from "./blog/blog-service.service";
+import {BlogDetailComponent} from "./blog/blog-detail/blog-detail.component";
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
     AppComponent,
     BlogComponent,
+    BlogDetailComponent,
     MastersComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FontAwesomeModule
   ],
   providers: [ServiceblogService],
   bootstrap: [AppComponent]

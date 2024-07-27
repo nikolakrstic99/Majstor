@@ -1,4 +1,5 @@
-import { Blog } from './blog-type';
+import {Blog, BlogStatus} from './blog-type';
+
 export const blogs: Blog[] = [
   {
     id: 1,
@@ -9,6 +10,7 @@ export const blogs: Blog[] = [
     blogDate: 'Feb 19, 2020',
     blogDetail:
       'Est ipsum sint officia quis nulla nisi cupidatat aliquip nisi laboris eiusmod eiusmod aliquip do. Commodo elit excepteur occaecat irure Lorem sit nulla nulla sint duis incididunt. Nostrud ut do mollit et amet velit aute excepteur et culpa culpa velit. Cillum veniam officia anim cupidatat.',
+    status: BlogStatus.Published,
   },
   {
     id: 2,
@@ -19,6 +21,7 @@ export const blogs: Blog[] = [
     blogDate: 'Feb 17, 2020',
     blogDetail:
       'Tempor sint cupidatat cillum do ut. Ipsum exercitation est ex id. Sunt ut labore ad nulla.',
+    status: BlogStatus.Published,
   },
   {
     id: 3,
@@ -30,7 +33,7 @@ export const blogs: Blog[] = [
     blogDate: 'Feb 15, 2020',
     blogDetail:
       'Laboris culpa ea est et aliqua amet ullamco Lorem non enim laborum incididunt ex Lorem. Minim sint cupidatat magna esse labore id. Do qui incididunt consectetur nulla aliquip consequat nostrud incididunt occaecat ad. Excepteur nulla adipisicing enim ea occaecat fugiat dolore sunt est et. Eu veniam nostrud sit aute consectetur dolore ipsum fugiat anim duis.',
-  },
+    status: BlogStatus.Published,},
   {
     id: 4,
     image: 'assets/images/blog/404.jpg',
@@ -40,7 +43,7 @@ export const blogs: Blog[] = [
     blogDate: 'Feb 19, 2020',
     blogDetail:
       'Est ipsum sint officia quis nulla nisi cupidatat aliquip nisi laboris eiusmod eiusmod aliquip do. Commodo elit excepteur occaecat irure Lorem sit nulla nulla sint duis incididunt. Nostrud ut do mollit et amet velit aute excepteur et culpa culpa velit. Cillum veniam officia anim cupidatat.',
-  },
+    status: BlogStatus.Published,},
   {
     id: 5,
     image: 'assets/images/blog/505.jpg',
@@ -50,6 +53,7 @@ export const blogs: Blog[] = [
     blogDate: 'Feb 17, 2020',
     blogDetail:
       'Tempor sint cupidatat cillum do ut. Ipsum exercitation est ex id. Sunt ut labore ad nulla.',
+    status: BlogStatus.Published,
   },
   {
     id: 6,
@@ -61,6 +65,7 @@ export const blogs: Blog[] = [
     blogDate: 'Feb 15, 2020',
     blogDetail:
       'Laboris culpa ea est et aliqua amet ullamco Lorem non enim laborum incididunt ex Lorem. Minim sint cupidatat magna esse labore id. Do qui incididunt consectetur nulla aliquip consequat nostrud incididunt occaecat ad. Excepteur nulla adipisicing enim ea occaecat fugiat dolore sunt est et. Eu veniam nostrud sit aute consectetur dolore ipsum fugiat anim duis.',
+    status: BlogStatus.Published,
   },
   {
     id: 7,
@@ -71,6 +76,7 @@ export const blogs: Blog[] = [
     blogDate: 'Feb 17, 2020',
     blogDetail:
       'Tempor sint cupidatat cillum do ut. Ipsum exercitation est ex id. Sunt ut labore ad nulla.',
+    status: BlogStatus.Published,
   },
   {
     id: 8,
@@ -82,5 +88,6 @@ export const blogs: Blog[] = [
     blogDate: 'Feb 15, 2020',
     blogDetail:
       'Laboris culpa ea est et aliqua amet ullamco Lorem non enim laborum incididunt ex Lorem. Minim sint cupidatat magna esse labore id. Do qui incididunt consectetur nulla aliquip consequat nostrud incididunt occaecat ad. Excepteur nulla adipisicing enim ea occaecat fugiat dolore sunt est et. Eu veniam nostrud sit aute consectetur dolore ipsum fugiat anim duis.',
+    status: BlogStatus.Published,
   },
 ];

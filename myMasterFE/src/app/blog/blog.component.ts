@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Blog } from './blog-type';
-import { ServiceblogService } from './blog-service.service';
 import { Router } from '@angular/router';
 import {Observable, of} from "rxjs";
 import {blogs} from "./blog-data";
@@ -43,6 +42,6 @@ export class BlogComponent implements OnInit {
 
     ///if (this.service.loginStatusService) this.service.showEdit = true;
 
-    //this.router.navigate(['/blogDetail', id]);
+    this.router.navigate(['/blogDetail', id]);
   }
 }

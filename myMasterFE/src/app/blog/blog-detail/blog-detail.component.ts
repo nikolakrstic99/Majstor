@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ServiceblogService } from '../blog-service.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import { Blog } from '../blog-type';
+import {blogs} from "../blog-data";
 
 @Component({
   selector: 'app-blog-detail',
@@ -11,31 +11,30 @@ import { Blog } from '../blog-type';
 export class BlogDetailComponent implements OnInit {
 
   id: any;
-  blogDetail: Blog | null = null;
-
-  constructor(activatedRouter: ActivatedRoute, public service: ServiceblogService, public router: Router) {
+  blogDetail: Blog | undefined;
+  constructor(private activatedRouter: ActivatedRoute) {
     this.id = activatedRouter.snapshot.paramMap.get('id');
   }
 
   ngOnInit(): void {
-    this.blogDetail = this.service.Blogs.filter(x => x.id === +this.id)[0];
-
+    this.blogDetail = blogs[this.id - 1];
+    this.activatedRouter.params.subscribe((params: Params) => this.id = params['id']);
   }
 
   loginClick() {
-    this.router.navigate([('/login')]);
+    //this.router.navigate([('/login')]);
   }
 
   newPost() {
-    this.service.showEdit=false;
-    this.router.navigate([('/post')]);
+    //this.service.showEdit=false;
+   // this.router.navigate([('/post')]);
 
   }
 
-  editPost() {
-    this.service.showEdit=false;
-    this.router.navigate([('/editPost'), this.blogDetail?.id]);
+  delete() {
   }
+
+
 
   // editPost(){
   //   this.router.navigate([('/editPost'), this.service?.detailId]);
