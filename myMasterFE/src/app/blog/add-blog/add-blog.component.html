@@ -1,0 +1,62 @@
+<div
+  class="static-slider-head"
+  style="background-image: url(assets/images/blog/addBlog.jpg)"
+  xmlns="http://www.w3.org/1999/html">
+  <div class="container">
+    <!-- Row  -->
+    <div class="row justify-content-center">
+      <!-- Column -->
+      <div class="col-9 align-self-center text-center no-trans">
+        <h1 class="title">Dodaj pricu</h1>
+      </div>
+      <!-- Column -->
+    </div>
+
+    <form #f="ngForm" (ngSubmit)="onSubmit()" class="container">
+      <div class="row justify-content-center m-t-30">
+
+        <div class="col-8 align-self-center no-trans">
+          <div class="form-group">
+            <label for="heading">Naslov</label>
+            <input type="text" id="heading" class="form-control width-35"  ngModel name="heading" required />
+          </div>
+        </div>
+
+        <div class="col-8 align-self-center no-trans">
+          <div class="form-group">
+            <label for="subheading">Podnaslov</label>
+            <input type="text" id="subheading" class="form-control width-35" ngModel name="subheading" required />
+          </div>
+        </div>
+
+        <div class="col-8 align-self-center no-trans">
+          <div class="form-group">
+            <label for="details">Tekst</label>
+            <textarea id="details" class="form-control" ngModel name="details" required>
+            Unesi tekst
+            </textarea>
+          </div>
+        </div>
+
+        <div class="col-8 align-self-center no-trans">
+          <label class="image-upload-container btn btn-bwm">
+            Izaberite sliku
+            <input class="form-control" id="fileId" type="file" placeholder="Slike" required name="file"
+                   (change)="onFileSelected($event)" accept=".jpg, .png" multiple />
+          </label>
+        </div>
+
+        <div class="col-xs-12" style="padding-top: 50px;">
+          <button class="btn btn-primary" [disabled]="!f.valid || !imagesOk" type="submit"
+                  style="width: 100%; height: 50px">
+            Add
+          </button>
+        </div>
+      </div>
+    </form>
+
+
+  </div>
+
+
+</div>
