@@ -12,6 +12,11 @@ import { AddBlogComponent } from './blog/add-blog/add-blog.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FormsModule} from "@angular/forms";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './header/header.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { LoginRegisterComponent } from './login-register/login-register.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +24,12 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
     BlogComponent,
     BlogDetailComponent,
     MastersComponent,
-    AddBlogComponent
+    AddBlogComponent,
+    FooterComponent,
+    HeaderComponent,
+    LoginComponent,
+    RegisterComponent,
+    LoginRegisterComponent
   ],
   imports: [
     BrowserModule,

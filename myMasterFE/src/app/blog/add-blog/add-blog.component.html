@@ -7,7 +7,7 @@
     <div class="row justify-content-center">
       <!-- Column -->
       <div class="col-9 align-self-center text-center no-trans">
-        <h1 class="title">Dodaj pricu</h1>
+        <h1 class="title">Dodaj priču</h1>
       </div>
       <!-- Column -->
     </div>
@@ -32,7 +32,7 @@
         <div class="col-8 align-self-center no-trans">
           <div class="form-group">
             <label for="details">Tekst</label>
-            <textarea id="details" class="form-control" ngModel name="details" required>
+            <textarea id="details" rows="10" class="form-control" ngModel name="details" required>
             Unesi tekst
             </textarea>
           </div>
@@ -46,7 +46,7 @@
           </label>
         </div>
 
-        <div class="col-xs-12" style="padding-top: 50px;">
+        <div class="col-xs-6 align-self-center" style="padding-top: 50px; padding-bottom: 50px">
           <button class="btn btn-primary" [disabled]="!f.valid || !imagesOk" type="submit"
                   style="width: 100%; height: 50px">
             Add

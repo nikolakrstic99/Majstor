@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import { Blog } from '../blog-type';
+import { Blog } from '../../models/blog';
 import {blogs} from "../blog-data";
 
 @Component({

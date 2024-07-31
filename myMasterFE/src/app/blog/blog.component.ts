@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Blog } from './blog-type';
+import { Blog } from '../models/blog';
 import { Router } from '@angular/router';
 import {Observable, of} from "rxjs";
 import {blogs} from "./blog-data";

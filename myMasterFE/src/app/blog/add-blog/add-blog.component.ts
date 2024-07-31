@@ -5,7 +5,7 @@ import {
   MatSnackBarVerticalPosition
 } from "@angular/material/snack-bar";
 import {NgForm} from "@angular/forms";
-import {BlogServiceService} from "../../blog-service.service";
+import {BlogServiceService} from "../../services/blog-service.service";
 
 @Component({
   selector: 'app-add-blog',

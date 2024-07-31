@@ -1,4 +1,4 @@
-import {Blog, BlogStatus} from './blog-type';
+import {Blog, BlogStatus} from '../models/blog';
 
 export const blogs: Blog[] = [
   {
