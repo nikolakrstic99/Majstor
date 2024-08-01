@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default navbar-expand-sm" style="height: 15px; padding-bottom: 30px;">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a routerLink="/" class="navbar-brand">Home</a>
+      <a routerLink="/" class="navbar-brand">Početna</a>
     </div>
 
     <div class="collapse navbar-collapse">
@@ -53,24 +53,24 @@
 
         <li class="dropdown" appDropdown>
           <a style="cursor: pointer;" class="dropdown-toggle" role="button" data-toggle="dropdown">
-            Profile <span class="caret"></span>
+            Profil <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
             <li [ngStyle]="{
               'display':getLogIn()===true?'none':'inline'
-            }"><a routerLink="register">Register</a></li>
+            }"><a routerLink="register">Registruj se</a></li>
 
             <li [ngStyle]="{
               'display':getLogIn()===true?'none':'inline'
-            }"><a routerLink="login">Log in</a></li>
+            }"><a routerLink="login">Prijavi se</a></li>
 
             <li [ngStyle]="{
               'display':getLogIn()===true?'inline':'none'
-            }"><a routerLink="newPassword">Change password</a></li>
+            }"><a routerLink="newPassword">Promeni lozinku</a></li>
 
             <li [ngStyle]="{
               'display':getLogIn()===true?'inline':'none'
-            }" (click)="logout()"><a role="button">Log out</a></li>
+            }" (click)="logout()"><a role="button">Izloguj se</a></li>
           </ul>
         </li>
 

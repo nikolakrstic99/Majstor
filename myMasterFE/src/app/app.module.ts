@@ -14,9 +14,8 @@ import {FormsModule} from "@angular/forms";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
 import { LoginRegisterComponent } from './login-register/login-register.component';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -27,9 +26,8 @@ import { LoginRegisterComponent } from './login-register/login-register.componen
     AddBlogComponent,
     FooterComponent,
     HeaderComponent,
-    LoginComponent,
-    RegisterComponent,
-    LoginRegisterComponent
+    LoginRegisterComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,

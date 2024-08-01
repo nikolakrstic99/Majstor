@@ -1,6 +1,5 @@
 import {EventEmitter, Component, Output} from '@angular/core';
 import {Router} from "@angular/router";
-import {UserService} from "../services/user.service";
 import {
   MatSnackBar,
   MatSnackBarHorizontalPosition,
