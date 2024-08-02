@@ -12,3 +12,21 @@ SQL Server 9.0
 Java 17
 
 Mobile:
+
+
+
+
+ZAHTEVI:
+
+Useri i admini.
+
+Useri mogu da kace svoje usluge.
+Dodavanje usluge: 1.ime 2.opis 3.tip 4.grad 5.cena 6.telefon 7.slike
+Usluge mogu da imaju komentare koji se lajkuju.
+
+Blogovi koje pisu useri.
+Blogovi imaju lajkove koje lajkuju useri i komentare koje useri mogu da pisu i lajkuju.
+Admini mogu da brisu komentare.
+Komentari blogova se vracaju iz baze sortirani po broju lajkova.
+
+Usluge isto kao 
