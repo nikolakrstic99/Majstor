@@ -44,7 +44,7 @@ export class LoginRegisterComponent {
   }
 
   onSubmitLogin(): void {
-    this.axiosService.request("POST", "/login", {email: this.login, password: this.password}).then(
+    this.axiosService.request("POST", "api/v1/login", {email: this.login, password: this.password}).then(
       response => {
         this.axiosService.setAuthToken(response.data.token);
         this.router.navigate(["/"]);
@@ -57,7 +57,7 @@ export class LoginRegisterComponent {
   }
 
   onSubmitRegister(): void {
-    this.axiosService.request("POST", "/register", {
+    this.axiosService.request("POST", "api/v1/register", {
       firstName: this.firstName,
       lastName: this.lastName,
       email: this.login,

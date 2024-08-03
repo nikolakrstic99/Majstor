@@ -23,10 +23,17 @@ export class AxiosService {
     }
   }
   request(method: string, uri: string, data: any): Promise<any> {
+    let headers = {};
+    if(this.getAuthToken() !== null) {
+      headers = {
+        Authorization: "Bearer " + this.getAuthToken()
+      };
+    }
     return axios.request({
       method: method,
       url: uri,
-      data: data
+      data: data,
+      headers: headers
     });
   }
 }
