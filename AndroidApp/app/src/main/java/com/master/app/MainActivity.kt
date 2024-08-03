@@ -10,11 +10,13 @@ import com.master.app.data.model.Repairman
 import com.master.app.data.model.RepairmentCategory
 import com.master.app.ui.blog.BlogPreview
 import com.master.app.ui.blog.BlogScreen
+import com.master.app.ui.navigation.MainScreen
 import com.master.app.ui.repairment.RepairmanScreen
 import com.master.app.ui.repairment.RepairmenSearchScreen
 import com.master.app.ui.repairment.RepairmentCategoryList
 import com.master.app.ui.repairment.exampleCategoryList
 import com.master.app.ui.theme.AndroidAppTheme
+import com.master.app.ui.user.Login
 
 class MainActivity : ComponentActivity() {
 
@@ -23,14 +25,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             AndroidAppTheme {
-                RepairmanScreen(
-                    repairman = Repairman(
-                        1,
-                        "Milojko Pantic",
-                        8.3723725,
-                        "0621482242",
-                        listOf("Moler", "Parketar")
-                    ))
+                MainScreen()
             }
         }
     }
