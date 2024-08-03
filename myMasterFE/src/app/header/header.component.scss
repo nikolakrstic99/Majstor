@@ -5,3 +5,24 @@
 .show{
   display: inline;
 }
+
+
+.navbar-nav li {
+  display: flex;
+  gap: 1rem; /* Adjust the spacing between items as needed */
+}
+.navbar-nav a {
+  transition: transform 0.3s ease, color 0.3s ease;
+  white-space: nowrap; /* Prevent text from wrapping */
+  cursor: pointer;
+}
+.navbar-nav a:hover {
+  transform: scale(1.2); /* Scale the element */
+}
+.navbar-nav a {
+  color: black; /* Custom color for the Kontakt link */
+  text-decoration: none;
+}
+.navbar-nav a:hover {
+  color: blue; /* Custom hover color for the Kontakt link */
+}

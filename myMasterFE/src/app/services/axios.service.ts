@@ -22,7 +22,6 @@ export class AxiosService {
       window.localStorage.removeItem("auth_token");
     }
   }
-
   request(method: string, uri: string, data: any): Promise<any> {
     return axios.request({
       method: method,

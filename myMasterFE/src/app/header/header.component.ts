@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from "../models/user";
+import {AxiosService} from "../services/axios.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -8,7 +10,7 @@ import {User} from "../models/user";
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private axiosService: AxiosService, private router: Router) { }
 
   login: boolean;
 
@@ -16,8 +18,13 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getLogIn() {
-    return this.login;
+  isLoggedIn() {
+    return this.axiosService.getAuthToken() !== null;
+  }
+
+  logOut() {
+    this.axiosService.setAuthToken(null);
+    this.router.navigate([('')]);
   }
 
   check() {
@@ -25,12 +32,6 @@ export class HeaderComponent implements OnInit {
     if (this.user == null) {
       this.login = true;
     }
-  }
-  isMaster() {
-    this.user = JSON.parse(sessionStorage.getItem("user"));
-    if (this.user) {
-      return this.user.type == 2;
-    } else return false;
   }
 
   logout() {
