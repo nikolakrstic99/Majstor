@@ -42,4 +42,12 @@ public class UserService {
   public UserDto getUser(Long id) {
     return userMapper.toUser(userRepository.findById(id).orElseThrow());
   }
+
+  public UserDto findByEmail(String email) {
+    return userMapper.toUser(userRepository.findByEmail(email).orElseThrow());
+  }
+
+  public void save(UserDto userDto) {
+    userRepository.save(userMapper.toUserEntity(userDto));
+  }
 }

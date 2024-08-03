@@ -1,6 +1,7 @@
 package com.master.myMaster.api.controller;
 
 import com.master.myMaster.api.request.AddBlogRequest;
+import com.master.myMaster.common.config.UserAuthProvider;
 import com.master.myMaster.domains.Blog;
 import com.master.myMaster.service.BlogService;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class BlogController {
 
   private final BlogService blogService;
+  private final UserAuthProvider userAuthProvider;
   @PostMapping
   public ResponseEntity<Blog> createBlog(@RequestBody AddBlogRequest request) {
-    return ResponseEntity.ok(blogService.addBlog(request));
+    return ResponseEntity.ok(blogService.addBlog(request, userAuthProvider.getUser()));
   }
 
   @DeleteMapping("/{id}")

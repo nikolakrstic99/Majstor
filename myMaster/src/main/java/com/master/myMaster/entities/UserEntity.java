@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,8 +36,9 @@ public class UserEntity {
   private String lastName;
   @Column(nullable = false)
   private String email;
-  @Column(nullable = false)
+  @Column
+  @Transient
   private String password;
-  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
   private Set<BlogEntity> blogs;
 }

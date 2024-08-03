@@ -7,7 +7,7 @@ create table blog
     sub_heading varchar(255)  not null,
     details     varchar(1000) not null,
     created_at  timestamp     not null default now(),
-    user_id     bigint        not null,
+    user_id     bigint        ,
     constraint fk_blog_user_id
         foreign key (user_id) references users (id)
 );

@@ -12,5 +12,8 @@ public interface UserMapper {
   UserDto toUser(UserEntity entity);
 
   @Mapping(target = "password", ignore = true)
+  UserEntity toUserEntity(UserDto dto);
+
+  @Mapping(target = "password", ignore = true)
   UserEntity signUpRequestToUser(SignUpRequest signUp);
 }
