@@ -9,16 +9,16 @@ export class BlogServiceService {
   constructor(private http: HttpClient) {
   }
 
-  uri = 'http://localhost:4000/blog';
+  uri = 'http://localhost:4000/api/v1/blog';
 
   addBlog(heading: string, subHeading: string, details: string, images: string[]) {
     const blog = {
       heading: heading,
       subHeading: subHeading,
       details: details,
-      images: images
+      //images: images
     };
-    return this.http.post(`${this.uri}/add`, blog);
+    return this.http.post(`${this.uri}`, blog);
   }
 
   getAll() {

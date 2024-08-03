@@ -1,5 +1,7 @@
 package com.master.myMaster.domains;
 
+import java.util.HashSet;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,4 +18,6 @@ public class UserDto {
   private String lastName;
   private String email;
   private String token;
+  @Builder.Default
+  private Set<Blog> blogs = new HashSet<>();
 }

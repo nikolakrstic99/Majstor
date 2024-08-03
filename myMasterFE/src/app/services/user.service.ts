@@ -11,9 +11,9 @@ export class UserService {
 
   data: string[] = [];
 
-  login(username: string, password: string) {
+  login(email: string, password: string) {
     const data = {
-      username: username,
+      username: email,
       password: password
     }
     return this.axiosService.request("POST", "/login", (data));

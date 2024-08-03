@@ -38,4 +38,8 @@ public class UserService {
     userRepository.save(userEntity);
     return userMapper.toUser(userEntity);
   }
+
+  public UserDto getUser(Long id) {
+    return userMapper.toUser(userRepository.findById(id).orElseThrow());
+  }
 }
