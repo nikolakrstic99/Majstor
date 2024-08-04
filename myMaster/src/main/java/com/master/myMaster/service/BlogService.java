@@ -2,10 +2,11 @@ package com.master.myMaster.service;
 
 import com.master.myMaster.api.request.AddBlogRequest;
 import com.master.myMaster.domains.Blog;
-import com.master.myMaster.domains.UserDto;
+import com.master.myMaster.domains.User;
 import com.master.myMaster.mapper.BlogMapper;
 import com.master.myMaster.repository.BlogRepository;
 import java.time.LocalDateTime;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +20,7 @@ public class BlogService {
   private final BlogMapper blogMapper;
 
   @Transactional
-  public Blog addBlog(AddBlogRequest request, UserDto principalUser) {
+  public Blog addBlog(AddBlogRequest request, User principalUser) {
     var blog = blogMapper.toBlog(request);
     var user = userService.findByEmail(principalUser.getEmail());
     blog.setCreatedAt(LocalDateTime.now());
@@ -33,4 +34,8 @@ public class BlogService {
     blogRepository.deleteById(id);
   }
 
+  @Transactional
+  public List<Blog> getAllBlogs() {
+    return blogRepository.findAll().stream().map(blogMapper::toBlog).toList();
+  }
 }

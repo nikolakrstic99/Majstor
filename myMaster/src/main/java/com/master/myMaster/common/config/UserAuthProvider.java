@@ -3,8 +3,9 @@ package com.master.myMaster.common.config;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.master.myMaster.domains.UserDto;
+import com.master.myMaster.domains.User;
 import com.auth0.jwt.JWT;
+import com.master.myMaster.domains.UserStatus;
 import jakarta.annotation.PostConstruct;
 import java.util.Base64;
 import java.util.Collections;
@@ -27,16 +28,17 @@ public class UserAuthProvider {
     secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
   }
 
-  public String createToken(UserDto userDto) {
+  public String createToken(User user) {
     Date now = new Date();
     Date validity = new Date(now.getTime() + 3600000);
 
     return JWT.create()
-        .withIssuer(userDto.getEmail())
+        .withIssuer(user.getEmail())
         .withIssuedAt(now)
         .withExpiresAt(validity)
-        .withClaim("firstName", userDto.getFirstName())
-        .withClaim("lastName", userDto.getLastName())
+        .withClaim("firstName", user.getFirstName())
+        .withClaim("lastName", user.getLastName())
+        .withClaim("status", user.getStatus().name())
         .sign(Algorithm.HMAC256(secretKey));
   }
 
@@ -44,16 +46,17 @@ public class UserAuthProvider {
     Algorithm algorithm = Algorithm.HMAC256(secretKey);
     JWTVerifier verifier = JWT.require((algorithm)).build();
     DecodedJWT decodeJWT = verifier.verify(token);
-    UserDto userDto = UserDto.builder()
+    User user = User.builder()
         .email(decodeJWT.getIssuer())
         .firstName(decodeJWT.getClaim("firstName").asString())
         .lastName(decodeJWT.getClaim("lastName").asString())
+        .status(UserStatus.valueOf(decodeJWT.getClaim("status").asString()))
         .build();
-    return new UsernamePasswordAuthenticationToken(userDto, null, Collections.emptyList());
+    return new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
   }
 
-  public UserDto getUser() {
-    return (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+  public User getUser() {
+    return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
   }
 
 }

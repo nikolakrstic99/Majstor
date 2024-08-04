@@ -16,6 +16,6 @@ public class Blog {
   private String heading;
   private String subHeading;
   private String details;
-  private UserDto user;
+  private User user;
   private LocalDateTime createdAt;
 }

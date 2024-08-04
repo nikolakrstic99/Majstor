@@ -11,13 +11,15 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto {
+public class User {
 
   private Long id;
   private String firstName;
   private String lastName;
   private String email;
   private String token;
+  private String password;
+  private UserStatus status;
   @Builder.Default
   private Set<Blog> blogs = new HashSet<>();
 }

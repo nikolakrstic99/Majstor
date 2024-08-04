@@ -22,6 +22,13 @@ export class AxiosService {
       window.localStorage.removeItem("auth_token");
     }
   }
+
+  isAdmin():boolean {
+    const tokenDecoded = atob(this.getAuthToken().split('.')[1]);
+    const jsonToken = JSON.parse(tokenDecoded);
+    return jsonToken["status"] === "ADMIN";
+  }
+
   request(method: string, uri: string, data: any): Promise<any> {
     let headers = {};
     if(this.getAuthToken() !== null) {
