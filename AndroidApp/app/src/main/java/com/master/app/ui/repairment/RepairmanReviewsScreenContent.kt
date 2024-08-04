@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -14,8 +15,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -99,7 +102,8 @@ fun ReviewRepairmanButton(
                         showSubmitReviewDialog = false
                         onSubmit()
                     }
-                }
+                },
+                onDismiss = { showSubmitReviewDialog = false }
             )
         }
     }
@@ -108,6 +112,7 @@ fun ReviewRepairmanButton(
 @Composable
 fun ReviewRepairmanDialog(
     onConfirmation: () -> Unit,
+    onDismiss: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val starSize = 25.dp
@@ -116,7 +121,7 @@ fun ReviewRepairmanDialog(
     var text by remember { mutableStateOf("") }
     var rating by remember { mutableIntStateOf(0) }
 
-    Dialog(onDismissRequest = { /*TODO*/ }) {
+    Dialog(onDismissRequest = onDismiss) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(10.dp),
@@ -126,10 +131,22 @@ fun ReviewRepairmanDialog(
                 .padding(15.dp)
                 .fillMaxWidth()
         ) {
-            Text(
-                text = "Submit review",
-                style = MaterialTheme.typography.titleLarge
-            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Spacer(modifier = Modifier.weight(2f))
+                Text(
+                    text = "Submit review",
+                    style = MaterialTheme.typography.titleLarge
+                )
+                Spacer(modifier = Modifier.weight(1f))
+                IconButton(onClick = onDismiss) {
+                    Icon(
+                        imageVector = Icons.Filled.Close,
+                        contentDescription = "Sort by name"
+                    )
+                }
+            }
             OutlinedTextField(
                 value = name,
                 onValueChange = { input -> name = input},
