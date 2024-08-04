@@ -4,8 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BlogComponent } from './blog/blog.component';
-import { MastersComponent } from './masters/masters.component';
-import {ServiceblogService} from "./blog/blog-service.service";
 import {BlogDetailComponent} from "./blog/blog-detail/blog-detail.component";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AddBlogComponent } from './blog/add-blog/add-blog.component';
@@ -22,7 +20,6 @@ import { ContactComponent } from './contact/contact.component';
     AppComponent,
     BlogComponent,
     BlogDetailComponent,
-    MastersComponent,
     AddBlogComponent,
     FooterComponent,
     HeaderComponent,
@@ -38,7 +35,7 @@ import { ContactComponent } from './contact/contact.component';
     HttpClientModule,
     MatSnackBarModule
   ],
-  providers: [ServiceblogService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

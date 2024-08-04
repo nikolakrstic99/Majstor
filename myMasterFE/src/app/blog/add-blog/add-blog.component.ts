@@ -5,19 +5,19 @@ import {
   MatSnackBarVerticalPosition
 } from "@angular/material/snack-bar";
 import {NgForm} from "@angular/forms";
-import {BlogServiceService} from "../../services/blog-service.service";
+import {AxiosService} from "../../services/axios.service";
 
 @Component({
   selector: 'app-add-blog',
-  providers: [BlogServiceService],
+  providers: [],
   templateUrl: './add-blog.component.html',
   styleUrls: ['./add-blog.component.scss']
 })
 export class AddBlogComponent implements OnInit {
 
   constructor(
-    private _snackBar: MatSnackBar,
-    private blogService: BlogServiceService
+    private axiosService: AxiosService,
+    private _snackBar: MatSnackBar
   ) { }
   @ViewChild('f') form?: NgForm;
   ngOnInit(): void {}
@@ -54,17 +54,15 @@ export class AddBlogComponent implements OnInit {
   }
 
   onSubmit() {
-    this.blogService.addBlog(
-      this.form.value.heading,
-      this.form.value.subHeading,
-      this.form.value.details,
-      this.images
-    )
-    .subscribe((resp) => {
-      if ((resp['message'] = 'Blog added'))
-        this.openSnackBar('Blog added');
-      else
-        this.openSnackBar('Blog not added');
+    this.axiosService.request("POST", "api/v1/blog", {
+        heading: this.form.value.heading,
+        subHeading: this.form.value.subHeading,
+        details: this.form.value.details,
+      }
+    ).then(response => {
+      this.openSnackBar('Blog added');
+    }).catch(error => {
+      this.openSnackBar('Blog not added');
     });
   }
 
