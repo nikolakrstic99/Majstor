@@ -21,26 +21,30 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.master.app.data.model.BlogInfo
+import com.master.app.ui.state.BlogsViewModel
 import com.master.app.ui.theme.AndroidAppTheme
 
 @Composable
 fun BlogsScreen(
-    blogs: List<BlogInfo>,
-    modifier: Modifier = Modifier
+    onNavigateToBlogScreen: (Int) -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: BlogsViewModel = BlogsViewModel(),
 ) {
     var showAddBlogDialog by remember { mutableStateOf(false) }
 
     Scaffold(
         floatingActionButton = {
             ExtendedFloatingActionButton(
-                text = { Text("Add blog") },
+                text = { Text("Add story") },
                 icon = {
                     Icon(
                         Icons.Filled.AddCircle,
-                        contentDescription = "Add blog"
+                        contentDescription = "Add story"
                     )
                 },
                 onClick = { showAddBlogDialog = true }
@@ -61,13 +65,15 @@ fun BlogsScreen(
             Divider()
             LazyColumn {
                 items(
-                    items = blogs
+                    items = viewModel.blogs
                 ) {
                     BlogPreview(
                         blog = it,
                         Modifier
                             .size(width = 500.dp, height = 150.dp)
-                            .clickable(onClick = { print("gas") })
+                            .clickable(onClick = {
+                                onNavigateToBlogScreen(it.id)
+                            })
                     )
                     Divider()
                 }
@@ -91,33 +97,6 @@ fun BlogsScreen(
 @Composable
 fun BlogsScreenPreview() {
     AndroidAppTheme {
-        BlogsScreen(
-            listOf(
-                BlogInfo(
-                    1,
-                    "A Breakdown of the Full English Breakfast",
-                    "Welcome to Weekend Brunch! Skip the lines and make brunch at home. The coffee’s truly bottomless and the best part is PJs all the way! This week: a guide to the gloriousness that is known as A Full English Breakfast.",
-                    "picture",
-                    "01.04.2024",
-                    "Andrej Jokic"
-                ),
-                BlogInfo(
-                    2,
-                    "Tiktok Baked Feta Pasta",
-                    "This tiktok pasta has it all, big bold flavors, creamy comfort, and carbs!",
-                    "picture",
-                    "05.10.2024",
-                    "Nikola Krstic"
-                ),
-                BlogInfo(
-                    3,
-                    "Mixed Fish Sauce Recipe",
-                    "Everything you ever wanted to know about fish sauce, plus my secret recipe for the best fish sauce you’ve ever had.",
-                    "picture",
-                    "12.11.2024",
-                    "Sara Kolarevic"
-                )
-            )
-        )
+        BlogsScreen({})
     }
 }
