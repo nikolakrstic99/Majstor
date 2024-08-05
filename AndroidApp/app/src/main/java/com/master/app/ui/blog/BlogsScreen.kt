@@ -3,6 +3,8 @@ package com.master.app.ui.blog
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -53,10 +55,12 @@ fun BlogsScreen(
     ) { contentPadding ->
         Column(
             verticalArrangement = Arrangement.spacedBy(10.dp),
-            modifier = modifier
+            modifier = Modifier
                 .padding(contentPadding)
                 .padding(10.dp)
         ) {
+            // Necessary because scaffold inside a scaffold
+            Spacer(modifier = Modifier.height(50.dp))
             Text(
                 text = "Repairman stories",
                 style = MaterialTheme.typography.displaySmall,

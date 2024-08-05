@@ -3,8 +3,10 @@ package com.master.app.ui
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -55,7 +57,7 @@ fun MainScreen() {
 
     ModalNavigationDrawer(
         drawerState = drawerState,
-        drawerContent = { Sidebar() }
+        drawerContent = { Sidebar(navigationActions) }
     ) {
         Scaffold(
             topBar = {
@@ -72,7 +74,7 @@ fun MainScreen() {
                                 contentDescription = "Menu"
                             )
                         }
-                    }
+                    },
                 )
             }
         ) { contentPadding ->
@@ -86,17 +88,31 @@ fun MainScreen() {
 
 @Composable
 fun Sidebar(
+    navigationActions: AppNavigationActions,
     modifier: Modifier = Modifier
 ) {
     data class SidebarItemInfo(
         val title: String,
-        val icon: ImageVector
+        val icon: ImageVector,
+        val onClick: () -> Unit
     )
 
     val items = listOf(
-        SidebarItemInfo("Profile", Icons.Filled.Person),
-        SidebarItemInfo("Blogs", Icons.Filled.LocationOn),
-        SidebarItemInfo("Repairman", Icons.Filled.Build)
+        SidebarItemInfo(
+            "Profile",
+            Icons.Filled.Person,
+            {}
+        ),
+        SidebarItemInfo(
+            "Blogs",
+            Icons.Filled.LocationOn,
+            navigationActions::navigateToBlogsScreen
+        ),
+        SidebarItemInfo(
+            "Repairman",
+            Icons.Filled.Build,
+            navigationActions::navigateToRepairmanScreen
+        )
     )
 
     var selected by remember { mutableIntStateOf(0) }
@@ -106,7 +122,12 @@ fun Sidebar(
             SidebarItem(
                 title = item.title,
                 icon = item.icon,
-                onClick = { selected = i },
+                onClick = {
+                    run {
+                        selected = i
+                        item.onClick()
+                    }
+                },
                 modifier
                     .clip(MaterialTheme.shapes.large)
                     .background(

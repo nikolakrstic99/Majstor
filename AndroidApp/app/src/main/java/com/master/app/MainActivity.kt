@@ -8,7 +8,6 @@ import com.master.app.ui.MainScreen
 import com.master.app.ui.theme.AndroidAppTheme
 
 class MainActivity : ComponentActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

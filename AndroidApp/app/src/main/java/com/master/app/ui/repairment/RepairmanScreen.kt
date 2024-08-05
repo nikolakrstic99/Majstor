@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Build
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Person
@@ -33,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import com.master.app.data.model.Repairman
 import com.master.app.data.model.Review
 import com.master.app.ui.component.CallButton
+import com.master.app.ui.component.MessageButton
 import com.master.app.ui.theme.AndroidAppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -57,12 +59,10 @@ fun RepairmanScreen(
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = { /* do something */ }) {
-                        Icon(
-                            imageVector = Icons.Filled.ArrowBack,
-                            contentDescription = "Go back"
-                        )
-                    }
+                    MessageButton(
+                        phoneNumber = repairman.phoneNumber,
+                        Modifier.padding(10.dp)
+                    )
                 },
                 actions = {
                     CallButton(
@@ -70,7 +70,9 @@ fun RepairmanScreen(
                         Modifier.padding(10.dp)
                     )
                 },
-                scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+                scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(),
+                // Necessary due to scaffold inside a scaffold
+                modifier = Modifier.padding(top = 65.dp)
             )
         },
         bottomBar = {
