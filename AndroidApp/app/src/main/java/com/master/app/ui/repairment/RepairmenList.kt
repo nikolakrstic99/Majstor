@@ -1,5 +1,6 @@
 package com.master.app.ui.repairment
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -32,6 +33,7 @@ import com.master.app.utils.paginate
 fun RepairmenList(
     repairmen: List<Repairman>,
     pageSize: Int,
+    onRepairmanClicked: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     var currentPage by remember { mutableIntStateOf(1) }
@@ -49,7 +51,11 @@ fun RepairmenList(
             items(paginatedItems) { repairman ->
                 RepairmanPreview(
                     repairman = repairman,
-                    Modifier.padding(2.dp)
+                    Modifier
+                        .padding(2.dp)
+                        .clickable(onClick = {
+                            onRepairmanClicked(repairman.id)
+                        })
                 )
             }
         }
@@ -178,7 +184,8 @@ fun RepairmenListPreview() {
                     listOf("Moler")
                 )
             ),
-            5
+            5,
+            {}
         )
     }
 }

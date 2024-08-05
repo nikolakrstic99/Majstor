@@ -23,19 +23,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import com.master.app.data.model.BlogInfo
 import com.master.app.ui.state.BlogsViewModel
 import com.master.app.ui.theme.AndroidAppTheme
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun BlogsScreen(
     onNavigateToBlogScreen: (Int) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: BlogsViewModel = BlogsViewModel(),
+    viewModel: BlogsViewModel = viewModel(),
 ) {
     var showAddBlogDialog by remember { mutableStateOf(false) }
 

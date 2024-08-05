@@ -111,7 +111,7 @@ fun Sidebar(
         SidebarItemInfo(
             "Repairman",
             Icons.Filled.Build,
-            navigationActions::navigateToRepairmanScreen
+            navigationActions::navigateToRepairmentCategoriesScreen
         )
     )
 

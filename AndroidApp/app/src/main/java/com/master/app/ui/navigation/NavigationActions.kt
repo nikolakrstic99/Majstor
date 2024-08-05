@@ -12,12 +12,18 @@ import com.master.app.data.model.Repairman
 import com.master.app.ui.blog.BlogScreen
 import com.master.app.ui.blog.BlogsScreen
 import com.master.app.ui.repairment.RepairmanScreen
+import com.master.app.ui.repairment.RepairmenSearchScreen
+import com.master.app.ui.repairment.RepairmentCategoryList
 import com.master.app.ui.state.BlogViewModel
+import com.master.app.ui.state.RepairmanViewModel
+import com.master.app.ui.state.RepairmenSearchViewModel
 
 object NavigationRoute {
     const val BLOGS = "Blogs"
     const val BLOG = "Blog"
     const val REPAIRMAN = "Repairman"
+    const val REPAIRMENT_CATEGORIES = "RepairmentCategories"
+    const val REPAIRMEN_SEARCH = "RepairmenSearch"
 }
 
 class AppNavigationActions(val navController: NavHostController) {
@@ -29,8 +35,16 @@ class AppNavigationActions(val navController: NavHostController) {
         navController.navigate(NavigationRoute.BLOGS)
     }
 
-    fun navigateToRepairmanScreen() {
-        navController.navigate(NavigationRoute.REPAIRMAN)
+    fun navigateToRepairmentCategoriesScreen() {
+        navController.navigate(NavigationRoute.REPAIRMENT_CATEGORIES)
+    }
+
+    fun navigateToRepairmenSearchScreen(categoryId: Int) {
+        navController.navigate("${NavigationRoute.REPAIRMEN_SEARCH}/$categoryId")
+    }
+
+    fun navigateToRepairmanScreen(repairmanId: Int) {
+        navController.navigate("${NavigationRoute.REPAIRMAN}/$repairmanId")
     }
 }
 
@@ -41,7 +55,7 @@ fun AppNavHost(
 ) {
     NavHost(
         navController = navigationActions.navController,
-        startDestination = NavigationRoute.REPAIRMAN
+        startDestination = NavigationRoute.BLOGS
     ) {
         composable(route = NavigationRoute.BLOGS) {
             BlogsScreen(
@@ -63,18 +77,39 @@ fun AppNavHost(
                 modifier = modifier
             )
         }
+        composable(route = NavigationRoute.REPAIRMENT_CATEGORIES) {
+            RepairmentCategoryList(
+                onCategoryClicked = navigationActions::navigateToRepairmenSearchScreen,
+                modifier = modifier
+            )
+        }
         composable(
-            route = NavigationRoute.REPAIRMAN
-        ) {
+            route = "${NavigationRoute.REPAIRMEN_SEARCH}/{categoryId}",
+            arguments = listOf(
+                navArgument(name = "categoryId") {
+                    type = NavType.IntType
+                }
+            )
+        ) {backStackEntry ->
+            val categoryId = backStackEntry.arguments?.getInt("id")!!
+            RepairmenSearchScreen(
+                onRepairmanClicked = navigationActions::navigateToRepairmanScreen,
+                viewModel = RepairmenSearchViewModel(categoryId),
+                modifier = modifier
+            )
+        }
+        composable(
+            route = "${NavigationRoute.REPAIRMAN}/{id}",
+            arguments = listOf(
+                navArgument(name = "id") {
+                    type = NavType.IntType
+                }
+            )
+        ) {backStackEntry ->
+            val repairmanId = backStackEntry.arguments?.getInt("id")!!
             RepairmanScreen(
-                repairman = Repairman(
-                    1,
-                    "Milojko Pantic",
-                    8.3723725,
-                    "0621482242",
-                    listOf("Moler", "Parketar")
-                ),
-                modifier
+                viewModel = RepairmanViewModel(repairmanId),
+                modifier = modifier
             )
         }
     }

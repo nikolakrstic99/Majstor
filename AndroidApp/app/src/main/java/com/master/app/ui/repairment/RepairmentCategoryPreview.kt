@@ -29,7 +29,7 @@ fun RepairmentCategoryPreview(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
-        modifier = Modifier.padding(10.dp)
+        modifier = modifier.padding(10.dp)
     ) {
         //        AsyncImage(
 //            model = exampleImage,

@@ -19,17 +19,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
 import com.master.app.R
-import com.master.app.data.model.Blog
-import com.master.app.data.model.BlogInfo
 import com.master.app.ui.state.BlogViewModel
 import com.master.app.ui.theme.AndroidAppTheme
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun BlogScreen(
-    viewModel: BlogViewModel,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: BlogViewModel = viewModel()
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(10.dp),
@@ -93,6 +91,6 @@ fun BlogScreen(
 @Composable
 fun BlogScreenPreview() {
     AndroidAppTheme {
-        BlogScreen(BlogViewModel(1))
+        BlogScreen(viewModel = BlogViewModel(1))
     }
 }
