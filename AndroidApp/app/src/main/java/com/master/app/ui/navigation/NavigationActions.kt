@@ -2,6 +2,7 @@ package com.master.app.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -13,8 +14,11 @@ import com.master.app.ui.repairment.RepairmanScreen
 import com.master.app.ui.repairment.RepairmenSearchScreen
 import com.master.app.ui.repairment.RepairmentCategoryList
 import com.master.app.ui.state.BlogViewModel
+import com.master.app.ui.state.BlogsViewModel
+import com.master.app.ui.state.ProfileViewModel
 import com.master.app.ui.state.RepairmanViewModel
 import com.master.app.ui.state.RepairmenSearchViewModel
+import com.master.app.ui.state.RepairmentCategoriesViewModel
 import com.master.app.ui.user.ProfileScreen
 
 object NavigationRoute {
@@ -64,27 +68,28 @@ fun AppNavHost(
         composable(route = NavigationRoute.BLOGS) {
             BlogsScreen(
                 onNavigateToBlogScreen = navigationActions::navigateToBlogScreen,
-                modifier = modifier
+                modifier = modifier,
+                viewModel = viewModel<BlogsViewModel>()
             )
         }
         composable(
             route = "${NavigationRoute.BLOG}/{id}",
             arguments = listOf(
-                    navArgument(name = "id") {
+                navArgument(name = "id") {
                     type = NavType.IntType
                 }
             )
-        ) {backStackEntry ->
-            val blogId = backStackEntry.arguments?.getInt("id")!!
+        ) {
             BlogScreen(
-                viewModel = BlogViewModel(blogId),
+                viewModel = viewModel<BlogViewModel>(),
                 modifier = modifier
             )
         }
         composable(route = NavigationRoute.REPAIRMENT_CATEGORIES) {
             RepairmentCategoryList(
                 onCategoryClicked = navigationActions::navigateToRepairmenSearchScreen,
-                modifier = modifier
+                modifier = modifier,
+                viewModel = viewModel<RepairmentCategoriesViewModel>()
             )
         }
         composable(
@@ -94,11 +99,10 @@ fun AppNavHost(
                     type = NavType.IntType
                 }
             )
-        ) {backStackEntry ->
-            val categoryId = backStackEntry.arguments?.getInt("id")!!
+        ) {
             RepairmenSearchScreen(
                 onRepairmanClicked = navigationActions::navigateToRepairmanScreen,
-                viewModel = RepairmenSearchViewModel(categoryId),
+                viewModel = viewModel<RepairmenSearchViewModel>(),
                 modifier = modifier
             )
         }
@@ -109,15 +113,17 @@ fun AppNavHost(
                     type = NavType.IntType
                 }
             )
-        ) {backStackEntry ->
-            val repairmanId = backStackEntry.arguments?.getInt("id")!!
+        ) {
             RepairmanScreen(
-                viewModel = RepairmanViewModel(repairmanId),
+                viewModel = viewModel<RepairmanViewModel>(),
                 modifier = modifier
             )
         }
         composable(route = NavigationRoute.PROFILE) {
-            ProfileScreen(modifier = modifier)
+            ProfileScreen(
+                modifier = modifier,
+                viewModel = viewModel<ProfileViewModel>()
+            )
         }
     }
 }

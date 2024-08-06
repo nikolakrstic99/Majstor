@@ -91,6 +91,6 @@ fun BlogScreen(
 @Composable
 fun BlogScreenPreview() {
     AndroidAppTheme {
-        BlogScreen(viewModel = BlogViewModel(1))
+        BlogScreen()
     }
 }

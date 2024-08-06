@@ -1,10 +1,13 @@
 package com.master.app.ui.state
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.master.app.data.model.Blog
 import com.master.app.data.model.BlogInfo
 
-class BlogViewModel(val blogId: Int): ViewModel() {
+class BlogViewModel(savedStateHandle: SavedStateHandle): ViewModel() {
+    val blogId: Int? = savedStateHandle.get<Int>("id")
+
     val blog: Blog =  Blog(
         BlogInfo(
             1,

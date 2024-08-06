@@ -16,13 +16,13 @@ import com.master.app.ui.theme.AndroidAppTheme
 fun RepairmentCategoryList(
     onCategoryClicked: (Int) -> Unit,
     modifier: Modifier = Modifier,
-    repairmentCategoriesViewModel: RepairmentCategoriesViewModel = viewModel(),
+    viewModel: RepairmentCategoriesViewModel = viewModel(),
 ) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(minSize = 150.dp),
         modifier = modifier
     ) {
-        items(repairmentCategoriesViewModel.repairmentCategories) {
+        items(viewModel.repairmentCategories) {
             RepairmentCategoryPreview(
                 it,
                 modifier = Modifier.clickable(onClick = {
