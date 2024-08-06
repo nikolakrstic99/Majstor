@@ -3,10 +3,8 @@ package com.master.app.ui
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -39,7 +37,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
-import com.master.app.ui.blog.BlogsScreen
 import com.master.app.ui.navigation.AppNavHost
 import com.master.app.ui.navigation.AppNavigationActions
 import kotlinx.coroutines.launch
@@ -101,7 +98,7 @@ fun Sidebar(
         SidebarItemInfo(
             "Profile",
             Icons.Filled.Person,
-            {}
+            navigationActions::navigateToProfileScreen
         ),
         SidebarItemInfo(
             "Blogs",

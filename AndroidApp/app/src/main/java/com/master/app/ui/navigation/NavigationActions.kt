@@ -1,6 +1,5 @@
 package com.master.app.ui.navigation
 
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -8,7 +7,6 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.master.app.data.model.Repairman
 import com.master.app.ui.blog.BlogScreen
 import com.master.app.ui.blog.BlogsScreen
 import com.master.app.ui.repairment.RepairmanScreen
@@ -17,6 +15,7 @@ import com.master.app.ui.repairment.RepairmentCategoryList
 import com.master.app.ui.state.BlogViewModel
 import com.master.app.ui.state.RepairmanViewModel
 import com.master.app.ui.state.RepairmenSearchViewModel
+import com.master.app.ui.user.ProfileScreen
 
 object NavigationRoute {
     const val BLOGS = "Blogs"
@@ -24,6 +23,7 @@ object NavigationRoute {
     const val REPAIRMAN = "Repairman"
     const val REPAIRMENT_CATEGORIES = "RepairmentCategories"
     const val REPAIRMEN_SEARCH = "RepairmenSearch"
+    const val PROFILE = "Profile"
 }
 
 class AppNavigationActions(val navController: NavHostController) {
@@ -46,6 +46,10 @@ class AppNavigationActions(val navController: NavHostController) {
     fun navigateToRepairmanScreen(repairmanId: Int) {
         navController.navigate("${NavigationRoute.REPAIRMAN}/$repairmanId")
     }
+
+    fun navigateToProfileScreen() {
+        navController.navigate(NavigationRoute.PROFILE)
+    }
 }
 
 @Composable
@@ -55,7 +59,7 @@ fun AppNavHost(
 ) {
     NavHost(
         navController = navigationActions.navController,
-        startDestination = NavigationRoute.BLOGS
+        startDestination = NavigationRoute.PROFILE
     ) {
         composable(route = NavigationRoute.BLOGS) {
             BlogsScreen(
@@ -111,6 +115,9 @@ fun AppNavHost(
                 viewModel = RepairmanViewModel(repairmanId),
                 modifier = modifier
             )
+        }
+        composable(route = NavigationRoute.PROFILE) {
+            ProfileScreen(modifier = modifier)
         }
     }
 }

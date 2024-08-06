@@ -75,7 +75,7 @@ fun RepairmenSearchScreen(
                 // Necessary due to scaffold inside a scaffold
                 modifier = Modifier.padding(top = 65.dp)
             )
-        },
+        }
     ) {
         Column(
             modifier = Modifier.padding(it)
@@ -159,7 +159,7 @@ fun RepairmenSearchScreen(
             }
             RepairmenList(
                 repairmen = viewModel.repairmen,
-                pageSize = 8,
+                pageSize = if (showFilterMenu) 7 else 8,
                 onRepairmanClicked = onRepairmanClicked
             )
         }

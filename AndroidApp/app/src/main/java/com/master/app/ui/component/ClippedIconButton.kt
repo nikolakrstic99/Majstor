@@ -35,7 +35,7 @@ fun ClippedIconButton(
             .clip(MaterialTheme.shapes.extraLarge)
             .border(
                 1.5.dp,
-                MaterialTheme.colorScheme.primaryContainer,
+                MaterialTheme.colorScheme.primary,
                 MaterialTheme.shapes.extraLarge
             )
             .background(MaterialTheme.colorScheme.onPrimary)
