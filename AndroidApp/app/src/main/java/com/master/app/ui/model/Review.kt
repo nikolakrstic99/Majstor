@@ -1,4 +1,4 @@
-package com.master.app.data.model
+package com.master.app.ui.model
 
 data class Review(
     val id: Int,

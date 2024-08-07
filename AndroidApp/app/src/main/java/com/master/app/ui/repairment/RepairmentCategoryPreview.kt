@@ -18,7 +18,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.master.app.R
-import com.master.app.data.model.RepairmentCategory
+import com.master.app.ui.model.RepairmentCategory
 import com.master.app.ui.theme.AndroidAppTheme
 
 @Composable

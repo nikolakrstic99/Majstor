@@ -20,7 +20,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.master.app.R
-import com.master.app.data.model.BlogInfo
+import com.master.app.ui.model.BlogInfo
 import com.master.app.ui.theme.AndroidAppTheme
 
 const val exampleImage = "https://cdn.freecodecamp.org/curriculum/cat-photo-app/relaxing-cat.jpg"

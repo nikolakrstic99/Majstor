@@ -28,7 +28,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.master.app.R
-import com.master.app.data.model.Review
+import com.master.app.ui.model.Review
 import com.master.app.ui.component.RatingsStar
 import com.master.app.ui.theme.AndroidAppTheme
 import kotlin.math.ceil

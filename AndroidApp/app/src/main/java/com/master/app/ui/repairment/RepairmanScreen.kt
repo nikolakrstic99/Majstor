@@ -24,7 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.master.app.data.model.Review
+import com.master.app.ui.model.Review
 import com.master.app.ui.component.CallButton
 import com.master.app.ui.component.MessageButton
 import com.master.app.ui.state.RepairmanViewModel

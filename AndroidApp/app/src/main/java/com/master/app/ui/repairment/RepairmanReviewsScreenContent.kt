@@ -39,7 +39,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.master.app.R
-import com.master.app.data.model.Review
+import com.master.app.ui.model.Review
 import com.master.app.ui.component.ClippedIconButton
 import com.master.app.ui.theme.AndroidAppTheme
 

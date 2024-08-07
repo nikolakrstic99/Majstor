@@ -25,7 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.master.app.data.model.Repairman
+import com.master.app.ui.model.Repairman
 import com.master.app.ui.theme.AndroidAppTheme
 import com.master.app.utils.paginate
 

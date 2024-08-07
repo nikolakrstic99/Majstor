@@ -1,7 +1,7 @@
 package com.master.app.ui.state
 
 import androidx.lifecycle.ViewModel
-import com.master.app.data.model.BlogInfo
+import com.master.app.ui.model.BlogInfo
 
 class BlogsViewModel: ViewModel() {
     val blogs: List<BlogInfo> = listOf(

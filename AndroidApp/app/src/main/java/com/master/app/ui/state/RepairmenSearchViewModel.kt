@@ -2,8 +2,8 @@ package com.master.app.ui.state
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.master.app.data.model.Repairman
-import com.master.app.data.model.RepairmentCategory
+import com.master.app.ui.model.Repairman
+import com.master.app.ui.model.RepairmentCategory
 
 class RepairmenSearchViewModel(savedStateHandle: SavedStateHandle): ViewModel() {
     val topLevelCategoryId: Int? = savedStateHandle.get<Int>("categoryId")

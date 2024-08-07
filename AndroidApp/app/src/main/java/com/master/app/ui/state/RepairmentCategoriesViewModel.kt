@@ -1,7 +1,7 @@
 package com.master.app.ui.state
 
 import androidx.lifecycle.ViewModel
-import com.master.app.data.model.RepairmentCategory
+import com.master.app.ui.model.RepairmentCategory
 
 class RepairmentCategoriesViewModel: ViewModel()  {
     val repairmentCategories: List<RepairmentCategory> = listOf(

@@ -1,4 +1,4 @@
-package com.master.app.data.model
+package com.master.app.ui.model
 
 // Should be used for both general repairment category (e.g. Construction or Electronics),
 // and for it's subcategories (e.g. Parquet and Ceramics of Construction category).
