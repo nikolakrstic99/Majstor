@@ -1,0 +1,50 @@
+@import "~@fortawesome/fontawesome-free/css/all.css";
+.banner-innerpage{
+  padding:200px 0 80px;
+  background-size:cover;
+  background-position: center center;
+  .title{
+    color:#FFFFFF;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 40px;
+  }
+  .subtitle{
+    color:#FFFFFF;
+  }
+}
+
+.subtitle {
+  color: #8d97ad;
+  line-height: 100px;
+}
+
+.op-5 {
+  opacity: 0.5;
+}
+
+.mini-spacer {
+  padding: 40px 0;
+}
+
+.m-t-30 {
+  margin-top: 30px;
+}
+
+.m-b-30 {
+  margin-bottom: 30px;
+}
+
+.bg-facebook {
+  background-color: #3b5a9a;
+}
+
+.bg-twitter {
+  background-color: #56adf2;
+}
+
+.btn-rounded{
+  border-radius: 60px;
+  -webkit-border-radius: 60px;
+}
