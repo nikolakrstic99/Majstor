@@ -15,7 +15,7 @@ import com.master.app.ui.repairment.RepairmenSearchScreen
 import com.master.app.ui.repairment.RepairmentCategoryList
 import com.master.app.ui.state.BlogViewModel
 import com.master.app.ui.state.BlogsViewModel
-import com.master.app.ui.state.ProfileViewModel
+import com.master.app.ui.state.UserViewModel
 import com.master.app.ui.state.RepairmanViewModel
 import com.master.app.ui.state.RepairmenSearchViewModel
 import com.master.app.ui.state.RepairmentCategoriesViewModel
@@ -122,7 +122,7 @@ fun AppNavHost(
         composable(route = NavigationRoute.PROFILE) {
             ProfileScreen(
                 modifier = modifier,
-                viewModel = viewModel<ProfileViewModel>()
+                viewModel = viewModel<UserViewModel>()
             )
         }
     }
