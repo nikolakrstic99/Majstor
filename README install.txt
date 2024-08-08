@@ -11,6 +11,9 @@ BE:
 SQL Server 9.0
 Java 17
 
+start server: mysql.server start
+stop server:  mysql.server stop
+
 Mobile:
 
 

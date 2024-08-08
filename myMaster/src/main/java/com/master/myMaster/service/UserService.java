@@ -6,6 +6,7 @@ import com.master.myMaster.common.exception.BadRequestException;
 import com.master.myMaster.common.exception.Error;
 import com.master.myMaster.common.exception.NotFoundException;
 import com.master.myMaster.domains.User;
+import com.master.myMaster.domains.UserStatus;
 import com.master.myMaster.mapper.UserMapper;
 import com.master.myMaster.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +36,7 @@ public class UserService {
     }
     var userEntity = userMapper.signUpRequestToUser(signUp);
     userEntity.setPassword(passwordEncoder.encode(signUp.password()));
+    userEntity.setStatus(UserStatus.REGULAR);
     userRepository.save(userEntity);
     return userMapper.toUser(userEntity);
   }
