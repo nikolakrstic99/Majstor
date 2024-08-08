@@ -1,4 +1,4 @@
-package com.master.app.data.model
+package com.master.app.ui.model
 
 data class BlogInfo(
     val id: Int,
@@ -10,7 +10,7 @@ data class BlogInfo(
 )
 
 data class Blog(
-    val preview: BlogInfo,
+    val info: BlogInfo,
     val text: String,
     val pictures: List<String>,
 )
