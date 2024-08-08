@@ -8,14 +8,13 @@ import com.master.app.data.repository.UserRepository
 import com.master.app.data.repository.UserRepositoryImpl
 import kotlinx.coroutines.launch
 
-class ProfileViewModel(
-    private val userRepository: UserRepository = UserRepositoryImpl(),
-    private val savedStateHandle: SavedStateHandle
+class UserViewModel(
+    private val userRepository: UserRepository = UserRepositoryImpl()
 ): ViewModel() {
 
     fun login() {
         viewModelScope.launch {
-            val response = userRepository.login(LoginRequest("andrej", "jokic"))
+            val response = userRepository.login(LoginRequest("nikolakrstic99@gmail.com", "nikola123"))
             if (response.isSuccessful) {
                 response.body()
             }
