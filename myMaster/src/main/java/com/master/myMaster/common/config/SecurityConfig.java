@@ -25,11 +25,11 @@ public class SecurityConfig {
         .sessionManagement(
             customizer -> customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(
-            (request) -> request.requestMatchers(HttpMethod.POST, "api/v1/login", "api/v1/register", "api/v1/blog")
-                .permitAll()
-//                .requestMatchers(HttpMethod.GET, "api/v1/blog")
-//                .permitAll()
-                .anyRequest().authenticated());
+            (request) ->
+                    request
+                        .requestMatchers(HttpMethod.POST, "api/v1/blog")
+                        .authenticated()
+                .anyRequest().permitAll());
     return http.build();
   }
 

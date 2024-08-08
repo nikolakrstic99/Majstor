@@ -65,6 +65,7 @@ export class LoginRegisterComponent {
     }).then(
       response => {
         this.axiosService.setAuthToken(response.data.token);
+        this.openSnackBar("Successful registration");
       }).catch(
       error => {
         this.openSnackBar("Sign up failed :(");

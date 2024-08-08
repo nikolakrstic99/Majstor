@@ -4,14 +4,15 @@
   background-size:cover;
   background-position: center center;
   .title{
-    color:#FFFFFF;
+    font-size: 2.5rem;
+    color: #fff;
     text-transform: uppercase;
     font-weight: 700;
-    font-size: 40px;
     line-height: 40px;
   }
   .subtitle{
-    color:#FFFFFF;
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.7);
   }
 }
 

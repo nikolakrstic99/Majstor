@@ -32,14 +32,16 @@ export class AddBlogComponent implements OnInit {
   }
   images: string[] = [];
   imagesOk: boolean = false;
+  userFile: File;
   onFileSelected(event) {
+    //this.userFile = event.target.result;
     if (event.target.files && event.target.files[0]) {
       this.imagesOk = true;
-      if (event.target.files.length < 3 || event.target.files.length > 6) {
-        this.imagesOk = false;
-        this.openSnackBar('Please select 3-6 images');
-        return;
-      }
+      // if (event.target.files.length < 3 || event.target.files.length > 6) {
+      //   this.imagesOk = false;
+      //   this.openSnackBar('Please select 3-6 images');
+      //   return;
+      // }
       for (let i = 0; i < event.target.files.length; i++) {
         var reader = new FileReader();
 
@@ -54,10 +56,12 @@ export class AddBlogComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.images[0]);
     this.axiosService.request("POST", "api/v1/blog", {
         heading: this.form.value.heading,
         subHeading: this.form.value.subHeading,
         details: this.form.value.details,
+        file: this.images
       }
     ).then(response => {
       this.openSnackBar('Blog added');

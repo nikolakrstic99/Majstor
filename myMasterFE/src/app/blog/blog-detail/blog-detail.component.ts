@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Params, Router} from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Blog } from '../../models/blog';
-import {blogs} from "../blog-data";
+import { blogs } from '../blog-data';
+import {AxiosService} from "../../services/axios.service";
 
 @Component({
   selector: 'app-blog-detail',
@@ -10,35 +11,37 @@ import {blogs} from "../blog-data";
 })
 export class BlogDetailComponent implements OnInit {
 
-  id: any;
+  id: number | null = null;
   blogDetail: Blog | undefined;
-  constructor(private activatedRouter: ActivatedRoute) {
-    this.id = activatedRouter.snapshot.paramMap.get('id');
+  images: string[] = [
+    'assets/images/blog/101.jpg',
+    'assets/images/blog/202.jpg',
+    'assets/images/blog/303.jpg'
+  ];
+  activeSlide: boolean[] = [true, false, false];
+  activeIndex = 0;
+  isAdmin: boolean;
+
+  constructor(private activatedRouter: ActivatedRoute, private axiosService: AxiosService) {
+    this.id = +this.activatedRouter.snapshot.paramMap.get('id')!;
   }
 
   ngOnInit(): void {
     this.blogDetail = blogs[this.id - 1];
-    this.activatedRouter.params.subscribe((params: Params) => this.id = params['id']);
+    this.activatedRouter.params.subscribe((params: Params) => {
+      this.id = +params['id'];
+      this.blogDetail = blogs[this.id - 1];
+    });
+    this.isAdmin = this.axiosService.isAdmin();
   }
 
-  loginClick() {
-    //this.router.navigate([('/login')]);
+  imageClick(step: number): void {
+    this.activeSlide[this.activeIndex] = false;
+    this.activeIndex = (this.activeIndex + step + this.activeSlide.length) % this.activeSlide.length;
+    this.activeSlide[this.activeIndex] = true;
   }
 
-  newPost() {
-    //this.service.showEdit=false;
-   // this.router.navigate([('/post')]);
-
+  delete(): void {
+    // Implement delete functionality
   }
-
-  delete() {
-  }
-
-
-
-  // editPost(){
-  //   this.router.navigate([('/editPost'), this.service?.detailId]);
-
-  // }
-
 }

@@ -3,21 +3,17 @@
   style="background-image: url(assets/images/landingpage/banner-bg2.jpg)"
 >
   <div class="container">
-    <!-- Row  -->
     <div class="row justify-content-center">
-      <!-- Column -->
       <div class="col-9 align-self-center text-center">
         <h1 class="title">BLOG DETAIL PAGE</h1>
-        <h5 class="subtitle op-5">
+        <h5 class="subtitle">
           We are Small Team of Creative People working together
         </h5>
       </div>
-      <!-- Column -->
     </div>
   </div>
 </div>
 
-<!-- Row  -->
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-8 no-trans">
@@ -29,42 +25,74 @@
           <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
           <span> Blogovi</span>
         </a>
-        <hr>
-        <img [src]="blogDetail?.image" alt="wrapkit" class="img-fluid" />
+        <hr />
+        <div class="row">
+          <div class="col-1 center-content">
+            <i
+              class="fa-solid fa-arrow-left fa-2x cursor-pointer"
+              (click)="imageClick(-1)"
+            ></i>
+          </div>
+          <div
+            id="carouselExampleControls"
+            class="carousel slide col-10"
+            data-ride="carousel"
+          >
+            <div
+              class="carousel-inner"
+              *ngFor="let im of images; let i = index"
+            >
+              <div
+                class="carousel-item active"
+                [ngStyle]="{
+                  display: activeSlide[i] === true ? 'inline' : 'none'
+                }"
+              >
+                <img
+                  class="d-block w-100 center"
+                  [src]="im"
+                  alt="Slide Image"
+                  style="height: 300px; width: auto; max-width: 650px"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="col-1 center-content">
+            <i
+              class="fa-solid fa-arrow-right fa-2x cursor-pointer"
+              (click)="imageClick(1)"
+            ></i>
+          </div>
+        </div>
+
         <div
           class="d-flex align-items-center text-uppercase m-t-40 font-13 font-medium"
         >
-          <a>Ko je napisaooooooooooooo</a>
+          <a>Author</a>
           <div class="ml-auto">
-            <a>{{ blogDetail?.blogDate }} </a>
+            <a>{{ blogDetail?.blogDate }}</a>
           </div>
         </div>
-        <h2 class="title font-light">
-          {{ blogDetail?.heading }}
-        </h2>
-        <p class="m-t-30 m-b-30">
-          {{ blogDetail?.subHeading }}
-        </p>
-        <p class="m-t-30 m-b-30">
-          {{ blogDetail?.blogDetail }}
-        </p>
+        <h2 class="title font-light">{{ blogDetail?.heading }}</h2>
+        <p class="m-t-30 m-b-30">{{ blogDetail?.subHeading }}</p>
+        <p class="m-t-30 m-b-30">{{ blogDetail?.blogDetail }}</p>
 
-        <hr>
-        <a
-          class="linking font-medium text-themecolor m-t-10 cursor-pointer"
-        >
-        <i class="fa-solid fa-3x fa-trash cursor-pointer" (click)="delete()"></i>
-        </a>
+        <hr />
         <div class="m-t-30">
-          <button type="button" class="btn bg-facebook btn-rounded mr-3">
+          <button type="button" class="btn bg-facebook btn-rounded mr-3 share-item">
             <i class="fa-brands fa-facebook"></i> Facebook
           </button>
-          <button type="button" class="btn bg-twitter btn-rounded">
+          <button type="button" class="btn bg-twitter btn-rounded share-item">
             <i class="fa-brands fa-x-twitter"></i> Twitter
+          </button>
+          <button type="button" class="btn bg-twitter btn-rounded share-item" *ngIf="isAdmin">
+            <i
+              class="fa-solid fa-trash cursor-pointer"
+              (click)="delete()"
+            ></i> Delete
           </button>
         </div>
       </div>
     </div>
   </div>
-  <!-- Row  -->
 </div>
