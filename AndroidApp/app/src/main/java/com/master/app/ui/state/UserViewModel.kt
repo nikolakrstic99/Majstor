@@ -30,4 +30,14 @@ class UserViewModel(
             )
         }
     }
+
+    fun register(firstName: String, lastName: String, email: String, password: String) {
+        viewModelScope.launch {
+            val user = userRepository.register(firstName, lastName, email, password)
+            _uiState.value = _uiState.value.copy(
+                userInfo = user.data,
+                errorMessage = user.message
+            )
+        }
+    }
 }

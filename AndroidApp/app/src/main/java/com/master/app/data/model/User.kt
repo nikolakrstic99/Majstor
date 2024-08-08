@@ -8,6 +8,6 @@ data class User(
     val lastName: String,
     val email: String,
     val password: String,
-    val status: UserType,
+    val type: UserType,
     val token: String
 )
