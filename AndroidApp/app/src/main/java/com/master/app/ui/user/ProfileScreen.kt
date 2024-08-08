@@ -26,7 +26,7 @@ fun ProfileScreen(
         // If not logged in
         if (showLogin) {
             Login(
-                onSubmit = { /* TODO */ },
+                onSubmit = viewModel::login,
                 onSignUpClicked = { showLogin = false }
             )
         }
@@ -36,6 +36,8 @@ fun ProfileScreen(
                 onSignInClicked = { showLogin = true }
             )
         }
+
+        print("gas")
 
         // If logged in
     }

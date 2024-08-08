@@ -1,4 +1,4 @@
-package com.master.app.data.model
+package com.master.app.data.entity
 
 import com.master.app.common.UserType
 
@@ -8,6 +8,6 @@ data class UserApiModel(
     val lastName: String,
     val email: String,
     val password: String,
-    val type: UserType,
+    val status: UserType,
     val token: String
 )
