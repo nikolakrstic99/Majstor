@@ -27,7 +27,6 @@ fun ProfileScreen(
             .padding(start = 10.dp, end = 10.dp)
     ) {
         if (uiState.userInfo == null) {
-            // User is not logged in
             if (showLogin) {
                 Login(
                     onSubmit = viewModel::login,
@@ -42,7 +41,6 @@ fun ProfileScreen(
             }
         }
         else {
-            // User is logged in
             Text(text = "ulogovan ${uiState.userInfo?.email}")
         }
     }

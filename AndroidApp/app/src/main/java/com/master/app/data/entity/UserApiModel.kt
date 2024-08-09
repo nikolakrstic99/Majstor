@@ -9,5 +9,5 @@ data class UserApiModel(
     val email: String,
     val password: String,
     val status: UserType,
-    val token: String
+    val token: String?
 )

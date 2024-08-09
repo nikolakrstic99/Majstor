@@ -7,6 +7,7 @@ import com.master.app.data.entity.RegisterRequest
 import com.master.app.data.entity.UserApiModel
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface ApiService {
@@ -18,4 +19,7 @@ interface ApiService {
 
     @POST("blog")
     suspend fun createBlog(@Body request: CreateBlogRequest): Response<BlogApiModel>
+
+    @GET("user")
+    suspend fun getLoggedUser(): Response<UserApiModel>
 }

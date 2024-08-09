@@ -5,7 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.master.app.data.model.Blog
 import com.master.app.data.repository.BlogsRepository
 import com.master.app.data.repository.BlogsRepositoryImpl
-import com.master.app.data.repository.LocalStorageRepository
+import com.master.app.data.repository.UserRepository
+import com.master.app.data.repository.UserRepositoryImpl
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -19,13 +20,19 @@ data class BlogsUiState(
 
 class BlogsViewModel(
     private val blogsRepository: BlogsRepository = BlogsRepositoryImpl(),
-    private val localStorageRepository: LocalStorageRepository = LocalStorageRepository()
+    private val userRepository: UserRepository = UserRepositoryImpl()
 ): ViewModel() {
 
-    private val _uiState = MutableStateFlow(
-        BlogsUiState(isUserLoggedIn = localStorageRepository.isUserLoggedIn())
-    )
+    private val _uiState = MutableStateFlow(BlogsUiState())
     val uiState: StateFlow<BlogsUiState> = _uiState
+
+    init {
+        viewModelScope.launch {
+            _uiState.value = _uiState.value.copy(
+                isUserLoggedIn = userRepository.isUserLoggedIn()
+            )
+        }
+    }
 
     fun createBlog(title: String, description: String, text: String) {
         viewModelScope.launch {
