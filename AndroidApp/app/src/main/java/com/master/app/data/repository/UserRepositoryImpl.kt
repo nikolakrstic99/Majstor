@@ -3,7 +3,9 @@ package com.master.app.data.repository
 import com.master.app.data.entity.LoginRequest
 import com.master.app.data.entity.RegisterRequest
 import com.master.app.data.model.User
+import com.master.app.data.source.LocalStorageManager
 import com.master.app.data.source.RetrofitInstance
+import com.master.app.data.utils.fromUserApiToUser
 import retrofit2.Response
 
 class UserRepositoryImpl: UserRepository {
@@ -12,18 +14,7 @@ class UserRepositoryImpl: UserRepository {
         if (!response.isSuccessful) {
             return Resource.Error("Error: ${response.code()} - ${response.errorBody()?.string()}")
         }
-        val body = response.body()!!
-        return Resource.Success(
-            User(
-                id = body.id,
-                firstName = body.firstName,
-                lastName = body.lastName,
-                email = body.email,
-                password = body.password,
-                type = body.status,
-                token = body.token
-            )
-        )
+        return Resource.Success(fromUserApiToUser(response.body()!!))
     }
 
     override suspend fun register(firstName: String, lastName: String, email: String, password: String
@@ -37,17 +28,9 @@ class UserRepositoryImpl: UserRepository {
         if (!response.isSuccessful) {
             return Resource.Error("Error: ${response.code()} - ${response.errorBody()?.string()}")
         }
-        val body = response.body()!!
-        return Resource.Success(
-            User(
-                id = body.id,
-                firstName = body.firstName,
-                lastName = body.lastName,
-                email = body.email,
-                password = body.password,
-                type = body.status,
-                token = body.token
-            )
-        )
+        return Resource.Success(fromUserApiToUser(response.body()!!))
     }
+
+    override fun saveAuthToken(token: String): Unit =
+        LocalStorageManager.saveString("token", token)
 }

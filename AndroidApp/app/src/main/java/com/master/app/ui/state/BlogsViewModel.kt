@@ -1,33 +1,34 @@
 package com.master.app.ui.state
 
 import androidx.lifecycle.ViewModel
-import com.master.app.ui.model.BlogInfo
+import androidx.lifecycle.viewModelScope
+import com.master.app.data.model.Blog
+import com.master.app.data.repository.BlogsRepository
+import com.master.app.data.repository.BlogsRepositoryImpl
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
-class BlogsViewModel: ViewModel() {
-    val blogs: List<BlogInfo> = listOf(
-        BlogInfo(
-            1,
-            "A Breakdown of the Full English Breakfast",
-            "Welcome to Weekend Brunch! Skip the lines and make brunch at home. The coffee’s truly bottomless and the best part is PJs all the way! This week: a guide to the gloriousness that is known as A Full English Breakfast.",
-            "picture",
-            "01.04.2024",
-            "Andrej Jokic"
-        ),
-        BlogInfo(
-            2,
-            "Tiktok Baked Feta Pasta",
-            "This tiktok pasta has it all, big bold flavors, creamy comfort, and carbs!",
-            "picture",
-            "05.10.2024",
-            "Nikola Krstic"
-        ),
-        BlogInfo(
-            3,
-            "Mixed Fish Sauce Recipe",
-            "Everything you ever wanted to know about fish sauce, plus my secret recipe for the best fish sauce you’ve ever had.",
-            "picture",
-            "12.11.2024",
-            "Sara Kolarevic"
-        )
-    )
+data class BlogsUiState(
+    val blogs: List<Blog>? = null,
+    val addedBlog: Blog? = null,
+    val errorMessage: String? = null
+)
+
+class BlogsViewModel(
+    private val blogsRepository: BlogsRepository = BlogsRepositoryImpl()
+): ViewModel() {
+
+    private val _uiState = MutableStateFlow(BlogsUiState())
+    val uiState: StateFlow<BlogsUiState> = _uiState
+
+    fun createBlog(title: String, description: String, text: String) {
+        viewModelScope.launch {
+            val blog = blogsRepository.createBlog(title, description, text)
+            _uiState.value = _uiState.value.copy(
+                addedBlog = blog.data,
+                errorMessage = blog.message
+            )
+        }
+    }
 }

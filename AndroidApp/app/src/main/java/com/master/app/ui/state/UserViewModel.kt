@@ -1,5 +1,6 @@
 package com.master.app.ui.state
 
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.master.app.data.model.User
@@ -24,6 +25,9 @@ class UserViewModel(
     fun login(email: String, password: String) {
         viewModelScope.launch {
             val user = userRepository.login(email, password)
+            if (user.data != null) {
+                userRepository.saveAuthToken(user.data.token)
+            }
             _uiState.value = _uiState.value.copy(
                 userInfo = user.data,
                 errorMessage = user.message
@@ -34,6 +38,9 @@ class UserViewModel(
     fun register(firstName: String, lastName: String, email: String, password: String) {
         viewModelScope.launch {
             val user = userRepository.register(firstName, lastName, email, password)
+            if (user.data != null) {
+                userRepository.saveAuthToken(user.data.token)
+            }
             _uiState.value = _uiState.value.copy(
                 userInfo = user.data,
                 errorMessage = user.message
