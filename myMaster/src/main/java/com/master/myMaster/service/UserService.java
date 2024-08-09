@@ -25,7 +25,7 @@ public class UserService {
     var entity = userRepository.findByEmail(credentials.email())
       .orElseThrow(() -> new NotFoundException("Invalid password", Error.RESOURCE_NOT_FOUND));
     if (passwordEncoder.matches(credentials.password(), entity.getPassword())) {
-      return userMapper.toUser(entity);
+      return userMapper.toDomain(entity);
     }
     throw new BadRequestException("User not found", Error.INVALID_PASSWORD);
   }
@@ -38,18 +38,18 @@ public class UserService {
     userEntity.setPassword(passwordEncoder.encode(signUp.password()));
     userEntity.setStatus(UserStatus.REGULAR);
     userRepository.save(userEntity);
-    return userMapper.toUser(userEntity);
+    return userMapper.toDomain(userEntity);
   }
 
   public User getUser(Long id) {
-    return userMapper.toUser(userRepository.findById(id).orElseThrow());
+    return userMapper.toDomain(userRepository.findById(id).orElseThrow());
   }
 
   public User findByEmail(String email) {
-    return userMapper.toUser(userRepository.findByEmail(email).orElseThrow());
+    return userMapper.toDomain(userRepository.findByEmail(email).orElseThrow());
   }
 
   public void save(User user) {
-    userRepository.save(userMapper.toUserEntity(user));
+    userRepository.save(userMapper.toEntity(user));
   }
 }

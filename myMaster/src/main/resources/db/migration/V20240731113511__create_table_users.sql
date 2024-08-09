@@ -1,4 +1,4 @@
-drop table if exists users;
+
 
 create table users (
     id bigint primary key AUTO_INCREMENT not null,

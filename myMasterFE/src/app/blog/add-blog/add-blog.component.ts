@@ -61,7 +61,7 @@ export class AddBlogComponent implements OnInit {
         heading: this.form.value.heading,
         subHeading: this.form.value.subHeading,
         details: this.form.value.details,
-        file: this.images
+        files: this.images
       }
     ).then(response => {
       this.openSnackBar('Blog added');

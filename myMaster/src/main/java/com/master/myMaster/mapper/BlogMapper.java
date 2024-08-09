@@ -5,7 +5,7 @@ import com.master.myMaster.domains.Blog;
 import com.master.myMaster.entities.BlogEntity;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {UserMapper.class, ImageMapper.class})
 public interface BlogMapper {
 
   Blog toBlog(BlogEntity entity);
