@@ -26,8 +26,6 @@ import com.master.app.data.model.User
 import com.master.app.ui.theme.AndroidAppTheme
 import java.time.LocalDateTime
 
-const val exampleImage = "https://cdn.freecodecamp.org/curriculum/cat-photo-app/relaxing-cat.jpg"
-
 @Composable
 fun BlogPreview(
     blog: Blog,

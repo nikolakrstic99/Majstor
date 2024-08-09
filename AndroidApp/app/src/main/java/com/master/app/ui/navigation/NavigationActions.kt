@@ -68,8 +68,7 @@ fun AppNavHost(
         composable(route = NavigationRoute.BLOGS) {
             BlogsScreen(
                 onNavigateToBlogScreen = navigationActions::navigateToBlogScreen,
-                modifier = modifier,
-                viewModel = viewModel<BlogsViewModel>()
+                modifier = modifier
             )
         }
         composable(
@@ -81,15 +80,13 @@ fun AppNavHost(
             )
         ) {
             BlogScreen(
-                viewModel = viewModel<BlogViewModel>(),
                 modifier = modifier
             )
         }
         composable(route = NavigationRoute.REPAIRMENT_CATEGORIES) {
             RepairmentCategoryList(
                 onCategoryClicked = navigationActions::navigateToRepairmenSearchScreen,
-                modifier = modifier,
-                viewModel = viewModel<RepairmentCategoriesViewModel>()
+                modifier = modifier
             )
         }
         composable(
@@ -102,7 +99,6 @@ fun AppNavHost(
         ) {
             RepairmenSearchScreen(
                 onRepairmanClicked = navigationActions::navigateToRepairmanScreen,
-                viewModel = viewModel<RepairmenSearchViewModel>(),
                 modifier = modifier
             )
         }
@@ -121,8 +117,7 @@ fun AppNavHost(
         }
         composable(route = NavigationRoute.PROFILE) {
             ProfileScreen(
-                modifier = modifier,
-                viewModel = viewModel<UserViewModel>()
+                modifier = modifier
             )
         }
     }

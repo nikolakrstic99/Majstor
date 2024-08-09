@@ -4,12 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.master.app.data.model.Blog
 import com.master.app.data.repository.BlogsRepository
-import com.master.app.data.repository.BlogsRepositoryImpl
 import com.master.app.data.repository.UserRepository
-import com.master.app.data.repository.UserRepositoryImpl
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 data class BlogsUiState(
     val blogs: List<Blog>? = null,
@@ -18,9 +18,10 @@ data class BlogsUiState(
     val errorMessage: String? = null
 )
 
-class BlogsViewModel(
-    private val blogsRepository: BlogsRepository = BlogsRepositoryImpl(),
-    private val userRepository: UserRepository = UserRepositoryImpl()
+@HiltViewModel
+class BlogsViewModel @Inject constructor(
+    private val blogsRepository: BlogsRepository,
+    private val userRepository: UserRepository
 ): ViewModel() {
 
     private val _uiState = MutableStateFlow(BlogsUiState())
@@ -29,7 +30,8 @@ class BlogsViewModel(
     init {
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(
-                isUserLoggedIn = userRepository.isUserLoggedIn()
+                isUserLoggedIn = userRepository.isUserLoggedIn(),
+                blogs = blogsRepository.getAllBlogs().data
             )
         }
     }
