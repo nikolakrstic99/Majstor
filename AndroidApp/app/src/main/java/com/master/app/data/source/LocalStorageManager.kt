@@ -11,15 +11,15 @@ object LocalStorageManager {
         sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
     }
 
-    fun saveString(key: String, value: String) {
+    fun saveString(key: String, value: String): Unit =
         sharedPreferences.edit().putString(key, value).apply()
-    }
 
-    fun getString(key: String, defaultValue: String): String {
-        return sharedPreferences.getString(key, defaultValue) ?: defaultValue
-    }
+    fun getString(key: String, defaultValue: String): String =
+        sharedPreferences.getString(key, defaultValue) ?: defaultValue
 
-    fun contains(key: String): Boolean {
-        return sharedPreferences.contains(key)
-    }
+    fun contains(key: String): Boolean =
+        sharedPreferences.contains(key)
+
+    fun deleteString(key: String): Unit =
+        sharedPreferences.edit().remove(key).apply()
 }

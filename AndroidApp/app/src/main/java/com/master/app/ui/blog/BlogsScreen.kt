@@ -41,16 +41,18 @@ fun BlogsScreen(
 
     Scaffold(
         floatingActionButton = {
-            ExtendedFloatingActionButton(
-                text = { Text("Add story") },
-                icon = {
-                    Icon(
-                        Icons.Filled.AddCircle,
-                        contentDescription = "Add story"
-                    )
-                },
-                onClick = { showAddBlogDialog = true }
-            )
+            if (uiState.isUserLoggedIn) {
+                ExtendedFloatingActionButton(
+                    text = { Text("Add story") },
+                    icon = {
+                        Icon(
+                            Icons.Filled.AddCircle,
+                            contentDescription = "Add story"
+                        )
+                    },
+                    onClick = { showAddBlogDialog = true },
+                )
+            }
         }
     ) { contentPadding ->
         Column(

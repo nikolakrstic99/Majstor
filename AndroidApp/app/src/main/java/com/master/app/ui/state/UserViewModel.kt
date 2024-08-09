@@ -4,6 +4,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.master.app.data.model.User
+import com.master.app.data.repository.LocalStorageRepository
 import com.master.app.data.repository.UserRepository
 import com.master.app.data.repository.UserRepositoryImpl
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +17,8 @@ data class UserProfileUiState(
 )
 
 class UserViewModel(
-    private val userRepository: UserRepository = UserRepositoryImpl()
+    private val userRepository: UserRepository = UserRepositoryImpl(),
+    private val localStorageRepository: LocalStorageRepository = LocalStorageRepository()
 ): ViewModel() {
 
     private val _uiState = MutableStateFlow(UserProfileUiState())
@@ -26,7 +28,7 @@ class UserViewModel(
         viewModelScope.launch {
             val user = userRepository.login(email, password)
             if (user.data != null) {
-                userRepository.saveAuthToken(user.data.token)
+                localStorageRepository.saveAuthToken(user.data.token)
             }
             _uiState.value = _uiState.value.copy(
                 userInfo = user.data,
@@ -39,7 +41,7 @@ class UserViewModel(
         viewModelScope.launch {
             val user = userRepository.register(firstName, lastName, email, password)
             if (user.data != null) {
-                userRepository.saveAuthToken(user.data.token)
+                localStorageRepository.saveAuthToken(user.data.token)
             }
             _uiState.value = _uiState.value.copy(
                 userInfo = user.data,

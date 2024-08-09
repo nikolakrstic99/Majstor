@@ -30,7 +30,4 @@ class UserRepositoryImpl: UserRepository {
         }
         return Resource.Success(fromUserApiToUser(response.body()!!))
     }
-
-    override fun saveAuthToken(token: String): Unit =
-        LocalStorageManager.saveString("token", token)
 }

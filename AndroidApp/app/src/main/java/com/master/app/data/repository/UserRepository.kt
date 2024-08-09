@@ -6,5 +6,4 @@ interface UserRepository {
     suspend fun login(email: String, password: String): Resource<User>
     suspend fun register(firstName: String, lastName: String, email: String, password: String):
             Resource<User>
-    fun saveAuthToken(token: String): Unit
 }
