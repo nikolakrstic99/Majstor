@@ -30,12 +30,10 @@ import androidx.compose.ui.unit.dp
 import com.master.app.ui.component.ClippedIconButton
 import com.master.app.ui.component.PasswordTextField
 import com.master.app.ui.theme.AndroidAppTheme
-import com.master.app.utils.isEmailValid
-import com.master.app.utils.isPasswordValid
 
 @Composable
 fun Login(
-    onSubmit: () -> Unit,
+    onSubmit: (String, String) -> Unit,
     onSignUpClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -78,7 +76,7 @@ fun Login(
             )
             ClippedIconButton(
                 text = "Login",
-                onClick = onSubmit,
+                onClick = { onSubmit(email, password) },
                 modifier = Modifier.size(200.dp, 50.dp)
             )
         }
@@ -112,6 +110,6 @@ fun Login(
 @Composable
 fun LoginPreview() {
     AndroidAppTheme {
-        Login({}, {})
+        Login({_, _ -> }, {})
     }
 }

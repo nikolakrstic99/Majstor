@@ -35,7 +35,7 @@ import com.master.app.utils.isPasswordValid
 
 @Composable
 fun Register(
-    onSubmit: () -> Unit,
+    onSubmit: (String, String, String, String) -> Unit,
     onSignInClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -98,7 +98,7 @@ fun Register(
             )
             ClippedIconButton(
                 text = "Register",
-                onClick = onSubmit,
+                onClick = { onSubmit(firstName, lastName, email, password) },
                 modifier = Modifier.size(200.dp, 50.dp)
             )
         }
@@ -132,6 +132,6 @@ fun Register(
 @Composable
 fun RegisterPreview() {
     AndroidAppTheme {
-        Register({}, {})
+        Register({_, _, _, _ -> }, {})
     }
 }

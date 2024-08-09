@@ -37,14 +37,14 @@ fun BlogScreen(
             .verticalScroll(rememberScrollState())
     ) {
         Text(
-            text = viewModel.blog.info.title,
+            text = viewModel.blog.title,
             style = MaterialTheme.typography.titleLarge,
             color = MaterialTheme.colorScheme.primary
         )
         Divider()
         LazyRow {
             items(
-                items = viewModel.blog.pictures
+                items = listOf<String>()
             ) {
 //                AsyncImage(
 //                    model = it,
@@ -74,12 +74,12 @@ fun BlogScreen(
             horizontalAlignment = Alignment.End
         ) {
             Text(
-                text = viewModel.blog.info.author,
+                text = "${viewModel.blog.author.firstName} ${viewModel.blog.author.lastName}",
                 style = MaterialTheme.typography.labelLarge,
                 color = MaterialTheme.colorScheme.secondary
             )
             Text(
-                text = viewModel.blog.info.publishTime,
+                text = viewModel.blog.createdAt,
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.tertiary
             )

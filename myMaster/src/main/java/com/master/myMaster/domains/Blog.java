@@ -1,6 +1,8 @@
 package com.master.myMaster.domains;
 
 import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.HashSet;
 import java.util.Set;
 import lombok.AllArgsConstructor;
@@ -18,6 +20,11 @@ public class Blog {
   private String heading;
   private String subHeading;
   private String details;
+  private User user;
+  @JsonFormat(
+          shape = JsonFormat.Shape.STRING,
+          pattern = "yyyy-MM-dd"
+  )
   private LocalDateTime createdAt;
   @Builder.Default
   private Set<Image> images = new HashSet<>();

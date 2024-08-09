@@ -40,4 +40,9 @@ public class UserController {
     return ResponseEntity.ok(user);
   }
 
+  @GetMapping("/user")
+  public ResponseEntity<User> loggedUser() {
+    var user = userAuthProvider.getUser();
+    return ResponseEntity.ok(userService.findByEmail(user.getEmail()));
+  }
 }

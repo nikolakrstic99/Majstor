@@ -2,8 +2,6 @@ package com.master.app.ui.state
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.master.app.ui.model.Blog
-import com.master.app.ui.model.BlogInfo
 import com.master.app.ui.model.Repairman
 
 class RepairmanViewModel(savedStateHandle: SavedStateHandle): ViewModel() {
