@@ -1,6 +1,8 @@
 package com.master.myMaster.domains;
 
 import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,5 +19,9 @@ public class Blog {
   private String subHeading;
   private String details;
   private User user;
+  @JsonFormat(
+          shape = JsonFormat.Shape.STRING,
+          pattern = "yyyy-MM-dd"
+  )
   private LocalDateTime createdAt;
 }
