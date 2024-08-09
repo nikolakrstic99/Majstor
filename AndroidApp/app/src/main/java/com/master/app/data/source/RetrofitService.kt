@@ -1,15 +1,21 @@
 package com.master.app.data.source
 
+import com.master.app.data.entity.BlogApiModel
+import com.master.app.data.entity.CreateBlogRequest
+import com.master.app.data.entity.LoginRequest
+import com.master.app.data.entity.RegisterRequest
+import com.master.app.data.entity.UserApiModel
 import okhttp3.OkHttpClient
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object RetrofitInstance {
+class RetrofitApiService: ApiService {
     // localhost (127.0.0.1) refers to the device or emulator itself
     // 10.0.2.2 is a special alias to your host loopback interface
-    private const val BASE_URL = "http://10.0.2.2:8080/api/v1/"
+    private val BASE_URL = "http://10.0.2.2:8080/api/v1/"
 
-    val api by lazy {
+    private val api by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -25,5 +31,25 @@ object RetrofitInstance {
         return OkHttpClient.Builder()
             .addInterceptor(AuthInterceptor())
             .build()
+    }
+
+    override suspend fun login(request: LoginRequest): Response<UserApiModel> {
+        return api.login(request)
+    }
+
+    override suspend fun register(request: RegisterRequest): Response<UserApiModel> {
+        return api.register(request)
+    }
+
+    override suspend fun createBlog(request: CreateBlogRequest): Response<BlogApiModel> {
+        return api.createBlog(request)
+    }
+
+    override suspend fun getLoggedUser(): Response<UserApiModel> {
+        return api.getLoggedUser()
+    }
+
+    override suspend fun getAllBlogs(): Response<List<BlogApiModel>> {
+        return api.getAllBlogs()
     }
 }

@@ -3,15 +3,17 @@ package com.master.app.data.repository
 import com.master.app.data.entity.LoginRequest
 import com.master.app.data.entity.RegisterRequest
 import com.master.app.data.model.User
+import com.master.app.data.source.ApiService
 import com.master.app.data.source.LocalStorageManager
-import com.master.app.data.source.RetrofitInstance
 import com.master.app.data.utils.fromUserApiToUser
-import retrofit2.Response
+import javax.inject.Inject
 
-class UserRepositoryImpl: UserRepository {
+class UserRepositoryImpl @Inject constructor(
+    private val apiService: ApiService
+): UserRepository {
     override suspend fun login(email: String, password: String): Resource<User> {
         try {
-            val response = RetrofitInstance.api.login(LoginRequest(email, password))
+            val response = apiService.login(LoginRequest(email, password))
             if (!response.isSuccessful) {
                 return Resource.Error("Error: ${response.code()} - ${response.errorBody()?.string()}")
             }
@@ -29,7 +31,7 @@ class UserRepositoryImpl: UserRepository {
     override suspend fun register(firstName: String, lastName: String, email: String, password: String
     ): Resource<User> {
         try {
-            val response = RetrofitInstance.api.register(RegisterRequest(
+            val response = apiService.register(RegisterRequest(
                 firstName = firstName,
                 lastName = lastName,
                 email = email,
@@ -54,7 +56,7 @@ class UserRepositoryImpl: UserRepository {
             return Resource.Error("No JWT token")
         }
         try {
-            val response = RetrofitInstance.api.getLoggedUser()
+            val response = apiService.getLoggedUser()
             if (!response.isSuccessful) {
                 // Token may have expired, so delete it
                 deleteAuthToken()
@@ -69,14 +71,8 @@ class UserRepositoryImpl: UserRepository {
     }
 
     override suspend fun isUserLoggedIn(): Boolean {
-        if (!hasAuthToken()) {
-            return false
-        }
-        return try {
-            RetrofitInstance.api.getLoggedUser().isSuccessful
-        } catch (e: Exception) {
-            false
-        }
+        val user = getLoggedUser()
+        return user.data != null
     }
 
     private fun saveAuthToken(token: String) = LocalStorageManager.saveString("token", token)
