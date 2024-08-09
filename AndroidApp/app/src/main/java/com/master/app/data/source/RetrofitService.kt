@@ -1,5 +1,6 @@
 package com.master.app.data.source
 
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -12,7 +13,17 @@ object RetrofitInstance {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
+            .client(okhttpClient())
             .build()
             .create(ApiService::class.java)
+    }
+
+    /**
+     * Initialize OkhttpClient with interceptor
+     */
+    private fun okhttpClient(): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor(AuthInterceptor())
+            .build()
     }
 }

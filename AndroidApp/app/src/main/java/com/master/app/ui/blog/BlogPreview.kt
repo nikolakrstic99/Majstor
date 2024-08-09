@@ -20,14 +20,17 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.master.app.R
-import com.master.app.ui.model.BlogInfo
+import com.master.app.common.UserType
+import com.master.app.data.model.Blog
+import com.master.app.data.model.User
 import com.master.app.ui.theme.AndroidAppTheme
+import java.time.LocalDateTime
 
 const val exampleImage = "https://cdn.freecodecamp.org/curriculum/cat-photo-app/relaxing-cat.jpg"
 
 @Composable
 fun BlogPreview(
-    blog: BlogInfo,
+    blog: Blog,
     modifier: Modifier = Modifier
 ) {
     Row (
@@ -69,7 +72,7 @@ fun BlogPreview(
                 overflow = TextOverflow.Ellipsis
             )
             Text(
-                text = "${blog.author}, ${blog.publishTime}",
+                text = "${blog.author.firstName} ${blog.author.lastName}, ${blog.createdAt}",
                 color = MaterialTheme.colorScheme.tertiary,
                 style = MaterialTheme.typography.labelSmall,
                 maxLines = 1,
@@ -91,13 +94,15 @@ fun BlogPreview(
 fun BlogInfoPreview() {
     AndroidAppTheme {
         BlogPreview(
-            BlogInfo(
+            Blog(
                 1,
                 "A Breakdown of the Full English Breakfast",
                 "Welcome to Weekend Brunch! Skip the lines and make brunch at home. The coffee’s truly bottomless and the best part is PJs all the way! This week: a guide to the gloriousness that is known as A Full English Breakfast.home. The coffee’s truly bottomless and the best part is PJs all the way! This week: a guide to the gloriousness that is known as A Full English Breakfast.",
                 "picture",
-                "01.04.2024",
-                "Andrej Jokic"
+                User(
+                    1, "Andrej", "Jokic", "and", "s", UserType.ADMIN, "s"
+                ),
+                LocalDateTime.now().toLocalDate().toString()
             )
         )
     }

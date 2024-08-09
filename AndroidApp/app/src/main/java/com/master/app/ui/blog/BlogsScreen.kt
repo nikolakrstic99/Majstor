@@ -18,6 +18,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -35,6 +36,7 @@ fun BlogsScreen(
     modifier: Modifier = Modifier,
     viewModel: BlogsViewModel = viewModel(),
 ) {
+    val uiState by viewModel.uiState.collectAsState()
     var showAddBlogDialog by remember { mutableStateOf(false) }
 
     Scaffold(
@@ -67,7 +69,7 @@ fun BlogsScreen(
             Divider()
             LazyColumn {
                 items(
-                    items = viewModel.blogs
+                    items = uiState.blogs?: listOf()
                 ) {
                     BlogPreview(
                         blog = it,
@@ -82,10 +84,10 @@ fun BlogsScreen(
             }
             if (showAddBlogDialog) {
                 AddBlogDialog(
-                    onSubmit = {
+                    onSubmit = { title, description, text ->
                         run {
                             showAddBlogDialog = false
-                            /* SEND REQUEST */
+                            viewModel.createBlog(title, description, text)
                         }
                     },
                     onDismiss = { showAddBlogDialog = false }

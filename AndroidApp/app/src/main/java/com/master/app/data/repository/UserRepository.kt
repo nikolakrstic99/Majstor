@@ -1,9 +1,10 @@
 package com.master.app.data.repository
 
-import com.master.app.data.model.LoginRequest
-import com.master.app.data.model.UserApiModel
-import retrofit2.Response
+import com.master.app.data.model.User
 
 interface UserRepository {
-    suspend fun login(loginRequest: LoginRequest): Response<UserApiModel>
+    suspend fun login(email: String, password: String): Resource<User>
+    suspend fun register(firstName: String, lastName: String, email: String, password: String):
+            Resource<User>
+    fun saveAuthToken(token: String): Unit
 }

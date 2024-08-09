@@ -42,7 +42,7 @@ import com.master.app.ui.theme.AndroidAppTheme
 
 @Composable
 fun AddBlogDialog(
-    onSubmit: () -> Unit,
+    onSubmit: (String, String, String) -> Unit,
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -156,7 +156,7 @@ fun AddBlogDialog(
             {
                 ClippedIconButton(
                     text = "Publish",
-                    onClick = onSubmit
+                    onClick = { onSubmit(title, description, text) }
                 )
             }
         }
@@ -167,6 +167,6 @@ fun AddBlogDialog(
 @Composable
 fun AddBlogDialogPreview() {
     AndroidAppTheme {
-        AddBlogDialog(onSubmit = { }, onDismiss = { })
+        AddBlogDialog(onSubmit = { _, _, _, -> }, onDismiss = { })
     }
 }
