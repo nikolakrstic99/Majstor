@@ -30,8 +30,6 @@ import androidx.compose.ui.unit.dp
 import com.master.app.ui.component.ClippedIconButton
 import com.master.app.ui.component.PasswordTextField
 import com.master.app.ui.theme.AndroidAppTheme
-import com.master.app.utils.isEmailValid
-import com.master.app.utils.isPasswordValid
 
 @Composable
 fun Login(

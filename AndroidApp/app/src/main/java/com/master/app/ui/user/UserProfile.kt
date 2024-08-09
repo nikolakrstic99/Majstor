@@ -9,7 +9,6 @@ import com.master.app.ui.theme.AndroidAppTheme
 fun UserProfile(
     modifier: Modifier = Modifier
 ) {
-    
 }
 
 @Preview(showBackground = true)
