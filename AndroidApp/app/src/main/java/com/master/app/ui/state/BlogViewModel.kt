@@ -2,10 +2,37 @@ package com.master.app.ui.state
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.master.app.common.UserType
+import androidx.lifecycle.viewModelScope
 import com.master.app.data.model.Blog
-import com.master.app.data.model.User
+import com.master.app.data.repository.BlogsRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class BlogViewModel(savedStateHandle: SavedStateHandle): ViewModel() {
-    val blog: Blog = Blog(1, "s", "s", "s", User(1, "s", "s", "s", "s", UserType.ADMIN, "s"), "s")
+data class BlogUiState(
+    val blog: Blog? = null
+)
+
+@HiltViewModel
+class BlogViewModel @Inject constructor(
+    private val blogsRepository: BlogsRepository,
+    private val savedStateHandle: SavedStateHandle,
+): ViewModel() {
+
+    // Get blogId set by compose navigation
+    private val blogId: Int = savedStateHandle.get<Int>("id")!!
+
+    private val _uiState = MutableStateFlow(BlogUiState())
+    val uiState: StateFlow<BlogUiState> = _uiState
+
+    init {
+        viewModelScope.launch {
+            val blogs = blogsRepository.getAllBlogs()
+            _uiState.value = _uiState.value.copy(
+                blog = blogs.data?.find { it.id == blogId }
+            )
+        }
+    }
 }

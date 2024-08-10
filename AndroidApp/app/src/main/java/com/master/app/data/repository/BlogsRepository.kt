@@ -5,4 +5,5 @@ import com.master.app.data.model.User
 
 interface BlogsRepository {
     suspend fun createBlog(title: String, description: String, text: String): Resource<Blog>
+    suspend fun getAllBlogs(): Resource<List<Blog>>
 }

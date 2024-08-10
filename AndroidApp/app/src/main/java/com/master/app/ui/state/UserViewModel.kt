@@ -4,18 +4,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.master.app.data.model.User
 import com.master.app.data.repository.UserRepository
-import com.master.app.data.repository.UserRepositoryImpl
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 data class UserProfileUiState(
     val userInfo: User? = null,
     val errorMessage: String? = null
 )
 
-class UserViewModel(
-    private val userRepository: UserRepository = UserRepositoryImpl()
+@HiltViewModel
+class UserViewModel @Inject constructor(
+    private val userRepository: UserRepository
 ): ViewModel() {
 
     private val _uiState = MutableStateFlow(UserProfileUiState())
@@ -23,9 +25,6 @@ class UserViewModel(
 
     init {
         viewModelScope.launch {
-            if (!userRepository.isUserLoggedIn()) {
-                // userRepository.deleteAuthToken()
-            }
             val user = userRepository.getLoggedUser()
             _uiState.value = _uiState.value.copy(
                 userInfo = user.data,

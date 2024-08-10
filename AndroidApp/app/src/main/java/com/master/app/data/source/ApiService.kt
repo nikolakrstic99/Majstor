@@ -22,4 +22,7 @@ interface ApiService {
 
     @GET("user")
     suspend fun getLoggedUser(): Response<UserApiModel>
+
+    @GET("blog")
+    suspend fun getAllBlogs(): Response<List<BlogApiModel>>
 }
