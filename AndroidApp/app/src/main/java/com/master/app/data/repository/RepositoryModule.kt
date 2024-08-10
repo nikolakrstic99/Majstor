@@ -19,4 +19,9 @@ object RepositoryModule {
     @Singleton
     fun provideUserRepository(apiService: ApiService): UserRepository =
         UserRepositoryImpl(apiService)
+
+    @Provides
+    @Singleton
+    fun provideRepairmentRepository(apiService: ApiService): RepairmentRepository =
+        RepairmentRepositoryImpl(apiService)
 }

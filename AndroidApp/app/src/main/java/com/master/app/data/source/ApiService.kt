@@ -9,6 +9,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface ApiService {
     @POST("login")
@@ -25,4 +26,10 @@ interface ApiService {
 
     @GET("blog")
     suspend fun getAllBlogs(): Response<List<BlogApiModel>>
+
+    @GET("service/l1Categories")
+    suspend fun getTopLevelCategories(): Response<List<String>>
+
+    @GET("service/l2Categories/{l1Category}")
+    suspend fun getCategories(@Path("l1Category") l1Category: String): Response<List<String>>
 }

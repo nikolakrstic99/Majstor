@@ -52,4 +52,12 @@ class RetrofitApiService: ApiService {
     override suspend fun getAllBlogs(): Response<List<BlogApiModel>> {
         return api.getAllBlogs()
     }
+
+    override suspend fun getTopLevelCategories(): Response<List<String>> {
+        return api.getTopLevelCategories()
+    }
+
+    override suspend fun getCategories(l1Category: String): Response<List<String>> {
+        return api.getCategories(l1Category)
+    }
 }

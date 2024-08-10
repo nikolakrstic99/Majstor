@@ -1,39 +1,34 @@
 package com.master.app.ui.state
 
 import androidx.lifecycle.ViewModel
-import com.master.app.ui.model.RepairmentCategory
+import androidx.lifecycle.viewModelScope
+import com.master.app.data.repository.RepairmentRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class RepairmentCategoriesViewModel: ViewModel()  {
-    val repairmentCategories: List<RepairmentCategory> = listOf(
-        RepairmentCategory(
-            1,
-            "Gradjevinski radovi",
-            495,
-            "picture"
-        ),
-        RepairmentCategory(
-            2,
-            "Elektronika",
-            25,
-            "picture"
-        ),
-        RepairmentCategory(
-            3,
-            "Odrzavanje",
-            105,
-            "picture"
-        ),
-        RepairmentCategory(
-            4,
-            "Cevne instalacije",
-            8,
-            "picture"
-        ),
-        RepairmentCategory(
-            5,
-            "Nekategorizovano",
-            2,
-            "picture"
-        )
-    )
+data class RepairmentCategoriesUiState(
+    val topLevelCategories: List<String>? = null,
+    val message: String? = null
+)
+
+@HiltViewModel
+class RepairmentCategoriesViewModel @Inject constructor(
+    private val repairmentRepository: RepairmentRepository
+): ViewModel()  {
+
+    private val _uiState = MutableStateFlow(RepairmentCategoriesUiState())
+    val uiState: StateFlow<RepairmentCategoriesUiState> = _uiState
+
+    init {
+        viewModelScope.launch {
+            val categories = repairmentRepository.getTopLevelCategories()
+            _uiState.value = _uiState.value.copy(
+                topLevelCategories = categories.data,
+                message = categories.message
+            )
+        }
+    }
 }

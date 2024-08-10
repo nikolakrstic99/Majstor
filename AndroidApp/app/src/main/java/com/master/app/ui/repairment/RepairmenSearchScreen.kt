@@ -22,6 +22,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -33,6 +34,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.master.app.ui.component.ClippedIconButton
 import com.master.app.ui.component.SearchBar
 import com.master.app.ui.state.RepairmenSearchViewModel
@@ -44,9 +46,11 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 fun RepairmenSearchScreen(
     onRepairmanClicked: (Int) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: RepairmenSearchViewModel = viewModel()
+    viewModel: RepairmenSearchViewModel = hiltViewModel()
 ) {
-    val selectedFilters = listOf("Moler", "Keramicar", "Gradjevinski limar", "Tesar", "Secenje i Busenje")
+    val uiState by viewModel.uiState.collectAsState()
+
+    val selectedFilters = listOf<String>()
     var showFilterMenu by remember { mutableStateOf(false)}
 
     Scaffold(
@@ -58,7 +62,7 @@ fun RepairmenSearchScreen(
                 ),
                 title = {
                     Text(
-                        text = viewModel.topLevelCategory.name,
+                        text = uiState.topLevelCategory?: "",
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
@@ -110,7 +114,7 @@ fun RepairmenSearchScreen(
             }
             AnimatedVisibility(showFilterMenu) {
                 FilterRepairmen(
-                    categories = viewModel.categories,
+                    categories = uiState.categories?: listOf(),
                     Modifier
                         .clip(MaterialTheme.shapes.medium)
                         .background(MaterialTheme.colorScheme.primaryContainer)
@@ -158,7 +162,7 @@ fun RepairmenSearchScreen(
                 }
             }
             RepairmenList(
-                repairmen = viewModel.repairmen,
+                repairmen = uiState.repairmen?: listOf(),
                 pageSize = if (showFilterMenu) 7 else 8,
                 onRepairmanClicked = onRepairmanClicked
             )

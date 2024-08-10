@@ -23,7 +23,7 @@ import com.master.app.ui.theme.AndroidAppTheme
 
 @Composable
 fun RepairmentCategoryPreview(
-    repairmentCategory: RepairmentCategory,
+    topLevelCategory: String,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -48,12 +48,12 @@ fun RepairmentCategoryPreview(
                 .clip(MaterialTheme.shapes.small)
         )
         Text(
-            text = repairmentCategory.name,
+            text = topLevelCategory,
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onBackground
         )
         Text(
-            text = "${repairmentCategory.repairmenCount} majstora",
+            text = "5 majstora",
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.primary
         )
@@ -65,12 +65,7 @@ fun RepairmentCategoryPreview(
 fun RepairmentPreview() {
     AndroidAppTheme {
         RepairmentCategoryPreview(
-            RepairmentCategory(
-                1,
-                "Gradjevinski radovi",
-                136,
-                "pictureURL"
-            )
+            "Gradjevinski radovi"
         )
     }
 }

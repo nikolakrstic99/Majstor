@@ -16,7 +16,7 @@ import com.master.app.ui.theme.AndroidAppTheme
 
 @Composable
 fun FilterRepairmen(
-    categories: List<RepairmentCategory>,
+    categories: List<String>,
     modifier: Modifier = Modifier
 ) {
     LazyRow(
@@ -26,9 +26,9 @@ fun FilterRepairmen(
             .fillMaxWidth()
             .padding(5.dp)
     ) {
-        items(categories) { category ->
+        items(categories) {
             ClippedIconButton(
-                text = category.name,
+                text = it,
                 onClick = { /*TODO*/ }
             )
         }
@@ -40,44 +40,7 @@ fun FilterRepairmen(
 fun FilterRepairmenPreview() {
     AndroidAppTheme {
         FilterRepairmen(
-            listOf(
-                RepairmentCategory(
-                    1,
-                    "Keramicar",
-                    136,
-                    "pictureURL"
-                ),
-                RepairmentCategory(
-                    2,
-                    "Moler",
-                    26,
-                    "pictureURL"
-                ),
-                RepairmentCategory(
-                    3,
-                    "Parketar",
-                    8,
-                    "pictureURL"
-                ),
-                RepairmentCategory(
-                    1,
-                    "Keramicar",
-                    136,
-                    "pictureURL"
-                ),
-                RepairmentCategory(
-                    2,
-                    "Moler",
-                    26,
-                    "pictureURL"
-                ),
-                RepairmentCategory(
-                    3,
-                    "Parketar",
-                    8,
-                    "pictureURL"
-                )
-            )
+            listOf("Keramicar", "Parketar")
         )
     }
 }

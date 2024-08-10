@@ -5,28 +5,32 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.master.app.ui.state.RepairmentCategoriesViewModel
 import com.master.app.ui.theme.AndroidAppTheme
 
 @Composable
 fun RepairmentCategoryList(
-    onCategoryClicked: (Int) -> Unit,
+    onCategoryClicked: (String) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: RepairmentCategoriesViewModel = viewModel(),
+    viewModel: RepairmentCategoriesViewModel = hiltViewModel(),
 ) {
+    val uiState by viewModel.uiState.collectAsState()
+
     LazyVerticalGrid(
         columns = GridCells.Adaptive(minSize = 150.dp),
         modifier = modifier
     ) {
-        items(viewModel.repairmentCategories) {
+        items(uiState.topLevelCategories?: listOf()) {
             RepairmentCategoryPreview(
                 it,
                 modifier = Modifier.clickable(onClick = {
-                    onCategoryClicked(it.id)
+                    onCategoryClicked(it)
                 })
             )
         }

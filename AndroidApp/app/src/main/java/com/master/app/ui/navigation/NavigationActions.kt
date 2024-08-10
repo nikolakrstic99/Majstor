@@ -43,8 +43,8 @@ class AppNavigationActions(val navController: NavHostController) {
         navController.navigate(NavigationRoute.REPAIRMENT_CATEGORIES)
     }
 
-    fun navigateToRepairmenSearchScreen(categoryId: Int) {
-        navController.navigate("${NavigationRoute.REPAIRMEN_SEARCH}/$categoryId")
+    fun navigateToRepairmenSearchScreen(topLevelCategory: String) {
+        navController.navigate("${NavigationRoute.REPAIRMEN_SEARCH}/$topLevelCategory")
     }
 
     fun navigateToRepairmanScreen(repairmanId: Int) {
@@ -90,10 +90,10 @@ fun AppNavHost(
             )
         }
         composable(
-            route = "${NavigationRoute.REPAIRMEN_SEARCH}/{categoryId}",
+            route = "${NavigationRoute.REPAIRMEN_SEARCH}/{topLevelCategory}",
             arguments = listOf(
-                navArgument(name = "categoryId") {
-                    type = NavType.IntType
+                navArgument(name = "topLevelCategory") {
+                    type = NavType.StringType
                 }
             )
         ) {

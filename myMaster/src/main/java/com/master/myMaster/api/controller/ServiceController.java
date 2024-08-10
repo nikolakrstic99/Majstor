@@ -3,10 +3,7 @@ package com.master.myMaster.api.controller;
 import com.master.myMaster.utils.Utils;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,8 +15,8 @@ public class ServiceController {
     return Utils.getL1Categories();
   }
 
-  @GetMapping("/l2Categories")
-  public List<String> getL2Categories(@RequestParam String l1Category) {
+  @GetMapping("/l2Categories/{l1Category}")
+  public List<String> getL2Categories(@PathVariable String l1Category) {
     return Utils.getL2Categories(l1Category);
   }
 }
