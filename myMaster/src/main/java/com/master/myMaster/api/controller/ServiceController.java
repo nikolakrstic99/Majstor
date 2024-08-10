@@ -19,7 +19,7 @@ public class ServiceController {
   }
 
   @GetMapping("/l2Categories")
-  public List<String> getL1Categories(@RequestParam String l1Category) {
+  public List<String> getL2Categories(@RequestParam String l1Category) {
     return Utils.getL2Categories(l1Category);
   }
 }
