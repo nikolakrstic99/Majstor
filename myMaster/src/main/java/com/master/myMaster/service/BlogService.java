@@ -5,7 +5,6 @@ import com.master.myMaster.domains.Blog;
 import com.master.myMaster.domains.Image;
 import com.master.myMaster.domains.User;
 import com.master.myMaster.mapper.BlogMapper;
-import com.master.myMaster.mapper.ImageMapper;
 import com.master.myMaster.repository.BlogRepository;
 import com.master.myMaster.utils.Utils;
 import java.time.LocalDateTime;
@@ -21,7 +20,6 @@ public class BlogService {
   private final BlogRepository blogRepository;
   private final UserService userService;
   private final BlogMapper blogMapper;
-  private final ImageService imageService;
 
   @Transactional
   public Blog addBlog(AddBlogRequest request, User principalUser) {
@@ -32,10 +30,8 @@ public class BlogService {
     for (var file : request.files()) {
       var image = new Image();
       image.setImageData(Utils.decodeImage(file));
-      //imageService.save(image);
       blog.addImage(image);
     }
-    //save(blog);
     user.addBlog(blog);
     userService.save(user);
     return blog;
