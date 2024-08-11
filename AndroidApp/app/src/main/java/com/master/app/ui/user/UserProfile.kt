@@ -14,6 +14,10 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -22,6 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.master.app.common.UserType
 import com.master.app.data.model.User
+import com.master.app.ui.component.ClippedIconButton
 import com.master.app.ui.component.LabelValue
 import com.master.app.ui.repairment.RepairmanRatings
 import com.master.app.ui.theme.AndroidAppTheme
@@ -98,8 +103,11 @@ fun UserInfo(
 fun UserServices(
     modifier: Modifier = Modifier
 ) {
+    var showAddServiceDialog by remember { mutableStateOf(false) }
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(15.dp),
         modifier = modifier.fillMaxWidth()
     ) {
         Text(
@@ -107,6 +115,17 @@ fun UserServices(
             style = MaterialTheme.typography.titleLarge,
             color = MaterialTheme.colorScheme.primary
         )
+        ClippedIconButton(
+            text = "Add new service",
+            onClick = { showAddServiceDialog = true },
+            modifier = Modifier.fillMaxWidth()
+        )
+        if (showAddServiceDialog) {
+            AddServiceDialog(
+                onSubmit = { showAddServiceDialog = false },
+                onDismiss = { showAddServiceDialog = false }
+            )
+        }
     }
 }
 

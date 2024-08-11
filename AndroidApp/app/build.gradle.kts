@@ -85,4 +85,7 @@ dependencies {
     // annotationProcessor("com.google.dagger:hilt-compiler:2.51.1")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
     kapt("com.google.dagger:hilt-compiler:2.51.1")
+
+    // Dropdown menu
+    implementation("androidx.compose.material3:material3:1.3.0-beta05")
 }

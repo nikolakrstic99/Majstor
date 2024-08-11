@@ -41,7 +41,9 @@ fun ProfileScreen(
             }
         }
         else {
-            Text(text = "ulogovan ${uiState.userInfo?.email}")
+            UserProfile(
+                user = uiState.userInfo!!
+            )
         }
     }
 }
