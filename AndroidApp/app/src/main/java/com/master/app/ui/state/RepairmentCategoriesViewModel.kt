@@ -11,6 +11,7 @@ import javax.inject.Inject
 
 data class RepairmentCategoriesUiState(
     val topLevelCategories: List<String>? = null,
+    val repairmenPerCategory: Map<String, Int>? = null,
     val message: String? = null
 )
 
@@ -25,8 +26,16 @@ class RepairmentCategoriesViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             val categories = repairmentRepository.getTopLevelCategories()
+
+            val repairmenPerCategory = HashMap<String, Int>()
+            for (category in categories.data?: listOf()) {
+                repairmenPerCategory[category] =
+                    repairmentRepository.getUsersProvidingTopLevelCategory(category).data?.size ?: 0
+            }
+
             _uiState.value = _uiState.value.copy(
                 topLevelCategories = categories.data,
+                repairmenPerCategory = repairmenPerCategory,
                 message = categories.message
             )
         }

@@ -32,4 +32,14 @@ public class ServiceController {
   public ResponseEntity<Service> addService(@RequestBody AddServiceRequest addServiceRequest) {
     return ResponseEntity.ok(serviceService.addService(addServiceRequest, userAuthProvider.getUser()));
   }
+
+  @GetMapping("/usersProvidingL1Category/{l1Category}")
+  public List<Service> getUsersProvidingL1Category(@PathVariable String l1Category) {
+    return serviceService.getUsersProvidingL1Category(l1Category);
+  }
+
+  @GetMapping("/usersProvidingL2Category/{l2Category}")
+  public List<Service> getUsersProvidingL2Category(@PathVariable String l2Category) {
+    return serviceService.getUsersProvidingL2Category(l2Category);
+  }
 }

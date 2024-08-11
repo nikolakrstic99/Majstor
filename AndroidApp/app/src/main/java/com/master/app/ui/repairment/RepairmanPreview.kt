@@ -14,13 +14,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.master.app.common.UserType
+import com.master.app.data.model.User
 import com.master.app.ui.model.Repairman
 import com.master.app.ui.theme.AndroidAppTheme
 
 @SuppressLint("DefaultLocale")
 @Composable
 fun RepairmanPreview(
-    repairman: Repairman,
+    repairman: User,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -33,12 +35,12 @@ fun RepairmanPreview(
             .padding(10.dp)
     ) {
         Text(
-            text = repairman.name,
+            text = "${repairman.firstName} ${repairman.lastName}",
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onSecondary
         )
         Text(
-            text = String.format("%.2f", repairman.averageRating),
+            text = String.format("%.2f", 4.7),
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onSecondary
         )
@@ -50,12 +52,14 @@ fun RepairmanPreview(
 fun RepairmanPreviewPreview() {
     AndroidAppTheme {
         RepairmanPreview(
-            Repairman(
+            User(
                 1,
-                "Milojko Pantic",
-                8.3723725,
-                "0621482242",
-                listOf("Moler", "Parketar")
+                "Andrej",
+                "Jokic",
+                "andrejjokic00@gmail.com",
+                "sd",
+                UserType.ADMIN,
+                "s"
             )
         )
     }
