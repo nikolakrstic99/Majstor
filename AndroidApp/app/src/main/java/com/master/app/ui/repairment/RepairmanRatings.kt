@@ -54,13 +54,14 @@ fun RepairmanRatings(
         Spacer(modifier = Modifier.height(10.dp))
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceAround,
+            modifier = Modifier.fillMaxWidth()
         ) {
             RatingsSlider(
                 ratings = ratings,
                 Modifier.height(120.dp)
             )
-            Spacer(modifier = Modifier.width(25.dp))
+            //Spacer(modifier = Modifier.width(25.dp))
             Column(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -108,7 +109,7 @@ fun RatingsSlider(
                 LinearProgressIndicator(
                     progress = ratings.filter { it == rating }.size.toFloat() / ratings.size,
                     Modifier
-                        .width(200.dp)
+                        .width(150.dp)
                         .clip(MaterialTheme.shapes.medium)
                 )
             }
