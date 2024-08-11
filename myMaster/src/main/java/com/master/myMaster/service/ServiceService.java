@@ -11,6 +11,8 @@ import com.master.myMaster.repository.ServiceRepository;
 import com.master.myMaster.utils.Utils;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 
 @org.springframework.stereotype.Service
 @RequiredArgsConstructor
@@ -25,6 +27,7 @@ public class ServiceService {
   public Service addService(AddServiceRequest addServiceRequest, User principalUser) {
     var service = serviceMapper.toDomain(addServiceRequest);
     var user = userService.findByEmail(principalUser.getEmail());
+    service.setUser(user);
     user.addService(service);
     var serviceEntity = save(serviceMapper.toEntity(service));
     for (var file : addServiceRequest.files()) {
@@ -38,5 +41,21 @@ public class ServiceService {
 
   public ServiceEntity save(ServiceEntity serviceEntity) {
     return serviceRepository.save(serviceEntity);
+  }
+
+  public List<Service> getUsersProvidingL1Category(String l1Category) {
+    return serviceRepository
+            .findByL1Category(l1Category)
+            .stream()
+            .map(serviceMapper::toDomain)
+            .toList();
+  }
+
+  public List<Service> getUsersProvidingL2Category(String l2Category) {
+    return serviceRepository
+            .findByL2Category(l2Category)
+            .stream()
+            .map(serviceMapper::toDomain)
+            .toList();
   }
 }

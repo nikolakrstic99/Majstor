@@ -66,4 +66,12 @@ class RetrofitApiService: ApiService {
     override suspend fun addService(request: AddServiceRequest): Response<ServiceApiModel> {
         return api.addService(request)
     }
+
+    override suspend fun getUsersProvidingL1Category(l1Category: String): Response<List<ServiceApiModel>> {
+        return api.getUsersProvidingL1Category(l1Category)
+    }
+
+    override suspend fun getUsersProvidingL2Category(l2Category: String): Response<List<ServiceApiModel>> {
+        return api.getUsersProvidingL2Category(l2Category)
+    }
 }

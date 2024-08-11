@@ -37,4 +37,10 @@ interface ApiService {
 
     @POST("service")
     suspend fun addService(@Body request: AddServiceRequest): Response<ServiceApiModel>
+
+    @GET("service/usersProvidingL1Category/{l1Category}")
+    suspend fun getUsersProvidingL1Category(@Path("l1Category") l1Category: String): Response<List<ServiceApiModel>>
+
+    @GET("service/usersProvidingL2Category/{l2Category}")
+    suspend fun getUsersProvidingL2Category(@Path("l2Category") l2Category: String): Response<List<ServiceApiModel>>
 }

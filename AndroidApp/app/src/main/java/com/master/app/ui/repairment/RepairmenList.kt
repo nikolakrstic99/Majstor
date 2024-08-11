@@ -25,13 +25,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.master.app.data.model.User
 import com.master.app.ui.model.Repairman
 import com.master.app.ui.theme.AndroidAppTheme
 import com.master.app.utils.paginate
 
 @Composable
 fun RepairmenList(
-    repairmen: List<Repairman>,
+    repairmen: List<User>,
     pageSize: Int,
     onRepairmanClicked: (Int) -> Unit,
     modifier: Modifier = Modifier
@@ -97,95 +98,6 @@ fun RepairmenList(
 @Composable
 fun RepairmenListPreview() {
     AndroidAppTheme {
-        RepairmenList(
-            listOf(
-                Repairman(
-                    1,
-                    "Milojko Pantic",
-                    8.3723725,
-                    "0621482242",
-                    listOf("Moler", "Parketar")
-                ),
-                Repairman(
-                    2,
-                    "Petar Vojinovic",
-                    7.2,
-                    "0621482242",
-                    listOf("Parketar")
-                ),
-                Repairman(
-                    3,
-                    "David Zlatkovic",
-                    10.0,
-                    "0621482242",
-                    listOf("Moler")
-                ),
-                Repairman(
-                    1,
-                    "Milojko Pantic",
-                    8.3723725,
-                    "0621482242",
-                    listOf("Moler", "Parketar")
-                ),
-                Repairman(
-                    2,
-                    "Petar Vojinovic",
-                    7.2,
-                    "0621482242",
-                    listOf("Parketar")
-                ),
-                Repairman(
-                    3,
-                    "David Zlatkovic",
-                    10.0,
-                    "0621482242",
-                    listOf("Moler")
-                ),
-                Repairman(
-                    1,
-                    "Milojko Pantic",
-                    8.3723725,
-                    "0621482242",
-                    listOf("Moler", "Parketar")
-                ),
-                Repairman(
-                    2,
-                    "Petar Vojinovic",
-                    7.2,
-                    "0621482242",
-                    listOf("Parketar")
-                ),
-                Repairman(
-                    3,
-                    "David Zlatkovic",
-                    10.0,
-                    "0621482242",
-                    listOf("Moler")
-                ),
-                Repairman(
-                    1,
-                    "Milojko Pantic",
-                    8.3723725,
-                    "0621482242",
-                    listOf("Moler", "Parketar")
-                ),
-                Repairman(
-                    2,
-                    "Petar Vojinovic",
-                    7.2,
-                    "0621482242",
-                    listOf("Parketar")
-                ),
-                Repairman(
-                    3,
-                    "David Zlatkovic",
-                    10.0,
-                    "0621482242",
-                    listOf("Moler")
-                )
-            ),
-            5,
-            {}
-        )
+        RepairmenList(listOf(), 5, {})
     }
 }

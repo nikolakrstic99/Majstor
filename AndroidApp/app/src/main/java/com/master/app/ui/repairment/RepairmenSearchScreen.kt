@@ -49,8 +49,6 @@ fun RepairmenSearchScreen(
     viewModel: RepairmenSearchViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
-
-    val selectedFilters = listOf<String>()
     var showFilterMenu by remember { mutableStateOf(false)}
 
     Scaffold(
@@ -98,23 +96,27 @@ fun RepairmenSearchScreen(
                         contentDescription = "Add category filters"
                     )
                 }
-                if (selectedFilters.isEmpty()) {
+                if (uiState.categoriesSelected == null || uiState.categoriesSelected!!.isEmpty()) {
                     Text(
                         text = "No filters applied",
                         style = MaterialTheme.typography.headlineSmall,
                         color = Color.LightGray
                     )
                 }
-                selectedFilters.forEach { selectedFilter ->
+                uiState.categoriesSelected?.toList()?.forEach { selectedFilter ->
                     ClippedIconButton(
                         text = selectedFilter,
-                        onClick = { /*TODO*/ }
+                        onClick = { viewModel.categoryFilterRemoved(selectedFilter) }
                     )
                 }
             }
             AnimatedVisibility(showFilterMenu) {
                 FilterRepairmen(
-                    categories = uiState.categories?: listOf(),
+                    categories = uiState.categoriesNotSelected?.toList() ?: listOf(),
+                    onCategoryClicked = {
+                        showFilterMenu = false
+                        viewModel.categoryFilterAdded(it)
+                    },
                     Modifier
                         .clip(MaterialTheme.shapes.medium)
                         .background(MaterialTheme.colorScheme.primaryContainer)
@@ -162,7 +164,7 @@ fun RepairmenSearchScreen(
                 }
             }
             RepairmenList(
-                repairmen = uiState.repairmen?: listOf(),
+                repairmen = uiState.repairmen?.toList() ?: listOf(),
                 pageSize = if (showFilterMenu) 7 else 8,
                 onRepairmanClicked = onRepairmanClicked
             )
