@@ -5,9 +5,9 @@ import com.master.myMaster.entities.BlogImageEntity;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface ImageMapper {
+public interface BlogImageMapper {
 
-  BlogImageEntity toImageEntity(BlogImage blogImage);
+  BlogImageEntity toEntity(BlogImage domain);
 
   BlogImage toDomain(BlogImageEntity entity);
 }

@@ -22,8 +22,14 @@ public class User {
   private UserStatus status;
   @Builder.Default
   private Set<Blog> blogs = new HashSet<>();
+  @Builder.Default
+  private Set<Service> services = new HashSet<>();
 
   public void addBlog(Blog blog) {
     blogs.add(blog);
+  }
+
+  public void addService(Service service) {
+    services.add(service);
   }
 }

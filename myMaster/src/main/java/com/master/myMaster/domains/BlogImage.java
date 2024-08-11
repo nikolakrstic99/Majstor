@@ -9,8 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Image {
+public class BlogImage {
 
   private Long id;
   private byte[] imageData;
+  private Long blogId;
 }

@@ -2,8 +2,10 @@ package com.master.myMaster.service;
 
 import com.master.myMaster.api.request.AddBlogRequest;
 import com.master.myMaster.domains.Blog;
-import com.master.myMaster.domains.Image;
+import com.master.myMaster.domains.BlogImage;
 import com.master.myMaster.domains.User;
+import com.master.myMaster.entities.BlogEntity;
+import com.master.myMaster.mapper.BlogImageMapper;
 import com.master.myMaster.mapper.BlogMapper;
 import com.master.myMaster.repository.BlogRepository;
 import com.master.myMaster.utils.Utils;
@@ -20,26 +22,28 @@ public class BlogService {
   private final BlogRepository blogRepository;
   private final UserService userService;
   private final BlogMapper blogMapper;
+  private final BlogImageService blogImageService;
+  private final BlogImageMapper blogImageMapper;
 
   @Transactional
   public Blog addBlog(AddBlogRequest request, User principalUser) {
     var blog = blogMapper.toBlog(request);
     var user = userService.findByEmail(principalUser.getEmail());
     blog.setCreatedAt(LocalDateTime.now());
-
-    for (var file : request.files()) {
-      var image = new Image();
-      image.setImageData(Utils.decodeImage(file));
-      blog.addImage(image);
-    }
     user.addBlog(blog);
-    userService.save(user);
+    var blogEntity = save(blog);
+    for (var file : request.files()) {
+      var blogImage = new BlogImage();
+      blogImage.setBlogId(blogEntity.getId());
+      blogImage.setImageData(Utils.decodeImage(file));
+      blogImageService.save(blogImageMapper.toEntity(blogImage));
+    }
     return blog;
   }
 
   @Transactional
-  public void save(Blog blog) {
-    blogRepository.save(blogMapper.toBlogEntity(blog));
+  public BlogEntity save(Blog blog) {
+    return blogRepository.save(blogMapper.toBlogEntity(blog));
   }
 
   public void deleteBlog(Long id) {
