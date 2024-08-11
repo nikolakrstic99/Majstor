@@ -2,14 +2,14 @@ package com.master.myMaster.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import java.time.LocalDateTime;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,6 +17,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Table(name = "service")
 @Entity
 @Data
 @Builder
@@ -24,27 +25,19 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "blog")
-public class BlogEntity {
+public class ServiceEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-
-  @ManyToOne(fetch = FetchType.LAZY)
+  @Column(nullable = false)
+  private String l1Category;
+  @Column(nullable = false)
+  private String l2Category;
+  @Column(nullable = false)
+  private String description;
+  @ManyToOne
   @JoinColumn(name = "user_id", referencedColumnName = "id")
   private UserEntity user;
-
-  @Column(nullable = false)
-  private String heading;
-
-  @Column(nullable = false)
-  private String subHeading;
-
-  @Column(nullable = false)
-  private String details;
-
-  @Column(nullable = false)
-  private LocalDateTime createdAt;
 
 }

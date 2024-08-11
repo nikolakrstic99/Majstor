@@ -3,8 +3,6 @@ package com.master.myMaster.domains;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import java.util.HashSet;
-import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,14 +24,4 @@ public class Blog {
           pattern = "yyyy-MM-dd"
   )
   private LocalDateTime createdAt;
-  @Builder.Default
-  private Set<Image> images = new HashSet<>();
-
-  public void addImage(Image image) {
-    images.add(image);
-  }
-
-  public void removeImage(Image image) {
-    images.remove(image);
-  }
 }

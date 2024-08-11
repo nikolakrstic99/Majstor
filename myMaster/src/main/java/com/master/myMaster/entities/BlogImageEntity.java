@@ -1,12 +1,10 @@
 package com.master.myMaster.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,8 +21,8 @@ import jakarta.persistence.Id;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "image")
-public class ImageEntity {
+@Table(name = "blog_image")
+public class BlogImageEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +31,6 @@ public class ImageEntity {
   @Lob
   private byte[] imageData;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "blog_id", referencedColumnName = "id")
-  private BlogEntity blog;
+  @Column(nullable = false)
+  private Long blogId;
 }
