@@ -15,8 +15,8 @@ import javax.inject.Inject
 
 data class RepairmenSearchUiState(
     val topLevelCategory: String? = null,
-    val categoriesSelected: MutableSet<String>? = null,
-    val categoriesNotSelected: MutableSet<String>? = null,
+    val categoriesSelected: Set<String>? = null,
+    val categoriesNotSelected: Set<String>? = null,
     val repairmen: Set<User>? = null,
     val message: String? = null
 )
@@ -38,15 +38,15 @@ class RepairmenSearchViewModel @Inject constructor(
 
             _uiState.value = _uiState.value.copy(
                 topLevelCategory = topLevelCategory,
-                categoriesSelected = mutableSetOf(),
-                categoriesNotSelected = categories.data?.toMutableSet(),
+                categoriesSelected = setOf(),
+                categoriesNotSelected = categories.data?.toSet(),
                 repairmen = repairmen.data?.toSet(),
                 message = categories.message
             )
         }
     }
 
-    private suspend fun getRepairmen(categoriesSelected: MutableSet<String>?): Set<User> {
+    private suspend fun getRepairmen(categoriesSelected: Set<String>?): Set<User> {
         var repairmen = repairmentRepository
             .getUsersProvidingTopLevelCategory(_uiState.value.topLevelCategory!!)
             .data
@@ -63,10 +63,12 @@ class RepairmenSearchViewModel @Inject constructor(
 
     fun categoryFilterAdded(category: String) {
         viewModelScope.launch {
-            val newCategoriesSelected = _uiState.value.categoriesSelected
-            newCategoriesSelected?.add(category)
-            val newCategoriesNotSelected = _uiState.value.categoriesNotSelected
-            newCategoriesNotSelected?.remove(category)
+            val newCategoriesSelected = _uiState.value.categoriesSelected?.toMutableSet()?.apply {
+                add(category)
+            }
+            val newCategoriesNotSelected = _uiState.value.categoriesNotSelected?.toMutableSet()?.apply {
+                remove(category)
+            }
 
             _uiState.value = _uiState.value.copy(
                 categoriesSelected = newCategoriesSelected,
@@ -78,10 +80,12 @@ class RepairmenSearchViewModel @Inject constructor(
 
     fun categoryFilterRemoved(category: String) {
         viewModelScope.launch {
-            val newCategoriesSelected = _uiState.value.categoriesSelected
-            newCategoriesSelected?.remove(category)
-            val newCategoriesNotSelected = _uiState.value.categoriesNotSelected
-            newCategoriesNotSelected?.add(category)
+            val newCategoriesSelected = _uiState.value.categoriesSelected?.toMutableSet()?.apply {
+                remove(category)
+            }
+            val newCategoriesNotSelected = _uiState.value.categoriesNotSelected?.toMutableSet()?.apply {
+                add(category)
+            }
 
             _uiState.value = _uiState.value.copy(
                 categoriesSelected = newCategoriesSelected,
