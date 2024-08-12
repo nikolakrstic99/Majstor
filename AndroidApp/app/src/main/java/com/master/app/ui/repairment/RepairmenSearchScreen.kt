@@ -14,6 +14,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -111,7 +112,7 @@ fun RepairmenSearchScreen(
             )
         }
         SearchBar(
-            onValueChanged = {},
+            onValueChanged = viewModel::onSearchInputChanged,
             placeholder = "Search repairmen"
         )
         Row(
@@ -123,9 +124,9 @@ fun RepairmenSearchScreen(
             Row(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                IconButton(onClick = { /* do something */ }) {
+                IconButton(onClick = viewModel::onSortByNameClicked) {
                     Icon(
-                        imageVector = Icons.Filled.KeyboardArrowDown,
+                        imageVector = if (uiState.sortByNameAsc) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
                         contentDescription = "Sort by name"
                     )
                 }
@@ -143,16 +144,16 @@ fun RepairmenSearchScreen(
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onPrimaryContainer
                 )
-                IconButton(onClick = { /* do something */ }) {
+                IconButton(onClick = viewModel::onSortByRatingClicked) {
                     Icon(
-                        imageVector = Icons.Filled.KeyboardArrowDown,
+                        imageVector = if (uiState.sortByRatingAsc) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
                         contentDescription = "Sort by rating"
                     )
                 }
             }
         }
         RepairmenList(
-            repairmen = uiState.repairmen?.toList() ?: listOf(),
+            repairmen = uiState.repairmen ?: listOf(),
             pageSize = if (showFilterMenu) 7 else 8,
             onRepairmanClicked = onRepairmanClicked
         )
