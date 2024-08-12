@@ -4,6 +4,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,6 +14,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -51,124 +53,110 @@ fun RepairmenSearchScreen(
     val uiState by viewModel.uiState.collectAsState()
     var showFilterMenu by remember { mutableStateOf(false)}
 
-    Scaffold(
-        topBar = {
-            CenterAlignedTopAppBar(
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.primary,
-                ),
-                title = {
-                    Text(
-                        text = uiState.topLevelCategory?: "",
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
-                },
-                navigationIcon = {
-                    IconButton(onClick = { /* do something */ }) {
-                        Icon(
-                            imageVector = Icons.Filled.ArrowBack,
-                            contentDescription = "Go back"
-                        )
-                    }
-                },
-                scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(),
-                // Necessary due to scaffold inside a scaffold
-                modifier = Modifier.padding(top = 65.dp)
+    Column(
+        modifier = modifier
+    ){
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(MaterialTheme.colorScheme.primaryContainer)
+                .padding(20.dp)
+        ) {
+            Text(
+                text = uiState.topLevelCategory?: "",
+                color = MaterialTheme.colorScheme.onBackground,
+                style = MaterialTheme.typography.titleLarge,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
         }
-    ) {
-        Column(
-            modifier = Modifier.padding(it)
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(10.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp)
+                .horizontalScroll(rememberScrollState())
+        ) {
+            IconButton(onClick = { showFilterMenu = !showFilterMenu }) {
+                Icon(
+                    imageVector = Icons.Filled.AddCircle,
+                    contentDescription = "Add category filters"
+                )
+            }
+            if (uiState.categoriesSelected == null || uiState.categoriesSelected!!.isEmpty()) {
+                Text(
+                    text = "No filters applied",
+                    style = MaterialTheme.typography.headlineSmall,
+                    color = Color.LightGray
+                )
+            }
+            uiState.categoriesSelected?.toList()?.forEach { selectedFilter ->
+                ClippedIconButton(
+                    text = selectedFilter,
+                    onClick = { viewModel.categoryFilterRemoved(selectedFilter) }
+                )
+            }
+        }
+        AnimatedVisibility(showFilterMenu) {
+            FilterRepairmen(
+                categories = uiState.categoriesNotSelected?.toList() ?: listOf(),
+                onCategoryClicked = {
+                    showFilterMenu = false
+                    viewModel.categoryFilterAdded(it)
+                },
+                Modifier
+                    .clip(MaterialTheme.shapes.medium)
+                    .background(MaterialTheme.colorScheme.primaryContainer)
+            )
+        }
+        SearchBar(
+            onValueChanged = viewModel::onSearchInputChanged,
+            placeholder = "Search repairmen"
+        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier
+                .fillMaxWidth()
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(10.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp)
-                    .horizontalScroll(rememberScrollState())
             ) {
-                IconButton(onClick = { showFilterMenu = true }) {
+                IconButton(onClick = viewModel::onSortByNameClicked) {
                     Icon(
-                        imageVector = Icons.Filled.AddCircle,
-                        contentDescription = "Add category filters"
+                        imageVector = if (uiState.sortByNameAsc) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
+                        contentDescription = "Sort by name"
                     )
                 }
-                if (uiState.categoriesSelected == null || uiState.categoriesSelected!!.isEmpty()) {
-                    Text(
-                        text = "No filters applied",
-                        style = MaterialTheme.typography.headlineSmall,
-                        color = Color.LightGray
-                    )
-                }
-                uiState.categoriesSelected?.toList()?.forEach { selectedFilter ->
-                    ClippedIconButton(
-                        text = selectedFilter,
-                        onClick = { viewModel.categoryFilterRemoved(selectedFilter) }
-                    )
-                }
-            }
-            AnimatedVisibility(showFilterMenu) {
-                FilterRepairmen(
-                    categories = uiState.categoriesNotSelected?.toList() ?: listOf(),
-                    onCategoryClicked = {
-                        showFilterMenu = false
-                        viewModel.categoryFilterAdded(it)
-                    },
-                    Modifier
-                        .clip(MaterialTheme.shapes.medium)
-                        .background(MaterialTheme.colorScheme.primaryContainer)
+                Text(
+                    text = "Name",
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer
                 )
             }
-            SearchBar(
-                onValueChanged = {},
-                placeholder = "Search repairmen"
-            )
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier
-                    .fillMaxWidth()
             ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    IconButton(onClick = { /* do something */ }) {
-                        Icon(
-                            imageVector = Icons.Filled.KeyboardArrowDown,
-                            contentDescription = "Sort by name"
-                        )
-                    }
-                    Text(
-                        text = "Name",
-                        style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.onPrimaryContainer
+                Text(
+                    text = "Rating",
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer
+                )
+                IconButton(onClick = viewModel::onSortByRatingClicked) {
+                    Icon(
+                        imageVector = if (uiState.sortByRatingAsc) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
+                        contentDescription = "Sort by rating"
                     )
-                }
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Text(
-                        text = "Rating",
-                        style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.onPrimaryContainer
-                    )
-                    IconButton(onClick = { /* do something */ }) {
-                        Icon(
-                            imageVector = Icons.Filled.KeyboardArrowDown,
-                            contentDescription = "Sort by rating"
-                        )
-                    }
                 }
             }
-            RepairmenList(
-                repairmen = uiState.repairmen?.toList() ?: listOf(),
-                pageSize = if (showFilterMenu) 7 else 8,
-                onRepairmanClicked = onRepairmanClicked
-            )
         }
+        RepairmenList(
+            repairmen = uiState.repairmen ?: listOf(),
+            pageSize = if (showFilterMenu) 7 else 8,
+            onRepairmanClicked = onRepairmanClicked
+        )
     }
 }
 
