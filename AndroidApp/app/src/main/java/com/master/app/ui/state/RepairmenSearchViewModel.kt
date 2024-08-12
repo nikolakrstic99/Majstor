@@ -80,9 +80,9 @@ class RepairmenSearchViewModel @Inject constructor(
 
     private fun filterBySearchText(repairmen: List<User>, prefix: String): List<User> {
         return repairmen.toMutableList().filter {
-            it.firstName.startsWith(prefix)
-                    || it.lastName.startsWith(prefix)
-                    || (it.firstName + " " + it.lastName).startsWith(prefix)
+            it.firstName.startsWith(prefix, ignoreCase = true)
+                    || it.lastName.startsWith(prefix, ignoreCase = true)
+                    || (it.firstName + " " + it.lastName).startsWith(prefix, ignoreCase = true)
         }
     }
 
