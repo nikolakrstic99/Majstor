@@ -87,10 +87,14 @@ class RepairmenSearchViewModel @Inject constructor(
             sortedRepairmen.sortByDescending { it.firstName + it.lastName }
 
         // Sort by rating
-        if (sortByRatingAsc)
+        if (sortByRatingAsc) {
             sortedRepairmen.sortBy { it.averageRating }
-        else
+            sortedRepairmen.sortBy { it.averageRating.isNaN() } // Put NaN at the end
+        }
+        else {
             sortedRepairmen.sortByDescending { it.averageRating }
+            sortedRepairmen.sortBy { it.averageRating.isNaN() } // Put NaN at the end
+        }
 
         return sortedRepairmen
     }
