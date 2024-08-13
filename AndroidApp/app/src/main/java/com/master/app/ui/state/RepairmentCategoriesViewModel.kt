@@ -1,5 +1,6 @@
 package com.master.app.ui.state
 
+import androidx.compose.material.icons.Icons
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.master.app.data.repository.RepairmentRepository
@@ -8,6 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import com.master.app.R
 
 data class RepairmentCategoriesUiState(
     val topLevelCategories: List<String>? = null,
@@ -40,4 +42,16 @@ class RepairmentCategoriesViewModel @Inject constructor(
             )
         }
     }
+
+    private val topLevelCategoryIconMap = mapOf(
+        "Gradjevinski radovi" to R.drawable.gradjevinski_radovi,
+        "Elektronika" to R.drawable.elektronika,
+        "Odrzavanje" to R.drawable.odrzavanje,
+        "Vodovod i sanitarije" to R.drawable.cevne_instalacije,
+        "Obrada materijala" to R.drawable.obrada_materijala,
+        "Automobilska industrija" to R.drawable.automobilska_industrija
+    )
+
+    fun getTopLevelCategoryIcon(topLevelCategory: String) =
+        topLevelCategoryIconMap.getOrDefault(topLevelCategory, R.drawable.gradjevinski_radovi)
 }

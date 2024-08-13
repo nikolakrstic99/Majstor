@@ -24,6 +24,7 @@ import com.master.app.ui.theme.AndroidAppTheme
 @Composable
 fun RepairmentCategoryPreview(
     topLevelCategory: String,
+    iconDrawableId: Int,
     numberOfRepairmen: Int,
     modifier: Modifier = Modifier
 ) {
@@ -34,19 +35,11 @@ fun RepairmentCategoryPreview(
         verticalArrangement = Arrangement.Center,
         modifier = modifier.padding(10.dp)
     ) {
-        //        AsyncImage(
-//            model = exampleImage,
-//            contentDescription = "Blog preview picture",
-//            modifier = Modifier
-//                .padding(10.dp)
-//                .size(100.dp)
-//                .clip(MaterialTheme.shapes.medium)
-//        )
         Image(
-            painter = painterResource(id = R.drawable.ic_launcher_background),
-            contentDescription = "Preview image",
+            painter = painterResource(id = iconDrawableId),
+            contentDescription = "Icon",
             modifier = Modifier
-                .padding(10.dp)
+                .padding(top = 25.dp)
                 .size(50.dp)
                 .clip(MaterialTheme.shapes.small)
         )
@@ -69,6 +62,7 @@ fun RepairmentPreview() {
     AndroidAppTheme {
         RepairmentCategoryPreview(
             "Gradjevinski radovi",
+            R.drawable.gradjevinski_radovi,
             5
         )
     }

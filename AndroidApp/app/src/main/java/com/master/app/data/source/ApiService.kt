@@ -43,4 +43,7 @@ interface ApiService {
 
     @GET("service/usersProvidingL2Category/{l2Category}")
     suspend fun getUsersProvidingL2Category(@Path("l2Category") l2Category: String): Response<List<ServiceApiModel>>
+
+    @GET("user/{id}")
+    suspend fun getUser(@Path("id") id: Int): Response<UserApiModel>
 }

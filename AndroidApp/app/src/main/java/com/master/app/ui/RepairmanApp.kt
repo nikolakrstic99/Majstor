@@ -101,14 +101,14 @@ fun Sidebar(
             navigationActions::navigateToProfileScreen
         ),
         SidebarItemInfo(
-            "Blogs",
-            Icons.Filled.LocationOn,
-            navigationActions::navigateToBlogsScreen
-        ),
-        SidebarItemInfo(
             "Repairman",
             Icons.Filled.Build,
             navigationActions::navigateToRepairmentCategoriesScreen
+        ),
+        SidebarItemInfo(
+            "Blogs",
+            Icons.Filled.LocationOn,
+            navigationActions::navigateToBlogsScreen
         )
     )
 

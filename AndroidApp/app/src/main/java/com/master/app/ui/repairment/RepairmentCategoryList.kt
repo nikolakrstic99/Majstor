@@ -29,6 +29,7 @@ fun RepairmentCategoryList(
         items(uiState.topLevelCategories?: listOf()) {
             RepairmentCategoryPreview(
                 topLevelCategory = it,
+                iconDrawableId = viewModel.getTopLevelCategoryIcon(it),
                 numberOfRepairmen = uiState.repairmenPerCategory?.get(it) ?: 0,
                 modifier = Modifier.clickable(onClick = {
                     onCategoryClicked(it)
