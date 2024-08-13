@@ -67,12 +67,24 @@ class UserRepositoryImpl @Inject constructor(
         catch (e: Exception) {
             return Resource.Error(e.toString())
         }
-
     }
 
     override suspend fun isUserLoggedIn(): Boolean {
         val user = getLoggedUser()
         return user.data != null
+    }
+
+    override suspend fun getUser(id: Int): Resource<User> {
+        try {
+            val response = apiService.getUser(id)
+            if (!response.isSuccessful) {
+                return Resource.Error("Error: ${response.code()} - ${response.errorBody()?.string()}")
+            }
+            return Resource.Success(fromUserApiToUser(response.body()!!))
+        }
+        catch (e: Exception) {
+            return Resource.Error(e.toString())
+        }
     }
 
     private fun saveAuthToken(token: String) = LocalStorageManager.saveString("token", token)

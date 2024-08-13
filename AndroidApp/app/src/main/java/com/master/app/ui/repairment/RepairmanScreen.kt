@@ -16,6 +16,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -24,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.master.app.ui.model.Review
 import com.master.app.ui.component.CallButton
 import com.master.app.ui.component.MessageButton
@@ -35,9 +37,11 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 @Composable
 fun RepairmanScreen(
     modifier: Modifier = Modifier,
-    viewModel: RepairmanViewModel = viewModel()
+    viewModel: RepairmanViewModel = hiltViewModel()
 ) {
+    val uiState by viewModel.uiState.collectAsState()
     var selectedItem by remember { mutableIntStateOf(0) }
+
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -47,20 +51,20 @@ fun RepairmanScreen(
                 ),
                 title = {
                     Text(
-                        text = viewModel.repairman.name,
+                        text = "${uiState.repairman?.firstName} ${uiState.repairman?.lastName}",
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
                 },
                 navigationIcon = {
                     MessageButton(
-                        phoneNumber = viewModel.repairman.phoneNumber,
+                        phoneNumber = "0621482242",
                         Modifier.padding(10.dp)
                     )
                 },
                 actions = {
                     CallButton(
-                        phoneNumber = viewModel.repairman.phoneNumber,
+                        phoneNumber = "0621482242",
                         Modifier.padding(10.dp)
                     )
                 },

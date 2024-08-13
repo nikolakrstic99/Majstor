@@ -8,4 +8,5 @@ interface UserRepository {
             Resource<User>
     suspend fun getLoggedUser(): Resource<User>
     suspend fun isUserLoggedIn(): Boolean
+    suspend fun getUser(id: Int): Resource<User>
 }

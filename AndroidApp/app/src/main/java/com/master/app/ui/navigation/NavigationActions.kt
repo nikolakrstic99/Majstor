@@ -111,7 +111,6 @@ fun AppNavHost(
             )
         ) {
             RepairmanScreen(
-                viewModel = viewModel<RepairmanViewModel>(),
                 modifier = modifier
             )
         }
