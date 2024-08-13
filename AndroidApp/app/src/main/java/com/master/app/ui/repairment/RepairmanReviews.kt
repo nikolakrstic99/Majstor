@@ -20,7 +20,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.master.app.ui.model.Review
+import com.master.app.data.model.Review
 import com.master.app.ui.component.RatingsStar
 import com.master.app.ui.theme.AndroidAppTheme
 
@@ -78,11 +78,11 @@ fun ReviewCard(
         ) {
             Column {
                 Text(
-                    text = review.author,
+                    text = "${review.creatorUser.firstName} ${review.creatorUser.lastName}",
                     style = MaterialTheme.typography.titleSmall
                 )
                 Text(
-                    text = review.date,
+                    text = review.createdAt,
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.secondary
                 )
@@ -93,7 +93,7 @@ fun ReviewCard(
         }
         Spacer(modifier = Modifier.height(7.dp))
         Text(
-            text = review.comment,
+            text = review.text,
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onBackground,
             maxLines = 4,
@@ -107,32 +107,7 @@ fun ReviewCard(
 fun RepairmanReviewsPreview() {
     AndroidAppTheme {
         RepairmanReviews(
-            listOf(
-                Review(
-                    1,
-                    "Andrej Jokic",
-                    1,
-                    2,
-                    "Sasvim solidan majstor. Mogao bi malo brze da radi i manje da prica.",
-                    "11.08.2024."
-                ),
-                Review(
-                    2,
-                    "Nikola Krstic",
-                    1,
-                    2,
-                    "Sasvim solidan majstor. Mogao bi malo brze da radi i manje da prica. Sasvim solidan majstor. Mogao bi malo brze da radi i manje da prica. Sasvim solidan majstor. Mogao bi malo brze da radi i manje da prica.",
-                    "08.02.2024."
-                ),
-                Review(
-                    3,
-                    "Sara Kolarevic",
-                    1,
-                    3,
-                    "Volim da pricam Volim da pricamv Volim da pricam Volim da pricam. Volim da pricam Volim da pricamv Volim da pricam Volim da pricam. Volim da pricam Volim da pricamv Volim da pricam Volim da pricam. Volim da pricam Volim da pricamv Volim da pricam Volim da pricam. Volim da pricam Volim da pricamv Volim da pricam Volim da pricam.",
-                    "11.12.2024."
-                )
-            )
+            listOf()
         )
     }
 }

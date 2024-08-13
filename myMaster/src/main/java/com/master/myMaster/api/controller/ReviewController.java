@@ -24,7 +24,7 @@ public class ReviewController {
   }
 
   @GetMapping("ratedUser/{userId}")
-  public List<Review> getReviewsByCreatorUser(@PathVariable Integer userId) {
+  public List<Review> getReviewsByRatedUser(@PathVariable Integer userId) {
     return reviewService.getReviewsByRatedUser(userId);
   }
 

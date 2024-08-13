@@ -24,4 +24,9 @@ object RepositoryModule {
     @Singleton
     fun provideRepairmentRepository(apiService: ApiService): RepairmentRepository =
         RepairmentRepositoryImpl(apiService)
+
+    @Provides
+    @Singleton
+    fun provideReviewsRepository(apiService: ApiService): ReviewsRepository =
+        ReviewsRepositoryImpl(apiService)
 }

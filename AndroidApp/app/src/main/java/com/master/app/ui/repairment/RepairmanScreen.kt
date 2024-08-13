@@ -26,12 +26,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.master.app.ui.model.Review
 import com.master.app.ui.component.CallButton
 import com.master.app.ui.component.MessageButton
 import com.master.app.ui.state.RepairmanViewModel
 import com.master.app.ui.theme.AndroidAppTheme
-import androidx.lifecycle.viewmodel.compose.viewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -118,39 +116,15 @@ fun RepairmanScreen(
         ) {
             if (selectedItem == 0) {
                 RepairmanServices(
-                    averageRating = 8.7,
+                    averageRating = uiState.averageRating ?: Double.NaN,
                     providedServices = listOf("Postavljanje laminata", "Skidanje parketa", "Postavljanje parketa")
                 )
             }
             if (selectedItem == 1) {
                 RepairmanReviewsScreenContent(
-                    reviews = listOf(
-                        Review(
-                            1,
-                            "Andrej Jokic",
-                            1,
-                            2,
-                            "Sasvim solidan majstor. Mogao bi malo brze da radi i manje da prica.",
-                            "11.08.2024."
-                        ),
-                        Review(
-                            2,
-                            "Nikola Krstic",
-                            1,
-                            2,
-                            "Sasvim solidan majstor. Mogao bi malo brze da radi i manje da prica. Sasvim solidan majstor. Mogao bi malo brze da radi i manje da prica. Sasvim solidan majstor. Mogao bi malo brze da radi i manje da prica.",
-                            "08.02.2024."
-                        ),
-                        Review(
-                            3,
-                            "Sara Kolarevic",
-                            1,
-                            3,
-                            "Volim da pricam Volim da pricamv Volim da pricam Volim da pricam. Volim da pricam Volim da pricamv Volim da pricam Volim da pricam. Volim da pricam Volim da pricamv Volim da pricam Volim da pricam. Volim da pricam Volim da pricamv Volim da pricam Volim da pricam. Volim da pricam Volim da pricamv Volim da pricam Volim da pricam.",
-                            "11.12.2024."
-                        )
-                    ),
-                    onSubmitReviewClicked = { /* TODO */ }
+                    reviews = uiState.reviews ?: listOf(),
+                    onSubmitReviewClicked = viewModel::addReview,
+                    showButton = uiState.showReviewRepairmenButton
                 )
             }
             if (selectedItem == 2) {

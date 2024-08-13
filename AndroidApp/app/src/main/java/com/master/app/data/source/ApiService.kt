@@ -1,10 +1,12 @@
 package com.master.app.data.source
 
+import com.master.app.data.entity.AddReviewRequest
 import com.master.app.data.entity.AddServiceRequest
 import com.master.app.data.entity.BlogApiModel
 import com.master.app.data.entity.CreateBlogRequest
 import com.master.app.data.entity.LoginRequest
 import com.master.app.data.entity.RegisterRequest
+import com.master.app.data.entity.ReviewApiModel
 import com.master.app.data.entity.ServiceApiModel
 import com.master.app.data.entity.UserApiModel
 import retrofit2.Response
@@ -46,4 +48,13 @@ interface ApiService {
 
     @GET("user/{id}")
     suspend fun getUser(@Path("id") id: Int): Response<UserApiModel>
+
+    @POST("review")
+    suspend fun addReview(@Body request: AddReviewRequest): Response<ReviewApiModel>
+
+    @GET("review/ratedUser/{userId}")
+    suspend fun getReviewsByRatedUser(@Path("userId") userId: Int): Response<List<ReviewApiModel>>
+
+    @GET("review/creatorUser")
+    suspend fun getReviewsByCreatorUser(): Response<List<ReviewApiModel>>
 }
