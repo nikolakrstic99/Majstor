@@ -33,6 +33,7 @@ import com.master.app.ui.theme.AndroidAppTheme
 @Composable
 fun UserProfile(
     user: User,
+    reviews: List<Int>,
     modifier: Modifier = Modifier
 ) {
     val containerModifier = Modifier
@@ -56,6 +57,7 @@ fun UserProfile(
     ) {
         UserInfo(
             user = user,
+            reviews = reviews,
             modifier = containerModifier
         )
         UserServices(
@@ -67,6 +69,7 @@ fun UserProfile(
 @Composable
 fun UserInfo(
     user: User,
+    reviews: List<Int>,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -87,13 +90,9 @@ fun UserInfo(
             label = "User type",
             value = user.type.toString(),
         )
-        LabelValue(
-            label = "Password",
-            value = "*".repeat(user.password.length),
-        )
         Spacer(modifier = Modifier.height(15.dp))
         RepairmanRatings(
-            ratings = listOf(1, 2, 3, 3, 3)
+            ratings = reviews
         )
     }
 }
@@ -141,7 +140,8 @@ fun UserProfilePreview() {
                 "andrej123",
                 UserType.REGULAR,
                 null
-            )
+            ),
+            listOf()
         )
     }
 }

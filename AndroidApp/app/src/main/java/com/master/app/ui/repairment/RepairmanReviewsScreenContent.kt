@@ -22,7 +22,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -39,14 +38,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.master.app.R
-import com.master.app.ui.model.Review
+import com.master.app.data.model.Review
 import com.master.app.ui.component.ClippedIconButton
 import com.master.app.ui.theme.AndroidAppTheme
 
 @Composable
 fun RepairmanReviewsScreenContent(
     reviews: List<Review>,
-    onSubmitReviewClicked: () -> Unit,
+    onSubmitReviewClicked: (String, Int) -> Unit,
+    showButton: Boolean,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -56,7 +56,10 @@ fun RepairmanReviewsScreenContent(
         RepairmanRatings(
             ratings = reviews.map { it.rating }
         )
-        ReviewRepairmanButton(onSubmitReviewClicked)
+        ReviewRepairmanButton(
+            onSubmit = onSubmitReviewClicked,
+            showButton = showButton
+        )
         RepairmanReviews(
             reviews = reviews
         )
@@ -65,7 +68,8 @@ fun RepairmanReviewsScreenContent(
 
 @Composable
 fun ReviewRepairmanButton(
-    onSubmit: () -> Unit,
+    onSubmit: (String, Int) -> Unit,
+    showButton: Boolean,
     modifier: Modifier = Modifier
 ) {
     var showSubmitReviewDialog by remember { mutableStateOf(false) }
@@ -90,18 +94,26 @@ fun ReviewRepairmanButton(
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
         )
-        ClippedIconButton(
-            text = "Review repairman",
-            onClick = { showSubmitReviewDialog = true },
-            Modifier.width(150.dp)
-        )
+        if (showButton) {
+            ClippedIconButton(
+                text = "Review repairman",
+                onClick = { showSubmitReviewDialog = true },
+                Modifier.width(150.dp)
+            )
+        }
+        else {
+            Text(
+                text = "You cannot review this repairman",
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.primary
+            )
+        }
+
         if (showSubmitReviewDialog) {
             ReviewRepairmanDialog(
-                onConfirmation = {
-                    run {
-                        showSubmitReviewDialog = false
-                        onSubmit()
-                    }
+                onConfirmation = { text, rating ->
+                    showSubmitReviewDialog = false
+                    onSubmit(text, rating)
                 },
                 onDismiss = { showSubmitReviewDialog = false }
             )
@@ -111,13 +123,12 @@ fun ReviewRepairmanButton(
 
 @Composable
 fun ReviewRepairmanDialog(
-    onConfirmation: () -> Unit,
+    onConfirmation: (String, Int) -> Unit,
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val starSize = 25.dp
 
-    var name by remember { mutableStateOf("") }
     var text by remember { mutableStateOf("") }
     var rating by remember { mutableIntStateOf(0) }
 
@@ -148,16 +159,9 @@ fun ReviewRepairmanDialog(
                 }
             }
             OutlinedTextField(
-                value = name,
-                onValueChange = { input -> name = input},
-                placeholder = { Text(text = "Your name") },
-                maxLines = 1,
-                modifier = Modifier.background(MaterialTheme.colorScheme.background)
-            )
-            OutlinedTextField(
                 value = text,
                 onValueChange = { input -> text = input},
-                placeholder = { Text(text = "Your name") },
+                placeholder = { Text(text = "Your comment") },
                 maxLines = 4,
                 modifier = Modifier
                     .background(MaterialTheme.colorScheme.background)
@@ -194,10 +198,10 @@ fun ReviewRepairmanDialog(
                     }
                 }
             }
-            if (rating > 0 && name.isNotBlank() && text.isNotBlank()) {
+            if (rating > 0 && text.isNotBlank()) {
                 ClippedIconButton(
                     text = "Submit",
-                    onClick = onConfirmation
+                    onClick = { onConfirmation(text, rating) }
                 )
             }
         }
@@ -211,33 +215,9 @@ fun ReviewRepairmanDialog(
 fun RepairmanReviewsScreenContentPreview() {
     AndroidAppTheme {
         RepairmanReviewsScreenContent(
-            listOf(
-                Review(
-                    1,
-                    "Andrej Jokic",
-                    1,
-                    2,
-                    "Sasvim solidan majstor. Mogao bi malo brze da radi i manje da prica.",
-                    "11.08.2024."
-                ),
-                Review(
-                    2,
-                    "Nikola Krstic",
-                    1,
-                    2,
-                    "Sasvim solidan majstor. Mogao bi malo brze da radi i manje da prica. Sasvim solidan majstor. Mogao bi malo brze da radi i manje da prica. Sasvim solidan majstor. Mogao bi malo brze da radi i manje da prica.",
-                    "08.02.2024."
-                ),
-                Review(
-                    3,
-                    "Sara Kolarevic",
-                    1,
-                    3,
-                    "Volim da pricam Volim da pricamv Volim da pricam Volim da pricam. Volim da pricam Volim da pricamv Volim da pricam Volim da pricam. Volim da pricam Volim da pricamv Volim da pricam Volim da pricam. Volim da pricam Volim da pricamv Volim da pricam Volim da pricam. Volim da pricam Volim da pricamv Volim da pricam Volim da pricam.",
-                    "11.12.2024."
-                )
-            ),
-            {}
+            listOf(),
+            { _, _ ->},
+            showButton = false
         )
     }
 }

@@ -1,9 +1,11 @@
 package com.master.app.data.utils
 
 import com.master.app.data.entity.BlogApiModel
+import com.master.app.data.entity.ReviewApiModel
 import com.master.app.data.entity.ServiceApiModel
 import com.master.app.data.entity.UserApiModel
 import com.master.app.data.model.Blog
+import com.master.app.data.model.Review
 import com.master.app.data.model.Service
 import com.master.app.data.model.User
 
@@ -35,4 +37,14 @@ fun fromServiceApiToService(serviceApiModel: ServiceApiModel): Service =
         category = serviceApiModel.l2Category,
         description = serviceApiModel.description,
         user = fromUserApiToUser(serviceApiModel.user)
+    )
+
+fun fromReviewApiToReview(reviewApiModel: ReviewApiModel): Review =
+    Review(
+        id = reviewApiModel.id,
+        ratedUser = fromUserApiToUser(reviewApiModel.ratedUser),
+        creatorUser = fromUserApiToUser(reviewApiModel.creatorUser),
+        text = reviewApiModel.text,
+        rating = reviewApiModel.rating,
+        createdAt = reviewApiModel.createdAt
     )

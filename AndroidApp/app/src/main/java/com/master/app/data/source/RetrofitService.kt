@@ -1,10 +1,12 @@
 package com.master.app.data.source
 
+import com.master.app.data.entity.AddReviewRequest
 import com.master.app.data.entity.AddServiceRequest
 import com.master.app.data.entity.BlogApiModel
 import com.master.app.data.entity.CreateBlogRequest
 import com.master.app.data.entity.LoginRequest
 import com.master.app.data.entity.RegisterRequest
+import com.master.app.data.entity.ReviewApiModel
 import com.master.app.data.entity.ServiceApiModel
 import com.master.app.data.entity.UserApiModel
 import okhttp3.OkHttpClient
@@ -77,5 +79,17 @@ class RetrofitApiService: ApiService {
 
     override suspend fun getUser(id: Int): Response<UserApiModel> {
         return api.getUser(id)
+    }
+
+    override suspend fun addReview(request: AddReviewRequest): Response<ReviewApiModel> {
+        return api.addReview(request)
+    }
+
+    override suspend fun getReviewsByRatedUser(userId: Int): Response<List<ReviewApiModel>> {
+        return api.getReviewsByRatedUser(userId)
+    }
+
+    override suspend fun getReviewsByCreatorUser(): Response<List<ReviewApiModel>> {
+        return api.getReviewsByCreatorUser()
     }
 }
