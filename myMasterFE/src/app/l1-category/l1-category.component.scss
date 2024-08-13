@@ -1,0 +1,32 @@
+.container-fluid {
+  padding: 20px;
+}
+
+.left-card {
+  background-color: #f0f8ff;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.right-card {
+  background-color: #c1ceca;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.mat-card {
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.list-group-item {
+  background-color: #ffffff;
+  border: none;
+  margin-bottom: 15px;
+  border-radius: 8px; /* Apply border-radius to make all items rounded */
+  padding: 10px 15px; /* Optional: Adjust padding for a better look */
+  transition: background-color 0.3s, color 0.3s; /* Optional: Add transition for smoother hover effect */
+}
+
+.list-group-item:hover {
+  background-color: #e0f7fa; /* Optional: Add a hover effect */
+}

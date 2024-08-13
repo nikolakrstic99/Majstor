@@ -14,6 +14,9 @@ import {
 })
 export class L1CategoryComponent implements OnInit {
   l1Category: string;
+  l2CategorySelected = null;
+  l2Categories = [];
+  services = [];
 
   constructor(private route: ActivatedRoute, private axiosService: AxiosService, private _snackBar: MatSnackBar) {
   }
@@ -28,7 +31,6 @@ export class L1CategoryComponent implements OnInit {
     });
   }
 
-  l2Categories = [];
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -39,7 +41,18 @@ export class L1CategoryComponent implements OnInit {
         this.l2Categories = response.data;
       }).catch(
       error => {
-        this.openSnackBar("Error while fetching l2 categories :(");
+        this.openSnackBar("Greška prilikom dohvatanja l2 kategorija :(");
+      }
+    );
+  }
+
+  selectL2Category(l2Category: string) {
+    this.l2CategorySelected = l2Category;
+    this.axiosService.request('GET', `api/v1/service/usersProvidingL2Category/${this.l2CategorySelected}`, null).then(response => {
+      this.services = response.data;
+    }).catch(
+      () => {
+        this.openSnackBar("Greška prilikom dohvatanja usluga :(");
       }
     );
   }

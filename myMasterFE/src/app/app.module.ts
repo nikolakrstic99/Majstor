@@ -17,6 +17,7 @@ import { ContactComponent } from './contact/contact.component';
 import { AddServiceComponent } from './add-service/add-service.component';
 import { HomeComponent } from './home/home.component';
 import { L1CategoryComponent } from './l1-category/l1-category.component';
+import {MatCardModule} from "@angular/material/card";
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { L1CategoryComponent } from './l1-category/l1-category.component';
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

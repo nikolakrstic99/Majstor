@@ -29,13 +29,23 @@ export class AxiosService {
     return jsonToken["status"] === "ADMIN";
   }
 
-  request(method: string, uri: string, data: any): Promise<any> {
+  requestWithToken(method: string, uri: string, data: any): Promise<any> {
     let headers = {};
     if(this.getAuthToken() !== null) {
       headers = {
         Authorization: "Bearer " + this.getAuthToken()
       };
     }
+    return axios.request({
+      method: method,
+      url: uri,
+      data: data,
+      headers: headers
+    });
+  }
+
+  request(method: string, uri: string, data: any): Promise<any> {
+    let headers = {};
     return axios.request({
       method: method,
       url: uri,

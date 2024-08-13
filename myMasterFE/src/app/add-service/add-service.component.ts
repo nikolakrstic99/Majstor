@@ -69,16 +69,16 @@ export class AddServiceComponent implements OnInit {
 
   onSubmit() {
     console.log(this.images[0]);
-    this.axiosService.request("POST", "api/v1/service", {
+    this.axiosService.requestWithToken("POST", "api/v1/service", {
       l1Category: this.l1Selected,
       l2Category: this.l2Selected,
       description: this.form.value.details,
         files: this.images
       }
     ).then(response => {
-      this.openSnackBar('Service added');
+      this.openSnackBar('Uluga je dodata');
     }).catch(error => {
-      this.openSnackBar('Service not added');
+      this.openSnackBar('Usluga nije dodata');
     });
   }
 

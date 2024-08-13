@@ -1,1 +1,35 @@
-<p style="color: black">{{l2Categories[0]}}</p>
+<div class="container-fluid">
+  <div class="row">
+    <!-- Left Side (30%) -->
+    <div class="col-md-4">
+      <mat-card class="left-card">
+        <h2>Podkategorija</h2>
+        <ul class="list-group">
+          <li *ngFor="let item of l2Categories" class="list-group-item cursor-pointer"
+              [ngStyle]="item === l2CategorySelected ? {'background-color': '#2c7987', 'color': 'white'} : {}"
+              (click)="selectL2Category(item)">
+            {{ item }}
+          </li>
+        </ul>
+      </mat-card>
+    </div>
+
+    <!-- Right Side (70%) -->
+    <div class="col-md-8">
+      <mat-card class="right-card">
+        <h2>Usluge</h2>
+        <div class="content">
+          <!-- Similar content can go here -->
+          <p *ngIf="l2CategorySelected === null">
+            Odaberite uslugu iz podkategorije
+          </p>
+          <ul class="list-group">
+            <li *ngFor="let item of services" class="list-group-item cursor-pointer">
+              {{ item }}
+            </li>
+          </ul>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>
