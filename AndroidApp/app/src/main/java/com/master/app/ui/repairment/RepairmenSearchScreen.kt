@@ -153,7 +153,7 @@ fun RepairmenSearchScreen(
             }
         }
         RepairmenList(
-            repairmen = uiState.repairmen ?: listOf(),
+            repairmen = uiState.repairmen,
             pageSize = if (showFilterMenu) 7 else 8,
             onRepairmanClicked = onRepairmanClicked
         )

@@ -10,7 +10,7 @@ data class User(
     val password: String,
     val type: UserType,
     val token: String?,
-    val rating: Double = 3.0
+    val averageRating: Double = Double.NaN
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
