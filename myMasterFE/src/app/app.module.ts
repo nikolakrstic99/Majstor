@@ -15,6 +15,8 @@ import { HeaderComponent } from './header/header.component';
 import { LoginRegisterComponent } from './login-register/login-register.component';
 import { ContactComponent } from './contact/contact.component';
 import { AddServiceComponent } from './add-service/add-service.component';
+import { HomeComponent } from './home/home.component';
+import { L1CategoryComponent } from './l1-category/l1-category.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { AddServiceComponent } from './add-service/add-service.component';
     HeaderComponent,
     LoginRegisterComponent,
     ContactComponent,
-    AddServiceComponent
+    AddServiceComponent,
+    HomeComponent,
+    L1CategoryComponent
   ],
   imports: [
     BrowserModule,
