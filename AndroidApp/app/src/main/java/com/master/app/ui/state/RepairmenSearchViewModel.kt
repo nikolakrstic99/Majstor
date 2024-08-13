@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.master.app.data.model.User
 import com.master.app.data.repository.RepairmentRepository
+import com.master.app.data.repository.ReviewsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,8 +16,8 @@ data class RepairmenSearchUiState(
     val topLevelCategory: String? = null,
     val categoriesSelected: Set<String>? = null,
     val categoriesNotSelected: Set<String>? = null,
-    internal val allRepairmen: List<User>? = null,   // All repairmen
-    val repairmen: List<User> = listOf(),           // Repairmen to show
+    internal val allRepairmen: List<User> = listOf(),// All repairmen
+    val repairmen: List<User> = listOf(),            // Repairmen to show
     val sortByNameAsc: Boolean = true,
     val sortByRatingAsc: Boolean = false,
     val searchText: String = "",
@@ -26,7 +27,8 @@ data class RepairmenSearchUiState(
 @HiltViewModel
 class RepairmenSearchViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    private val repairmentRepository: RepairmentRepository
+    private val repairmentRepository: RepairmentRepository,
+    private val reviewsRepository: ReviewsRepository
 ): ViewModel() {
 
     private val _uiState = MutableStateFlow(RepairmenSearchUiState())
@@ -36,15 +38,32 @@ class RepairmenSearchViewModel @Inject constructor(
         viewModelScope.launch {
             val topLevelCategory: String = savedStateHandle.get<String>("topLevelCategory")!!
             val categories = repairmentRepository.getCategories(topLevelCategory)
-            val allRepairmen = repairmentRepository.getUsersProvidingTopLevelCategory(topLevelCategory)
+            val allRepairmen = repairmentRepository
+                .getUsersProvidingTopLevelCategory(topLevelCategory)
+                .data
+                ?.map { ratedUser ->
+                    val avgRating = reviewsRepository
+                        .getReviewsByRatedUser(ratedUser.id)
+                        .data
+                        ?.map { review ->
+                            review.rating
+                        }
+                        ?.average()
+                        ?: Double.NaN
+
+                    ratedUser.copy(
+                        averageRating = avgRating
+                    )
+                }
+                ?: listOf()
 
             _uiState.value = _uiState.value.copy(
                 topLevelCategory = topLevelCategory,
                 categoriesSelected = setOf(),
                 categoriesNotSelected = categories.data?.toSet(),
-                allRepairmen = allRepairmen.data,
+                allRepairmen = allRepairmen,
                 repairmen = sortRepairmen(
-                    allRepairmen.data ?: listOf(),
+                    allRepairmen,
                     uiState.value.sortByNameAsc,
                     uiState.value.sortByRatingAsc
                 ),
@@ -61,17 +80,21 @@ class RepairmenSearchViewModel @Inject constructor(
     ): List<User> {
         val sortedRepairmen = repairmen.toMutableList()
 
-        // Sort by rating
-        if (sortByRatingAsc)
-            sortedRepairmen.sortBy { it.rating }
-        else
-            sortedRepairmen.sortByDescending { it.rating }
-
         // Sort by name
         if (sortByNameAsc)
             sortedRepairmen.sortBy { it.firstName + it.lastName }
         else
             sortedRepairmen.sortByDescending { it.firstName + it.lastName }
+
+        // Sort by rating
+        if (sortByRatingAsc) {
+            sortedRepairmen.sortBy { it.averageRating }
+            sortedRepairmen.sortBy { it.averageRating.isNaN() } // Put NaN at the end
+        }
+        else {
+            sortedRepairmen.sortByDescending { it.averageRating }
+            sortedRepairmen.sortBy { it.averageRating.isNaN() } // Put NaN at the end
+        }
 
         return sortedRepairmen
     }

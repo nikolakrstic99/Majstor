@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
@@ -34,6 +35,7 @@ import com.master.app.ui.theme.AndroidAppTheme
 fun UserProfile(
     user: User,
     reviews: List<Int>,
+    onLogoutClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val containerModifier = Modifier
@@ -58,6 +60,7 @@ fun UserProfile(
         UserInfo(
             user = user,
             reviews = reviews,
+            onLogoutClicked = onLogoutClicked,
             modifier = containerModifier
         )
         UserServices(
@@ -70,6 +73,7 @@ fun UserProfile(
 fun UserInfo(
     user: User,
     reviews: List<Int>,
+    onLogoutClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -93,6 +97,12 @@ fun UserInfo(
         Spacer(modifier = Modifier.height(15.dp))
         RepairmanRatings(
             ratings = reviews
+        )
+        Spacer(modifier = Modifier.height(15.dp))
+        ClippedIconButton(
+            text = "Logout",
+            onClick = onLogoutClicked,
+            Modifier.width(200.dp)
         )
     }
 }
@@ -141,7 +151,8 @@ fun UserProfilePreview() {
                 UserType.REGULAR,
                 null
             ),
-            listOf()
+            listOf(),
+            { }
         )
     }
 }

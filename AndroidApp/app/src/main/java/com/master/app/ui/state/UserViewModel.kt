@@ -30,27 +30,28 @@ class UserViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            val user = userRepository.getLoggedUser().data
-            val reviews =
-                if (user != null)
-                    reviewsRepository.getReviewsByRatedUser(user.id).data?.map { it.rating } ?: listOf()
-                else
-                    listOf()
-
-            _uiState.value = _uiState.value.copy(
-                userInfo = user,
-                reviewsOnLoggedUser = reviews
-            )
+            refresh()
         }
+    }
+
+    private suspend fun refresh() {
+        val user = userRepository.getLoggedUser().data
+        val reviews =
+            if (user != null)
+                reviewsRepository.getReviewsByRatedUser(user.id).data?.map { it.rating } ?: listOf()
+            else
+                listOf()
+
+        _uiState.value = _uiState.value.copy(
+            userInfo = user,
+            reviewsOnLoggedUser = reviews
+        )
     }
 
     fun login(email: String, password: String) {
         viewModelScope.launch {
-            val user = userRepository.login(email, password)
-            _uiState.value = _uiState.value.copy(
-                userInfo = user.data,
-                errorMessage = user.message
-            )
+            userRepository.login(email, password)
+            refresh()
         }
     }
 
@@ -62,5 +63,14 @@ class UserViewModel @Inject constructor(
                 errorMessage = user.message
             )
         }
+    }
+
+    fun logout() {
+        userRepository.logout()
+        _uiState.value = _uiState.value.copy(
+            userInfo = null,
+            reviewsOnLoggedUser = null,
+            errorMessage = null
+        )
     }
 }

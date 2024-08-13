@@ -87,6 +87,10 @@ class UserRepositoryImpl @Inject constructor(
         }
     }
 
+    override fun logout() {
+        deleteAuthToken()
+    }
+
     private fun saveAuthToken(token: String) = LocalStorageManager.saveString("token", token)
     private fun hasAuthToken(): Boolean = LocalStorageManager.contains("token")
     private fun deleteAuthToken() = LocalStorageManager.deleteString("token")
