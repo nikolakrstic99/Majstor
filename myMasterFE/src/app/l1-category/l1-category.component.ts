@@ -18,6 +18,7 @@ export class L1CategoryComponent implements OnInit {
   l2Categories = [];
   services = [];
   serviceImageMap = new Map<string, string[]> ();
+  serviceActiveSlideMap = new Map<string, boolean[]>();
 
   constructor(private route: ActivatedRoute, private axiosService: AxiosService, private _snackBar: MatSnackBar) {
   }
@@ -54,9 +55,13 @@ export class L1CategoryComponent implements OnInit {
       this.services.forEach(service => {
         this.axiosService.request('GET', `api/v1/service/images/${service.id}`, null).then(response => {
           const images: string[] = [];
+          const activeSlide: boolean[] = [];
           response.data.forEach((image: any) => {
             images.push(image['imageData']);
+            activeSlide.push(false);
           });
+          activeSlide[0] = true;
+          this.serviceActiveSlideMap.set(service["id"], activeSlide);
           this.serviceImageMap.set(service["id"], images);
         }).catch(
           () => {
@@ -70,6 +75,19 @@ export class L1CategoryComponent implements OnInit {
       }
     );
 
+  }
+
+  imageClick(serviceId: string, step: number): void {
+    let activeSlide = this.serviceActiveSlideMap.get(serviceId);
+    let activeIndex = activeSlide.findIndex(value => value);
+    let nextIndex = activeIndex + step;
+    if(nextIndex < 0)
+      nextIndex = activeSlide.length - 1;
+    else if(nextIndex >= activeSlide.length)
+      nextIndex = 0;
+    activeSlide[activeIndex] = false;
+    activeSlide[nextIndex] = true;
+    this.serviceActiveSlideMap.set(serviceId, activeSlide);
   }
 
 }

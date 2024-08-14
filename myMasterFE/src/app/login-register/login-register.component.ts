@@ -1,11 +1,9 @@
-import {EventEmitter, Component, Output} from '@angular/core';
-import {Router} from "@angular/router";
-import {
-  MatSnackBar,
-  MatSnackBarHorizontalPosition,
-  MatSnackBarVerticalPosition
-} from "@angular/material/snack-bar";
-import {AxiosService} from "../services/axios.service";
+import { Component, EventEmitter, Output } from '@angular/core';
+import { Router } from "@angular/router";
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from "@angular/material/snack-bar";
+import { AxiosService } from "../services/axios.service";
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
 
 @Component({
   selector: 'app-login-register',
@@ -22,6 +20,8 @@ export class LoginRegisterComponent {
   lastName: string = "";
   login: string = "";
   password: string = "";
+  phone: string = "";
+  location: string = "";
 
   constructor(private axiosService: AxiosService, private router: Router, private _snackBar: MatSnackBar) {
   }
@@ -61,7 +61,9 @@ export class LoginRegisterComponent {
       firstName: this.firstName,
       lastName: this.lastName,
       email: this.login,
-      password: this.password
+      password: this.password,
+      phone: this.phone,
+      location: this.location
     }).then(
       response => {
         this.axiosService.setAuthToken(response.data.token);
@@ -73,5 +75,4 @@ export class LoginRegisterComponent {
       }
     );
   }
-
 }
