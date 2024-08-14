@@ -17,6 +17,7 @@ export class L1CategoryComponent implements OnInit {
   l2CategorySelected = null;
   l2Categories = [];
   services = [];
+  serviceImageMap = new Map<string, string[]> ();
 
   constructor(private route: ActivatedRoute, private axiosService: AxiosService, private _snackBar: MatSnackBar) {
   }
@@ -50,11 +51,25 @@ export class L1CategoryComponent implements OnInit {
     this.l2CategorySelected = l2Category;
     this.axiosService.request('GET', `api/v1/service/usersProvidingL2Category/${this.l2CategorySelected}`, null).then(response => {
       this.services = response.data;
+      this.services.forEach(service => {
+        this.axiosService.request('GET', `api/v1/service/images/${service.id}`, null).then(response => {
+          const images: string[] = [];
+          response.data.forEach((image: any) => {
+            images.push(image['imageData']);
+          });
+          this.serviceImageMap.set(service["id"], images);
+        }).catch(
+          () => {
+            this.openSnackBar("Greška prilikom dohvatanja slika :(");
+          }
+        );
+      });
     }).catch(
       () => {
         this.openSnackBar("Greška prilikom dohvatanja usluga :(");
       }
     );
+
   }
 
 }

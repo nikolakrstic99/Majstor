@@ -3,7 +3,7 @@
     <!-- Left Side (30%) -->
     <div class="col-md-4">
       <mat-card class="left-card">
-        <h2>Podkategorija</h2>
+        <h2><span>{{l1Category}}</span>, podkategorije:</h2>
         <ul class="list-group">
           <li *ngFor="let item of l2Categories" class="list-group-item cursor-pointer"
               [ngStyle]="item === l2CategorySelected ? {'background-color': '#2c7987', 'color': 'white'} : {}"
@@ -25,7 +25,12 @@
           </p>
           <ul class="list-group">
             <li *ngFor="let item of services" class="list-group-item cursor-pointer">
-              {{ item }}
+              <div class="row">
+                <div class="col-4">
+                  <img *ngFor="let image of serviceImageMap.get(item['id'])" [src]="image">
+                </div>
+              </div>
+              {{ item['description'] }}
             </li>
           </ul>
         </div>

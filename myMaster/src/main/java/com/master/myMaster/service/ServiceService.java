@@ -33,7 +33,7 @@ public class ServiceService {
     for (var file : addServiceRequest.files()) {
       var serviceImage = new ServiceImage();
       serviceImage.setServiceId(serviceEntity.getId());
-      serviceImage.setImageData(Utils.decodeImage(file));
+      serviceImage.setImageData(file);
       serviceImageService.save(serviceImageMapper.toEntity(serviceImage));
     }
     return service;

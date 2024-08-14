@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 public class ServiceImage {
 
   private Long id;
-  private byte[] imageData;
+  private String imageData;
   private Long serviceId;
 }

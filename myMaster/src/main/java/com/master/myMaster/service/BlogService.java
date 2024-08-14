@@ -35,7 +35,7 @@ public class BlogService {
     for (var file : request.files()) {
       var blogImage = new BlogImage();
       blogImage.setBlogId(blogEntity.getId());
-      blogImage.setImageData(Utils.decodeImage(file));
+      blogImage.setImageData(file);
       blogImageService.save(blogImageMapper.toEntity(blogImage));
     }
     return blog;
