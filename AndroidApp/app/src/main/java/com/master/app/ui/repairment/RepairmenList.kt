@@ -38,7 +38,7 @@ fun RepairmenList(
 ) {
     var currentPage by remember { mutableIntStateOf(1) }
     val paginatedItems = paginate(repairmen, currentPage, pageSize)
-    val nextPageEnabled = currentPage * pageSize < repairmen.size;
+    val nextPageEnabled = currentPage * pageSize < repairmen.size
 
     Box(
         modifier = modifier.fillMaxSize()

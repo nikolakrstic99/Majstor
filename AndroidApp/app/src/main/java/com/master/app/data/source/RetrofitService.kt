@@ -92,4 +92,8 @@ class RetrofitApiService: ApiService {
     override suspend fun getReviewsByCreatorUser(): Response<List<ReviewApiModel>> {
         return api.getReviewsByCreatorUser()
     }
+
+    override suspend fun getServicesProvidedByUser(userId: Int): Response<List<ServiceApiModel>> {
+        return api.getServicesProvidedByUser(userId)
+    }
 }

@@ -51,4 +51,9 @@ public class ServiceController {
   public List<ServiceImage> getImages(@PathVariable("id") Long id) {
     return serviceImageService.getImages(id);
   }
+
+  @GetMapping("/user/{userId}")
+  public List<Service> getServicesProvidedByUser(@PathVariable Integer userId) {
+    return serviceService.getServicesProvidedByUser(userId);
+  }
 }

@@ -51,13 +51,6 @@ fun BlogScreen(
                 items(
                     items = listOf<String>()
                 ) {
-//                AsyncImage(
-//                    model = it,
-//                    contentDescription = "Blog picture",
-//                    modifier = Modifier
-//                        .padding(10.dp)
-//                        .size(200.dp)
-//                )
                     Image(
                         painter = painterResource(id = R.drawable.ic_launcher_background),
                         contentDescription = "Preview image",

@@ -3,6 +3,7 @@ package com.master.app.ui.state
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.master.app.data.model.Review
+import com.master.app.data.model.Service
 import com.master.app.data.model.User
 import com.master.app.data.repository.RepairmentRepository
 import com.master.app.data.repository.ReviewsRepository
@@ -16,13 +17,15 @@ import javax.inject.Inject
 data class UserProfileUiState(
     val userInfo: User? = null,
     val reviewsOnLoggedUser: List<Int>? = null,
+    val servicesByLoggedUser: List<Service>? = null,
     val errorMessage: String? = null
 )
 
 @HiltViewModel
 class UserViewModel @Inject constructor(
     private val userRepository: UserRepository,
-    private val reviewsRepository: ReviewsRepository
+    private val reviewsRepository: ReviewsRepository,
+    private val repairmentRepository: RepairmentRepository
 ): ViewModel() {
 
     private val _uiState = MutableStateFlow(UserProfileUiState())
@@ -30,27 +33,34 @@ class UserViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            val user = userRepository.getLoggedUser().data
-            val reviews =
-                if (user != null)
-                    reviewsRepository.getReviewsByRatedUser(user.id).data?.map { it.rating } ?: listOf()
-                else
-                    listOf()
-
-            _uiState.value = _uiState.value.copy(
-                userInfo = user,
-                reviewsOnLoggedUser = reviews
-            )
+            refresh()
         }
+    }
+
+    private suspend fun refresh() {
+        val user = userRepository.getLoggedUser().data
+        val reviews =
+            if (user != null)
+                reviewsRepository.getReviewsByRatedUser(user.id).data?.map { it.rating } ?: listOf()
+            else
+                listOf()
+        val services =
+            if (user != null)
+                repairmentRepository.getServicesProvidedByUser(user.id).data ?: listOf()
+            else
+                listOf()
+
+        _uiState.value = _uiState.value.copy(
+            userInfo = user,
+            reviewsOnLoggedUser = reviews,
+            servicesByLoggedUser = services
+        )
     }
 
     fun login(email: String, password: String) {
         viewModelScope.launch {
-            val user = userRepository.login(email, password)
-            _uiState.value = _uiState.value.copy(
-                userInfo = user.data,
-                errorMessage = user.message
-            )
+            userRepository.login(email, password)
+            refresh()
         }
     }
 
@@ -62,5 +72,14 @@ class UserViewModel @Inject constructor(
                 errorMessage = user.message
             )
         }
+    }
+
+    fun logout() {
+        userRepository.logout()
+        _uiState.value = _uiState.value.copy(
+            userInfo = null,
+            reviewsOnLoggedUser = null,
+            errorMessage = null
+        )
     }
 }

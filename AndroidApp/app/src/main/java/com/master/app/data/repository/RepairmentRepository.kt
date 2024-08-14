@@ -18,4 +18,6 @@ interface RepairmentRepository {
     suspend fun getUsersProvidingTopLevelCategory(topLevelCategory: String): Resource<List<User>>
 
     suspend fun getUsersProvidingCategory(category: String): Resource<List<User>>
+
+    suspend fun getServicesProvidedByUser(userId: Int): Resource<List<Service>>
 }

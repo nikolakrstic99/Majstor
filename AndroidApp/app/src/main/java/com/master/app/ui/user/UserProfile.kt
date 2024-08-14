@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
@@ -24,9 +25,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.master.app.common.UserType
+import com.master.app.data.model.Service
 import com.master.app.data.model.User
 import com.master.app.ui.component.ClippedIconButton
 import com.master.app.ui.component.LabelValue
+import com.master.app.ui.component.RepairmanServices
 import com.master.app.ui.repairment.RepairmanRatings
 import com.master.app.ui.theme.AndroidAppTheme
 
@@ -34,6 +37,8 @@ import com.master.app.ui.theme.AndroidAppTheme
 fun UserProfile(
     user: User,
     reviews: List<Int>,
+    services: List<Service>,
+    onLogoutClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val containerModifier = Modifier
@@ -58,9 +63,11 @@ fun UserProfile(
         UserInfo(
             user = user,
             reviews = reviews,
+            onLogoutClicked = onLogoutClicked,
             modifier = containerModifier
         )
         UserServices(
+            services = services,
             modifier = containerModifier
         )
     }
@@ -70,6 +77,7 @@ fun UserProfile(
 fun UserInfo(
     user: User,
     reviews: List<Int>,
+    onLogoutClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -94,11 +102,18 @@ fun UserInfo(
         RepairmanRatings(
             ratings = reviews
         )
+        Spacer(modifier = Modifier.height(15.dp))
+        ClippedIconButton(
+            text = "Logout",
+            onClick = onLogoutClicked,
+            Modifier.fillMaxWidth()
+        )
     }
 }
 
 @Composable
 fun UserServices(
+    services: List<Service>,
     modifier: Modifier = Modifier
 ) {
     var showAddServiceDialog by remember { mutableStateOf(false) }
@@ -113,6 +128,7 @@ fun UserServices(
             style = MaterialTheme.typography.titleLarge,
             color = MaterialTheme.colorScheme.primary
         )
+        RepairmanServices(providedServices = services)
         ClippedIconButton(
             text = "Add new service",
             onClick = { showAddServiceDialog = true },
@@ -141,7 +157,9 @@ fun UserProfilePreview() {
                 UserType.REGULAR,
                 null
             ),
-            listOf()
+            listOf(),
+            listOf(),
+            { }
         )
     }
 }

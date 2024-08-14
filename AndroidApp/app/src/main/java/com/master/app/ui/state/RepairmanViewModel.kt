@@ -4,7 +4,9 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.master.app.data.model.Review
+import com.master.app.data.model.Service
 import com.master.app.data.model.User
+import com.master.app.data.repository.RepairmentRepository
 import com.master.app.data.repository.ReviewsRepository
 import com.master.app.data.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,6 +21,7 @@ data class RepairmanUiState(
     val reviews: List<Review>? = null,
     val averageRating: Double? = null,
     val showReviewRepairmenButton: Boolean = false,
+    val services: List<Service>? = null,
     val errorMessage: String? = null
 )
 
@@ -26,6 +29,7 @@ data class RepairmanUiState(
 class RepairmanViewModel @Inject constructor(
     private val userRepository: UserRepository,
     private val reviewsRepository: ReviewsRepository,
+    private val repairmentRepository: RepairmentRepository,
     private val savedStateHandle: SavedStateHandle
 ): ViewModel() {
 
@@ -38,10 +42,12 @@ class RepairmanViewModel @Inject constructor(
         viewModelScope.launch {
             val loggedUser = userRepository.getLoggedUser()
             val repairman = userRepository.getUser(repairmanId)
+            val services = repairmentRepository.getServicesProvidedByUser(repairmanId)
 
             _uiState.value = _uiState.value.copy(
                 loggedUser = loggedUser.data,
                 repairman = repairman.data,
+                services = services.data,
                 errorMessage = repairman.message
             )
 

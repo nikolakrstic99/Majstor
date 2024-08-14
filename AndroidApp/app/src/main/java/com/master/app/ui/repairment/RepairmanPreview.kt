@@ -39,7 +39,7 @@ fun RepairmanPreview(
             color = MaterialTheme.colorScheme.onSecondary
         )
         Text(
-            text = String.format("%.2f", 4.7),
+            text = String.format("%.2f", repairman.averageRating),
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onSecondary
         )
@@ -58,7 +58,8 @@ fun RepairmanPreviewPreview() {
                 "andrejjokic00@gmail.com",
                 "sd",
                 UserType.ADMIN,
-                "s"
+                "s",
+                4.6
             )
         )
     }

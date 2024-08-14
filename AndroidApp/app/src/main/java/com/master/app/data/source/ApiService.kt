@@ -57,4 +57,7 @@ interface ApiService {
 
     @GET("review/creatorUser")
     suspend fun getReviewsByCreatorUser(): Response<List<ReviewApiModel>>
+
+    @GET("service/user/{userId}")
+    suspend fun getServicesProvidedByUser(@Path("userId") userId: Int): Response<List<ServiceApiModel>>
 }
