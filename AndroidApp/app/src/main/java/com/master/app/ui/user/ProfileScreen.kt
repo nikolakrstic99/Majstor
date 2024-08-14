@@ -44,6 +44,7 @@ fun ProfileScreen(
             UserProfile(
                 user = uiState.userInfo!!,
                 reviews = uiState.reviewsOnLoggedUser ?: listOf(),
+                services = uiState.servicesByLoggedUser ?: listOf(),
                 onLogoutClicked = viewModel::logout
             )
         }

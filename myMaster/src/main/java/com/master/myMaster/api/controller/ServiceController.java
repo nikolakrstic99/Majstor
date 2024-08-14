@@ -43,4 +43,9 @@ public class ServiceController {
   public List<Service> getUsersProvidingL2Category(@PathVariable String l2Category) {
     return serviceService.getUsersProvidingL2Category(l2Category);
   }
+
+  @GetMapping("/user/{userId}")
+  public List<Service> getServicesProvidedByUser(@PathVariable Integer userId) {
+    return serviceService.getServicesProvidedByUser(userId);
+  }
 }

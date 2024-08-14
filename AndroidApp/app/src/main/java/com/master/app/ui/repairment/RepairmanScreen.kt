@@ -2,6 +2,8 @@ package com.master.app.ui.repairment
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.Email
@@ -28,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.master.app.ui.component.CallButton
 import com.master.app.ui.component.MessageButton
+import com.master.app.ui.component.RepairmanServices
 import com.master.app.ui.state.RepairmanViewModel
 import com.master.app.ui.theme.AndroidAppTheme
 
@@ -113,11 +116,11 @@ fun RepairmanScreen(
             modifier = Modifier
                 .padding(it)
                 .padding(10.dp)
+                .verticalScroll(rememberScrollState())
         ) {
             if (selectedItem == 0) {
                 RepairmanServices(
-                    averageRating = uiState.averageRating ?: Double.NaN,
-                    providedServices = listOf("Postavljanje laminata", "Skidanje parketa", "Postavljanje parketa")
+                    providedServices = uiState.services ?: listOf()
                 )
             }
             if (selectedItem == 1) {

@@ -25,9 +25,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.master.app.common.UserType
+import com.master.app.data.model.Service
 import com.master.app.data.model.User
 import com.master.app.ui.component.ClippedIconButton
 import com.master.app.ui.component.LabelValue
+import com.master.app.ui.component.RepairmanServices
 import com.master.app.ui.repairment.RepairmanRatings
 import com.master.app.ui.theme.AndroidAppTheme
 
@@ -35,6 +37,7 @@ import com.master.app.ui.theme.AndroidAppTheme
 fun UserProfile(
     user: User,
     reviews: List<Int>,
+    services: List<Service>,
     onLogoutClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -64,6 +67,7 @@ fun UserProfile(
             modifier = containerModifier
         )
         UserServices(
+            services = services,
             modifier = containerModifier
         )
     }
@@ -102,13 +106,14 @@ fun UserInfo(
         ClippedIconButton(
             text = "Logout",
             onClick = onLogoutClicked,
-            Modifier.width(200.dp)
+            Modifier.fillMaxWidth()
         )
     }
 }
 
 @Composable
 fun UserServices(
+    services: List<Service>,
     modifier: Modifier = Modifier
 ) {
     var showAddServiceDialog by remember { mutableStateOf(false) }
@@ -123,6 +128,7 @@ fun UserServices(
             style = MaterialTheme.typography.titleLarge,
             color = MaterialTheme.colorScheme.primary
         )
+        RepairmanServices(providedServices = services)
         ClippedIconButton(
             text = "Add new service",
             onClick = { showAddServiceDialog = true },
@@ -151,6 +157,7 @@ fun UserProfilePreview() {
                 UserType.REGULAR,
                 null
             ),
+            listOf(),
             listOf(),
             { }
         )
