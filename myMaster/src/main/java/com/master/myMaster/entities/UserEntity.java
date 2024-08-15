@@ -45,6 +45,10 @@ public class UserEntity {
   @Column(nullable = false)
   @Enumerated(EnumType.STRING)
   private UserStatus status;
+  @Column(nullable = false)
+  private String phone;
+  @Column(nullable = false)
+  private String location;
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private Set<BlogEntity> blogs;
 //  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

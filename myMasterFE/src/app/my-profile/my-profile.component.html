@@ -1,0 +1,59 @@
+<div class="container mt-5">
+  <!-- Profile Section -->
+  <div class="row align-items-center profile-section">
+    <!--
+    <div class="col-md-2 text-center">
+      <img src="assets/profile.jpg" alt="Profile Image" class="img-fluid rounded-circle profile-image">
+    </div>
+    -->
+    <div class="col-md-12">
+      <h2 class="profile-name">{{ user['firstName'] }} {{ user['lastName'] }}</h2>
+      <p class="profile-phone"><i class="fas fa-phone"></i> {{ mobilePhone }}</p>
+    </div>
+  </div>
+
+  <!-- Average Review Section -->
+  <div class="row mt-4 average-review-section">
+    <div class="col-md-12">
+      <h3>Average Review</h3>
+      <div class="star-rating">
+        <ng-container *ngFor="let star of stars">
+          <i class="fas fa-star" [ngClass]="{'text-warning': star <= averageReview, 'text-muted': star > averageReview}"></i>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+  <!-- Comments Section -->
+  <div class="row mt-4 comments-section">
+    <div class="col-md-12">
+      <h3>Comments</h3>
+      <ng-container *ngFor="let comment of comments; let i = index">
+        <div *ngIf="i < 3" class="comment-box">
+          <p>{{ comment.text }}</p>
+        </div>
+      </ng-container>
+      <button *ngIf="comments.length > 3" class="btn btn-outline-primary mt-3" (click)="readMoreComments()">Read More</button>
+    </div>
+  </div>
+
+  <!-- Services Section -->
+  <div class="row mt-4 services-section">
+    <div class="col-md-12">
+      <h3>Services</h3>
+      <ng-container *ngFor="let service of services; let i = index">
+        <div class="service-box mb-4">
+          <h4>{{ service.title }}</h4>
+          <div class="service-slideshow mb-3">
+            <img [src]="service.images[currentImageIndex[i]]" alt="Service Image" class="img-fluid service-image">
+            <div class="slideshow-controls mt-2">
+              <button class="btn btn-sm btn-secondary" (click)="prevImage(i)">Previous</button>
+              <button class="btn btn-sm btn-secondary" (click)="nextImage(i)">Next</button>
+            </div>
+          </div>
+          <p>{{ service.description }}</p>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

@@ -3,6 +3,8 @@ package com.master.myMaster.api.controller;
 import com.master.myMaster.api.request.AddServiceRequest;
 import com.master.myMaster.common.config.UserAuthProvider;
 import com.master.myMaster.domains.Service;
+import com.master.myMaster.domains.ServiceImage;
+import com.master.myMaster.service.ServiceImageService;
 import com.master.myMaster.service.ServiceService;
 import com.master.myMaster.utils.Utils;
 import jakarta.websocket.server.PathParam;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public class ServiceController {
 
   private final ServiceService serviceService;
+  private final ServiceImageService serviceImageService;
   private final UserAuthProvider userAuthProvider;
 
   @GetMapping("/l1Categories")
@@ -42,6 +45,11 @@ public class ServiceController {
   @GetMapping("/usersProvidingL2Category/{l2Category}")
   public List<Service> getUsersProvidingL2Category(@PathVariable String l2Category) {
     return serviceService.getUsersProvidingL2Category(l2Category);
+  }
+
+  @GetMapping("/images/{id}")
+  public List<ServiceImage> getImages(@PathVariable("id") Long id) {
+    return serviceImageService.getImages(id);
   }
 
   @GetMapping("/user/{userId}")

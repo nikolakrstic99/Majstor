@@ -9,9 +9,22 @@
 }
 
 .right-card {
-  background-color: #c1ceca;
+  background-color: #2c7987;
   padding: 15px;
   border-radius: 8px;
+  img {
+    // height: 300px;
+    // width: auto;
+    // max-width: 650px;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    // width: 150px;
+  }
+  .center-content {
+    padding-top: 7%;
+  }
 }
 
 .mat-card {
@@ -29,4 +42,10 @@
 
 .list-group-item:hover {
   background-color: #e0f7fa; /* Optional: Add a hover effect */
+}
+
+h2 {
+  span {
+    color: #2c7987;
+  }
 }

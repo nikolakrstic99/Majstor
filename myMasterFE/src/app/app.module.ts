@@ -8,7 +8,7 @@ import {BlogDetailComponent} from "./blog/blog-detail/blog-detail.component";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AddBlogComponent } from './blog/add-blog/add-blog.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
@@ -18,6 +18,8 @@ import { AddServiceComponent } from './add-service/add-service.component';
 import { HomeComponent } from './home/home.component';
 import { L1CategoryComponent } from './l1-category/l1-category.component';
 import {MatCardModule} from "@angular/material/card";
+import { MyProfileComponent } from './my-profile/my-profile.component';
+import {NgxIntlTelInputModule} from "ngx-intl-tel-input";
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import {MatCardModule} from "@angular/material/card";
     ContactComponent,
     AddServiceComponent,
     HomeComponent,
-    L1CategoryComponent
+    L1CategoryComponent,
+    MyProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -39,9 +42,11 @@ import {MatCardModule} from "@angular/material/card";
     FontAwesomeModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     MatSnackBarModule,
-    MatCardModule
+    MatCardModule,
+    NgxIntlTelInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

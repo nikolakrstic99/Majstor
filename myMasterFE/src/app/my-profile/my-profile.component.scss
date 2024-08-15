@@ -1,0 +1,80 @@
+/* Profile Section */
+.profile-section {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/* Profile image is commented out for now, but can be used later. */
+/* .profile-image {
+  max-width: 100px;
+} */
+
+.profile-name {
+  font-weight: bold;
+  font-size: 1.8em;
+}
+
+.profile-phone {
+  font-size: 1.2em;
+  color: #6c757d;
+}
+
+/* Average Review Section */
+.average-review-section {
+  background-color: #fff3cd;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.star-rating .fa-star {
+  font-size: 1.5em;
+}
+
+/* Comments Section */
+.comments-section {
+  background-color: #e9ecef;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.comment-box {
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ced4da;
+}
+
+/* Services Section */
+.services-section {
+  background-color: #f1f3f5;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.service-box {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #ced4da;
+}
+
+.service-slideshow {
+  position: relative;
+}
+
+.service-image {
+  border-radius: 10px;
+  width: 100%;
+}
+
+.slideshow-controls {
+  display: flex;
+  justify-content: space-between;
+}
+
+.slideshow-controls .btn {
+  font-size: 0.8em;
+  padding: 5px 10px;
+}

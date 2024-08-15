@@ -20,6 +20,8 @@ public class User {
   private String token;
   private String password;
   private UserStatus status;
+  private String phone;
+  private String location;
   @Builder.Default
   private Set<Blog> blogs = new HashSet<>();
   @Builder.Default
