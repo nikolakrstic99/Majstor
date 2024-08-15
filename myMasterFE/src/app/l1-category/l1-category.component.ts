@@ -1,11 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {AxiosService} from "../services/axios.service";
-import {
-  MatSnackBar,
-  MatSnackBarHorizontalPosition,
-  MatSnackBarVerticalPosition
-} from "@angular/material/snack-bar";
+import {UtilsService} from "../utils.service";
 
 @Component({
   selector: 'app-l1-category',
@@ -20,17 +16,7 @@ export class L1CategoryComponent implements OnInit {
   serviceImageMap = new Map<string, string[]> ();
   serviceActiveSlideMap = new Map<string, boolean[]>();
 
-  constructor(private route: ActivatedRoute, private axiosService: AxiosService, private _snackBar: MatSnackBar) {
-  }
-
-  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
-  verticalPosition: MatSnackBarVerticalPosition = 'top';
-
-  openSnackBar(message: string) {
-    this._snackBar.open(message, 'Okay', {
-      horizontalPosition: this.horizontalPosition,
-      verticalPosition: this.verticalPosition,
-    });
+  constructor(private route: ActivatedRoute, private axiosService: AxiosService, private utils: UtilsService) {
   }
 
 
@@ -43,7 +29,7 @@ export class L1CategoryComponent implements OnInit {
         this.l2Categories = response.data;
       }).catch(
       error => {
-        this.openSnackBar("Greška prilikom dohvatanja l2 kategorija :(");
+        this.utils.openSnackBar("Greška prilikom dohvatanja l2 kategorija :(");
       }
     );
   }
@@ -65,13 +51,13 @@ export class L1CategoryComponent implements OnInit {
           this.serviceImageMap.set(service["id"], images);
         }).catch(
           () => {
-            this.openSnackBar("Greška prilikom dohvatanja slika :(");
+            this.utils.openSnackBar("Greška prilikom dohvatanja slika :(");
           }
         );
       });
     }).catch(
       () => {
-        this.openSnackBar("Greška prilikom dohvatanja usluga :(");
+        this.utils.openSnackBar("Greška prilikom dohvatanja usluga :(");
       }
     );
 

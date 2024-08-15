@@ -17,11 +17,6 @@ public class UserController {
   private final UserService userService;
   private final UserAuthProvider userAuthProvider;
 
-  @GetMapping("/test")
-  public ResponseEntity<String> test() {
-    return ResponseEntity.ok("Hello");
-  }
-
   @PostMapping("/login")
   public ResponseEntity<User> login(@RequestBody CredentialsRequest credentials) {
     var user = userService.login(credentials);

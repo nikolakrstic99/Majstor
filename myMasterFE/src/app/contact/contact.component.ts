@@ -1,10 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AxiosService} from "../services/axios.service";
-import {
-  MatSnackBar,
-  MatSnackBarHorizontalPosition,
-  MatSnackBarVerticalPosition
-} from "@angular/material/snack-bar";
+import {UtilsService} from "../utils.service";
 
 @Component({
   selector: 'app-contact',
@@ -13,7 +9,7 @@ import {
 })
 export class ContactComponent implements OnInit {
 
-  constructor(private axiosService: AxiosService, private _snackBar: MatSnackBar) {
+  constructor(private axiosService: AxiosService, private utils: UtilsService) {
   }
 
   firstLastName: string = "";
@@ -21,15 +17,6 @@ export class ContactComponent implements OnInit {
   message: string = "";
 
   ngOnInit(): void {
-  }
-
-  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
-  verticalPosition: MatSnackBarVerticalPosition = 'top';
-  openSnackBar(message: string) {
-    this._snackBar.open(message, 'Okay', {
-      horizontalPosition: this.horizontalPosition,
-      verticalPosition: this.verticalPosition,
-    });
   }
 
   onSubmit(): void {
@@ -40,10 +27,10 @@ export class ContactComponent implements OnInit {
         message: this.message
       }).then(
       response => {
-        this.openSnackBar("Message sent!");
+        this.utils.openSnackBar("Poruka poslata!");
       }).catch(
       error => {
-        this.openSnackBar("Message failed to send :(");
+        this.utils.openSnackBar("Poruka nije poslata :(");
       }
     );
   }

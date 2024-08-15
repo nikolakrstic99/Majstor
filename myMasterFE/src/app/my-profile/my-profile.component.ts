@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AxiosService} from "../services/axios.service";
+import {UtilsService} from "../utils.service";
 
 @Component({
   selector: 'app-my-profile',
@@ -8,45 +9,83 @@ import {AxiosService} from "../services/axios.service";
 })
 export class MyProfileComponent implements OnInit{
 
-  constructor(private axiosService: AxiosService) {
+  constructor(private axiosService: AxiosService, private utils: UtilsService) {
   }
 
   ngOnInit(): void {
     this.axiosService.requestWithToken('GET', 'api/v1/user', null)
-    .then(response => {this.user = response.data
-    console.log(this.user)}).catch((error) => {});
+    .then(response => {
+      this.user = response.data
+      this.axiosService.requestWithToken('GET', `api/v1/service/user/${this.user.id}`, null).then(response => {
+        this.services = response.data;
+        this.services.forEach(service => {
+          this.axiosService.request('GET', `api/v1/service/images/${service.id}`, null).then(response => {
+            const images: string[] = [];
+            const activeSlide: boolean[] = [];
+            response.data.forEach((image: any) => {
+              images.push(image['imageData']);
+              activeSlide.push(false);
+            });
+            activeSlide[0] = true;
+            this.serviceActiveSlideMap.set(service["id"], activeSlide);
+            this.serviceImageMap.set(service["id"], images);
+
+            this.axiosService.requestWithToken('GET', `api/v1/review/ratedUser/${this.user['id']}`, null).then(response => {
+              this.comments = response.data;
+              this.calculateAverageRating()
+            }).catch(error => {});
+          }).catch(
+            () => {
+              this.utils.openSnackBar("Greška prilikom dohvatanja slika :(");
+            }
+          );
+        });
+      }).catch(error => {});
+
+    }).catch((error) => {});
+
+
+
   }
   user = null;
   firstName = 'John';
   lastName = 'Doe';
   mobilePhone = '123-456-7890';
-  averageReview = 4.5;
+  averageReview  = 0.00;
   stars = [1, 2, 3, 4, 5];
-  comments = [
-    { text: 'Great service!' },
-    { text: 'Very professional.' },
-    { text: 'Highly recommended.' },
-    { text: 'Will use again.' },
-    { text: 'Satisfied with the service.' }
-  ];
-  services = [
-    {
-      title: 'Web Development',
-      images: ['assets/webdev1.jpg', 'assets/webdev2.jpg', 'assets/webdev3.jpg'],
-      description: 'High-quality web development services with a focus on responsive design and user experience.'
-    },
-    {
-      title: 'Graphic Design',
-      images: ['assets/design1.jpg', 'assets/design2.jpg', 'assets/design3.jpg'],
-      description: 'Creative and modern graphic design services, including logos, branding, and print materials.'
-    }
-  ];
+  comments = [];
+  services = [];
+  serviceImageMap = new Map<string, string[]> ();
+  serviceActiveSlideMap = new Map<string, boolean[]>();
 
   // Initialize currentImageIndex array
   currentImageIndex: number[] = this.services.map(() => 0);
 
-  readMoreComments() {
-    // Implement functionality to show more comments
+  readMore = false;
+  readMoreComments(flag: boolean) {
+    this.readMore = flag;
+  }
+
+  calculateAverageRating() {
+    let sum = 0.0;
+    this.comments.forEach(comment => {
+      sum += comment.rating;
+    });
+    this.averageReview = sum / this.comments.length;
+    console.log(this.averageReview)
+  }
+
+  imageClick(serviceId: string, step: number): void {
+    let activeSlide = this.serviceActiveSlideMap.get(serviceId);
+    let activeIndex = activeSlide.findIndex(value => value);
+    let nextIndex = activeIndex + step;
+    if(nextIndex < 0)
+      nextIndex = activeSlide.length - 1;
+    else if(nextIndex >= activeSlide.length)
+      nextIndex = 0;
+    activeSlide[activeIndex] = false;
+    activeSlide[nextIndex] = true;
+    this.serviceActiveSlideMap.set(serviceId, activeSlide);
   }
 
   prevImage(serviceIndex: number) {

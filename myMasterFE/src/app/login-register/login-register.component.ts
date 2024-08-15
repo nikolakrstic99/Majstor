@@ -1,9 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from "@angular/router";
-import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from "@angular/material/snack-bar";
 import { AxiosService } from "../services/axios.service";
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
+import {UtilsService} from "../utils.service";
 
 @Component({
   selector: 'app-login-register',
@@ -23,7 +21,7 @@ export class LoginRegisterComponent {
   phone: string = "";
   location: string = "";
 
-  constructor(private axiosService: AxiosService, private router: Router, private _snackBar: MatSnackBar) {
+  constructor(private axiosService: AxiosService, private router: Router, private utils: UtilsService) {
   }
 
   onLoginTab(): void {
@@ -34,15 +32,6 @@ export class LoginRegisterComponent {
     this.active = "register";
   }
 
-  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
-  verticalPosition: MatSnackBarVerticalPosition = 'top';
-  openSnackBar(message: string) {
-    this._snackBar.open(message, 'Okay', {
-      horizontalPosition: this.horizontalPosition,
-      verticalPosition: this.verticalPosition,
-    });
-  }
-
   onSubmitLogin(): void {
     this.axiosService.request("POST", "api/v1/login", {email: this.login, password: this.password}).then(
       response => {
@@ -50,7 +39,7 @@ export class LoginRegisterComponent {
         this.router.navigate(["/"]);
       }).catch(
       error => {
-        this.openSnackBar("Sign in failed :(");
+        this.utils.openSnackBar("Sign in failed :(");
         this.axiosService.setAuthToken(null);
       }
     );
@@ -67,10 +56,10 @@ export class LoginRegisterComponent {
     }).then(
       response => {
         this.axiosService.setAuthToken(response.data.token);
-        this.openSnackBar("Successful registration");
+        this.utils.openSnackBar("Successful registration");
       }).catch(
       error => {
-        this.openSnackBar("Sign up failed :(");
+        this.utils.openSnackBar("Sign up failed :(");
         this.axiosService.setAuthToken(null);
       }
     );

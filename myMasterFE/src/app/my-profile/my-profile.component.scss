@@ -51,30 +51,12 @@
   background-color: #f1f3f5;
   padding: 20px;
   border-radius: 10px;
-}
 
-.service-box {
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 10px;
-  border: 1px solid #ced4da;
-}
-
-.service-slideshow {
-  position: relative;
-}
-
-.service-image {
-  border-radius: 10px;
-  width: 100%;
-}
-
-.slideshow-controls {
-  display: flex;
-  justify-content: space-between;
-}
-
-.slideshow-controls .btn {
-  font-size: 0.8em;
-  padding: 5px 10px;
+  img {
+    height: 300px;
+    margin: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+  }
 }

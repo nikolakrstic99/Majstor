@@ -1,11 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {AxiosService} from "../services/axios.service";
-import {
-  MatSnackBar,
-  MatSnackBarHorizontalPosition,
-  MatSnackBarVerticalPosition
-} from "@angular/material/snack-bar";
 import {NgForm} from "@angular/forms";
+import {UtilsService} from "../utils.service";
 
 @Component({
   selector: 'app-add-service',
@@ -16,7 +12,7 @@ export class AddServiceComponent implements OnInit {
 
   constructor(
     private axiosService: AxiosService,
-    private _snackBar: MatSnackBar
+    private utils: UtilsService
   ) {
   }
 
@@ -26,17 +22,7 @@ export class AddServiceComponent implements OnInit {
     this.axiosService.request('GET', 'api/v1/service/l1Categories', null).then(response => {
       this.l1Options = response.data;
     }).catch(() => {
-      this.openSnackBar("Greška prilikom dohvatanja l1 kategorija :(")
-    });
-  }
-
-  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
-  verticalPosition: MatSnackBarVerticalPosition = 'top';
-
-  openSnackBar(str: string) {
-    this._snackBar.open(str, 'Okay', {
-      horizontalPosition: this.horizontalPosition,
-      verticalPosition: this.verticalPosition,
+      this.utils.openSnackBar("Greška prilikom dohvatanja l1 kategorija :(")
     });
   }
 
@@ -53,7 +39,7 @@ export class AddServiceComponent implements OnInit {
     this.axiosService.request("GET", `api/v1/service/l2Categories/${this.l1Selected}`, null).then(response => {
       this.l2Options = response.data;
     }).catch(() => {
-      this.openSnackBar("Greška prilikom dohvatanja l2 kategorija :(")
+      this.utils.openSnackBar("Greška prilikom dohvatanja l2 kategorija :(")
     });
   }
 
@@ -92,9 +78,9 @@ export class AddServiceComponent implements OnInit {
         files: this.images
       }
     ).then(response => {
-      this.openSnackBar('Uluga je dodata');
+      this.utils.openSnackBar('Usluga je dodata');
     }).catch(error => {
-      this.openSnackBar('Usluga nije dodata');
+      this.utils.openSnackBar('Usluga nije dodata');
     });
   }
 
