@@ -8,6 +8,7 @@ import com.master.app.data.entity.LoginRequest
 import com.master.app.data.entity.RegisterRequest
 import com.master.app.data.entity.ReviewApiModel
 import com.master.app.data.entity.ServiceApiModel
+import com.master.app.data.entity.ServiceImageApiModel
 import com.master.app.data.entity.UserApiModel
 import okhttp3.OkHttpClient
 import retrofit2.Response
@@ -95,5 +96,9 @@ class RetrofitApiService: ApiService {
 
     override suspend fun getServicesProvidedByUser(userId: Int): Response<List<ServiceApiModel>> {
         return api.getServicesProvidedByUser(userId)
+    }
+
+    override suspend fun getServiceImages(id: Int): Response<List<ServiceImageApiModel>> {
+        return api.getServiceImages(id)
     }
 }

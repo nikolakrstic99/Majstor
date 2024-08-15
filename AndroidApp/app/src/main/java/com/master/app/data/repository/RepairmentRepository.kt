@@ -1,6 +1,7 @@
 package com.master.app.data.repository
 
 import com.master.app.data.model.Service
+import com.master.app.data.model.ServiceImage
 import com.master.app.data.model.User
 
 interface RepairmentRepository {
@@ -20,4 +21,6 @@ interface RepairmentRepository {
     suspend fun getUsersProvidingCategory(category: String): Resource<List<User>>
 
     suspend fun getServicesProvidedByUser(userId: Int): Resource<List<Service>>
+
+    suspend fun getServiceImages(serviceId: Int): Resource<List<ServiceImage>>
 }

@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.master.app.data.model.Review
 import com.master.app.data.model.Service
+import com.master.app.data.model.ServiceImage
 import com.master.app.data.model.User
 import com.master.app.data.repository.RepairmentRepository
 import com.master.app.data.repository.ReviewsRepository
@@ -42,12 +43,20 @@ class RepairmanViewModel @Inject constructor(
         viewModelScope.launch {
             val loggedUser = userRepository.getLoggedUser()
             val repairman = userRepository.getUser(repairmanId)
-            val services = repairmentRepository.getServicesProvidedByUser(repairmanId)
+            val services = repairmentRepository
+                .getServicesProvidedByUser(repairmanId)
+                .data
+                ?.map {
+                    val images = repairmentRepository.getServiceImages(it.id).data
+                    it.copy(
+                        images = images ?: listOf()
+                    )
+                }
 
             _uiState.value = _uiState.value.copy(
                 loggedUser = loggedUser.data,
                 repairman = repairman.data,
-                services = services.data,
+                services = services,
                 errorMessage = repairman.message
             )
 

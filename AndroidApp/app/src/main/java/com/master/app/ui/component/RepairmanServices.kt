@@ -88,11 +88,10 @@ fun ServiceInfo(
         }
         LazyRow{
             items(
-                items = listOf("1", "2", "3", "4", "5", "6")
+                items = service.images
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_launcher_background),
-                    contentDescription = "Preview image",
+                Base64Image(
+                    base64Str = it.data,
                     modifier = Modifier
                         .padding(5.dp)
                         .size(100.dp)
