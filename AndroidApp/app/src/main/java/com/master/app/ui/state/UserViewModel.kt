@@ -59,18 +59,23 @@ class UserViewModel @Inject constructor(
 
     fun login(email: String, password: String) {
         viewModelScope.launch {
-            userRepository.login(email, password)
+            val user = userRepository.login(email, password)
+//            _uiState.value = _uiState.value.copy(
+//                userInfo = user.data,
+//                errorMessage = user.message
+//            )
             refresh()
         }
     }
 
-    fun register(firstName: String, lastName: String, email: String, password: String) {
+    fun register(firstName: String, lastName: String, email: String, password: String, phoneNumber: String, location: String) {
         viewModelScope.launch {
-            val user = userRepository.register(firstName, lastName, email, password)
-            _uiState.value = _uiState.value.copy(
-                userInfo = user.data,
-                errorMessage = user.message
-            )
+            val user = userRepository.register(firstName, lastName, email, password, phoneNumber, location)
+//            _uiState.value = _uiState.value.copy(
+//                userInfo = user.data,
+//                errorMessage = user.message
+//            )
+            refresh()
         }
     }
 

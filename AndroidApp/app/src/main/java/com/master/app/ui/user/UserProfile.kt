@@ -155,7 +155,9 @@ fun UserProfilePreview() {
                 "andrejjokic00@gmail.com",
                 "andrej123",
                 UserType.REGULAR,
-                null
+                "s",
+                "s",
+                "s"
             ),
             listOf(),
             listOf(),

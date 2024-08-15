@@ -4,7 +4,7 @@ import com.master.app.data.model.User
 
 interface UserRepository {
     suspend fun login(email: String, password: String): Resource<User>
-    suspend fun register(firstName: String, lastName: String, email: String, password: String):
+    suspend fun register(firstName: String, lastName: String, email: String, password: String, phoneNumber: String, location: String):
             Resource<User>
     suspend fun getLoggedUser(): Resource<User>
     suspend fun isUserLoggedIn(): Boolean

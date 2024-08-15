@@ -59,7 +59,9 @@ fun RepairmanPreviewPreview() {
                 "sd",
                 UserType.ADMIN,
                 "s",
-                4.6
+                "s",
+                "s",
+                4.3
             )
         )
     }

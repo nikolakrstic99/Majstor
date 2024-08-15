@@ -98,7 +98,7 @@ fun BlogInfoPreview() {
                 "Welcome to Weekend Brunch! Skip the lines and make brunch at home. The coffee’s truly bottomless and the best part is PJs all the way! This week: a guide to the gloriousness that is known as A Full English Breakfast.home. The coffee’s truly bottomless and the best part is PJs all the way! This week: a guide to the gloriousness that is known as A Full English Breakfast.",
                 "picture",
                 User(
-                    1, "Andrej", "Jokic", "and", "s", UserType.ADMIN, "s"
+                    1, "Andrej", "Jokic", "and", "s", UserType.ADMIN, "s", "ss", "ss"
                 ),
                 LocalDateTime.now().toLocalDate().toString()
             )

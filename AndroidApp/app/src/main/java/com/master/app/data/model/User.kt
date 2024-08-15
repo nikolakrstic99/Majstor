@@ -9,6 +9,8 @@ data class User(
     val email: String,
     val password: String,
     val type: UserType,
+    val phoneNumber: String,
+    val location: String,
     val token: String?,
     val averageRating: Double = Double.NaN
 ) {

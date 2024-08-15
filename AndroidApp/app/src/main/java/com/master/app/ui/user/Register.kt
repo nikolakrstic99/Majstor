@@ -3,6 +3,7 @@ package com.master.app.ui.user
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,6 +13,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -35,7 +38,7 @@ import com.master.app.utils.isPasswordValid
 
 @Composable
 fun Register(
-    onSubmit: (String, String, String, String) -> Unit,
+    onSubmit: (String, String, String, String, String, String) -> Unit,
     onSignInClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -43,8 +46,12 @@ fun Register(
     var lastName by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var phoneNumber by remember { mutableStateOf("") }
+    var location by remember { mutableStateOf("") }
 
-    Column {
+    Column(
+        modifier = Modifier.verticalScroll(rememberScrollState())
+    ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(15.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -57,7 +64,7 @@ fun Register(
                     Color.Gray,
                     MaterialTheme.shapes.small
                 )
-                .padding(50.dp)
+                .padding(20.dp)
         ) {
             Text(
                 text = "Register",
@@ -96,9 +103,27 @@ fun Register(
                 onValueChanged = { input -> password = input },
                 placeholder = "Password"
             )
+            OutlinedTextField(
+                value = phoneNumber,
+                onValueChange = { input -> phoneNumber = input},
+                placeholder = { Text(text = "Phone number") },
+                maxLines = 1,
+                modifier = Modifier
+                    .background(MaterialTheme.colorScheme.background)
+                    .fillMaxWidth()
+            )
+            OutlinedTextField(
+                value = location,
+                onValueChange = { input -> location = input},
+                placeholder = { Text(text = "Location") },
+                maxLines = 1,
+                modifier = Modifier
+                    .background(MaterialTheme.colorScheme.background)
+                    .fillMaxWidth()
+            )
             ClippedIconButton(
                 text = "Register",
-                onClick = { onSubmit(firstName, lastName, email, password) },
+                onClick = { onSubmit(firstName, lastName, email, password, phoneNumber, location) },
                 modifier = Modifier.size(200.dp, 50.dp)
             )
         }
@@ -115,7 +140,7 @@ fun Register(
                     Color.Gray,
                     MaterialTheme.shapes.small
                 )
-                .padding(30.dp)
+                .padding(20.dp)
         ) {
             Text(text = "Already have an account?")
             Spacer(modifier = Modifier.width(5.dp))
@@ -132,6 +157,6 @@ fun Register(
 @Composable
 fun RegisterPreview() {
     AndroidAppTheme {
-        Register({_, _, _, _ -> }, {})
+        Register({_, _, _, _ , _, _-> }, {})
     }
 }

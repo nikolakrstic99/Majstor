@@ -24,6 +24,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -36,6 +37,7 @@ fun BlogsScreen(
     modifier: Modifier = Modifier,
     viewModel: BlogsViewModel = hiltViewModel(),
 ) {
+    val context = LocalContext.current
     val uiState by viewModel.uiState.collectAsState()
     var showAddBlogDialog by remember { mutableStateOf(false) }
 
@@ -86,10 +88,10 @@ fun BlogsScreen(
             }
             if (showAddBlogDialog) {
                 AddBlogDialog(
-                    onSubmit = { title, description, text ->
+                    onSubmit = { title, description, text, pictures ->
                         run {
                             showAddBlogDialog = false
-                            viewModel.createBlog(title, description, text)
+                            viewModel.createBlog(title, description, text, pictures, context)
                         }
                     },
                     onDismiss = { showAddBlogDialog = false }

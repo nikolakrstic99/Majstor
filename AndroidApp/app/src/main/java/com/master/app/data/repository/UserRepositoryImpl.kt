@@ -28,14 +28,16 @@ class UserRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun register(firstName: String, lastName: String, email: String, password: String
+    override suspend fun register(firstName: String, lastName: String, email: String, password: String,  phoneNumber: String, location: String
     ): Resource<User> {
         try {
             val response = apiService.register(RegisterRequest(
                 firstName = firstName,
                 lastName = lastName,
                 email = email,
-                password = password
+                password = password,
+                phone = phoneNumber,
+                location = location
             ))
             if (!response.isSuccessful) {
                 return Resource.Error("Error: ${response.code()} - ${response.errorBody()?.string()}")

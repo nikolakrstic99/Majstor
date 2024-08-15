@@ -17,6 +17,8 @@ fun fromUserApiToUser(userApiModel: UserApiModel): User =
         email = userApiModel.email,
         password = userApiModel.password,
         type = userApiModel.status,
+        phoneNumber = userApiModel.phone,
+        location = userApiModel.location,
         token = userApiModel.token
     )
 

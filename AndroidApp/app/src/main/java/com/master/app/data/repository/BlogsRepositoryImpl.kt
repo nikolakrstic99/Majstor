@@ -9,10 +9,10 @@ import javax.inject.Inject
 class BlogsRepositoryImpl @Inject constructor(
     private val apiService: ApiService
 ): BlogsRepository {
-    override suspend fun createBlog(title: String, description: String, text: String
+    override suspend fun createBlog(title: String, description: String, text: String, pictures: List<String>
     ): Resource<Blog> {
         try {
-            val response = apiService.createBlog(CreateBlogRequest(title, description, text))
+            val response = apiService.createBlog(CreateBlogRequest(title, description, text, pictures))
             if (!response.isSuccessful) {
                 return Resource.Error("Error: ${response.code()} - ${response.errorBody()?.string()}")
             }
