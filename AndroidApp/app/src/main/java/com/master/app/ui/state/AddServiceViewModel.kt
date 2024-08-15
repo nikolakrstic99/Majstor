@@ -1,9 +1,11 @@
 package com.master.app.ui.state
 
+import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.master.app.data.repository.RepairmentRepository
+import com.master.app.utils.uriToBase64
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -45,10 +47,11 @@ class AddServiceViewModel @Inject constructor(
         topLevelCategory: String,
         category: String,
         description: String,
-        pictures: List<Uri>
+        pictures: List<Uri>,
+        context: Context
     ) {
         viewModelScope.launch {
-            val picturesIn64 = pictures.map { it.toString() }
+            val picturesIn64 = pictures.mapNotNull { uriToBase64(context, it) }
             repairmentRepository.addService(topLevelCategory, category, description, picturesIn64)
         }
     }
