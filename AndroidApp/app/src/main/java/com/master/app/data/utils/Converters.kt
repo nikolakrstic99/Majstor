@@ -3,10 +3,12 @@ package com.master.app.data.utils
 import com.master.app.data.entity.BlogApiModel
 import com.master.app.data.entity.ReviewApiModel
 import com.master.app.data.entity.ServiceApiModel
+import com.master.app.data.entity.ServiceImageApiModel
 import com.master.app.data.entity.UserApiModel
 import com.master.app.data.model.Blog
 import com.master.app.data.model.Review
 import com.master.app.data.model.Service
+import com.master.app.data.model.ServiceImage
 import com.master.app.data.model.User
 
 fun fromUserApiToUser(userApiModel: UserApiModel): User =
@@ -49,4 +51,10 @@ fun fromReviewApiToReview(reviewApiModel: ReviewApiModel): Review =
         text = reviewApiModel.text,
         rating = reviewApiModel.rating,
         createdAt = reviewApiModel.createdAt
+    )
+
+fun fromServiceImageApiToService(serviceImageApiModel: ServiceImageApiModel): ServiceImage =
+    ServiceImage(
+        data = serviceImageApiModel.imageData,
+        serviceId = serviceImageApiModel.serviceId
     )
