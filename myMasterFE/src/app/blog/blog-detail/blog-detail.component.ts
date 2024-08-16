@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import { Blog } from '../../models/blog';
-import { blogs } from '../blog-data';
+import { ActivatedRoute } from '@angular/router';
 import {AxiosService} from "../../services/axios.service";
 
 @Component({
@@ -12,27 +10,28 @@ import {AxiosService} from "../../services/axios.service";
 export class BlogDetailComponent implements OnInit {
 
   id: number | null = null;
-  blogDetail: Blog | undefined;
-  images: string[] = [
-    'assets/images/blog/101.jpg',
-    'assets/images/blog/202.jpg',
-    'assets/images/blog/303.jpg'
-  ];
+  blogDetail: null;
+  images = [];
   activeSlide: boolean[] = [true, false, false];
   activeIndex = 0;
   isAdmin: boolean;
+  author: string;
 
   constructor(private activatedRouter: ActivatedRoute, private axiosService: AxiosService) {
     this.id = +this.activatedRouter.snapshot.paramMap.get('id')!;
+
   }
 
   ngOnInit(): void {
-    this.blogDetail = blogs[this.id - 1];
-    this.activatedRouter.params.subscribe((params: Params) => {
-      this.id = +params['id'];
-      this.blogDetail = blogs[this.id - 1];
-    });
     this.isAdmin = this.axiosService.isAdmin();
+    this.axiosService.request('GET', `api/v1/blog/${this.id}`, null).then(response => {
+      this.blogDetail = response.data;
+      // @ts-ignore
+      this.author = this.blogDetail['user']['firstName'] + ' ' + this.blogDetail['user']['lastName']
+      this.axiosService.request('GET', `api/v1/blog/images/${this.id}`, null).then(response => {
+        this.images = response.data;
+      }).catch(error => {});
+    }).catch(error => {});
   }
 
   imageClick(step: number): void {

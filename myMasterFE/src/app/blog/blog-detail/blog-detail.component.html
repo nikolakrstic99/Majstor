@@ -5,9 +5,9 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-9 align-self-center text-center">
-        <h1 class="title">BLOG DETAIL PAGE</h1>
+        <h1 class="title">MAJSTORSKA PRIČA</h1>
         <h5 class="subtitle">
-          We are Small Team of Creative People working together
+          Naučite nešto korisno od pravih profesionalaca
         </h5>
       </div>
     </div>
@@ -26,38 +26,32 @@
           <span> Blogovi</span>
         </a>
         <hr />
-        <div class="row">
-          <div class="col-1 center-content">
+        <div class="row align-items-center no-gutters">
+          <div class="col-auto d-flex justify-content-center">
             <i
               class="fa-solid fa-arrow-left fa-2x cursor-pointer"
               (click)="imageClick(-1)"
             ></i>
           </div>
+
           <div
-            id="carouselExampleControls"
-            class="carousel slide col-10"
-            data-ride="carousel"
+            class="col-10 d-flex justify-content-center align-items-center"
+            style="height: 300px;"
           >
-            <div
-              class="carousel-inner"
-              *ngFor="let im of images; let i = index"
-            >
-              <div
-                class="carousel-item active"
-                [ngStyle]="{
-                  display: activeSlide[i] === true ? 'inline' : 'none'
-                }"
-              >
+
                 <img
-                  class="d-block w-100 center"
-                  [src]="im"
+                  *ngFor="let im of images; let i = index"
+                  [ngStyle]="{
+              display: activeSlide[i] === true ? 'inline' : 'none'}"
+                  class="img-fluid"
+                  [src]="im.imageData"
                   alt="Slide Image"
                   style="height: 300px; width: auto; max-width: 650px"
                 />
-              </div>
-            </div>
+
           </div>
-          <div class="col-1 center-content">
+
+          <div class="col-auto d-flex justify-content-center">
             <i
               class="fa-solid fa-arrow-right fa-2x cursor-pointer"
               (click)="imageClick(1)"
@@ -65,17 +59,16 @@
           </div>
         </div>
 
-        <div
-          class="d-flex align-items-center text-uppercase m-t-40 font-13 font-medium"
-        >
-          <a>Author</a>
-          <div class="ml-auto">
-            <a>{{ blogDetail?.blogDate }}</a>
+        <hr />
+        <div class="d-flex justify-content-between align-items-center m-t-40">
+          <h1 class="title" style="color: #2c7987;">{{ blogDetail ? blogDetail['heading'] : null}}</h1>
+          <div class="d-flex flex-column text-right">
+            <a>{{ author }}</a>
+            <a>{{ blogDetail ? blogDetail['createdAt'] : null}}</a>
           </div>
         </div>
-        <h2 class="title font-light">{{ blogDetail?.heading }}</h2>
-        <p class="m-t-30 m-b-30">{{ blogDetail?.subHeading }}</p>
-        <p class="m-t-30 m-b-30">{{ blogDetail?.blogDetail }}</p>
+        <h3 class="m-t-30 m-b-30"><i>{{ blogDetail ? blogDetail['subHeading'] : null}}</i></h3>
+        <p class="m-t-30 m-b-30">{{ blogDetail ? blogDetail['details'] : null}}</p>
 
         <hr />
         <div class="m-t-30">
@@ -93,6 +86,7 @@
           </button>
         </div>
       </div>
+
     </div>
   </div>
 </div>

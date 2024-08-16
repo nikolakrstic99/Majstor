@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AxiosService} from "../services/axios.service";
 import {UtilsService} from "../utils.service";
 
@@ -7,7 +7,7 @@ import {UtilsService} from "../utils.service";
   templateUrl: './my-profile.component.html',
   styleUrls: ['./my-profile.component.scss']
 })
-export class MyProfileComponent implements OnInit{
+export class MyProfileComponent implements OnInit {
 
   constructor(private axiosService: AxiosService, private utils: UtilsService) {
   }
@@ -18,6 +18,7 @@ export class MyProfileComponent implements OnInit{
       this.user = response.data
       this.axiosService.requestWithToken('GET', `api/v1/service/user/${this.user.id}`, null).then(response => {
         this.services = response.data;
+        console.log(this.services)
         this.services.forEach(service => {
           this.axiosService.request('GET', `api/v1/service/images/${service.id}`, null).then(response => {
             const images: string[] = [];
@@ -33,35 +34,39 @@ export class MyProfileComponent implements OnInit{
             this.axiosService.requestWithToken('GET', `api/v1/review/ratedUser/${this.user['id']}`, null).then(response => {
               this.comments = response.data;
               this.calculateAverageRating()
-            }).catch(error => {});
+            }).catch(error => {
+            });
           }).catch(
             () => {
               this.utils.openSnackBar("Greška prilikom dohvatanja slika :(");
             }
           );
         });
-      }).catch(error => {});
+      }).catch(error => {
+      });
 
-    }).catch((error) => {});
-
+    }).catch((error) => {
+    });
 
 
   }
+
   user = null;
   firstName = 'John';
   lastName = 'Doe';
   mobilePhone = '123-456-7890';
-  averageReview  = 0.00;
+  averageReview = 0.00;
   stars = [1, 2, 3, 4, 5];
   comments = [];
   services = [];
-  serviceImageMap = new Map<string, string[]> ();
+  serviceImageMap = new Map<string, string[]>();
   serviceActiveSlideMap = new Map<string, boolean[]>();
 
   // Initialize currentImageIndex array
   currentImageIndex: number[] = this.services.map(() => 0);
 
   readMore = false;
+
   readMoreComments(flag: boolean) {
     this.readMore = flag;
   }
@@ -72,16 +77,15 @@ export class MyProfileComponent implements OnInit{
       sum += comment.rating;
     });
     this.averageReview = sum / this.comments.length;
-    console.log(this.averageReview)
   }
 
   imageClick(serviceId: string, step: number): void {
     let activeSlide = this.serviceActiveSlideMap.get(serviceId);
     let activeIndex = activeSlide.findIndex(value => value);
     let nextIndex = activeIndex + step;
-    if(nextIndex < 0)
+    if (nextIndex < 0)
       nextIndex = activeSlide.length - 1;
-    else if(nextIndex >= activeSlide.length)
+    else if (nextIndex >= activeSlide.length)
       nextIndex = 0;
     activeSlide[activeIndex] = false;
     activeSlide[nextIndex] = true;

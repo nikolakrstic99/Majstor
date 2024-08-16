@@ -1,71 +1,66 @@
 <div
-  class="static-slider-head"
+  class="static-slider-head bg-image"
   style="background-image: url(assets/images/landingpage/banner-bg.jpg)"
 >
   <div class="container">
     <!-- Row  -->
     <div class="row justify-content-center">
       <!-- Column -->
-      <div class="col-9 align-self-center text-center no-trans">
-        <h1 class="title">Majstorske priče</h1>
-        <h3 class="subtitle op-5">
+      <div class="col-9 align-self-center text-center no-trans py-5">
+        <h1 class="display-4 text-white">Majstorske priče</h1>
+        <h3 class="subtitle text-white-50 mt-3">
           Iskusan si majstor koji voli da podeli znanje sa drugima? Ovde možeš to i da uradiš.
         </h3>
 
         <a
-          href="https://www.wrappixel.com/free-wrapkit-angular-blog"
-          class="btn btn-md m-t-30 btn-success-gradiant font-14"
-          target="blank"
+          class="btn btn-success-gradiant btn-lg mt-4"
           routerLink="/addBlog"
           routerLinkActive="active"
-        >Napiši blog</a
         >
+          Napiši blog
+        </a>
       </div>
       <!-- Column -->
     </div>
   </div>
 </div>
 
-<!-- Row  -->
-<div class="container spacer">
+<!-- Blog Listing Section -->
+<div class="container spacer mt-5">
   <div class="row justify-content-center">
     <!-- Column -->
-    <div class="col-9 no-trans text-center">
-      <h1 class="title">Priče</h1>
-      <h6 class="subtitle">
-        You can relay on our amazing features list and also our customer
-        services will be great experience for you without doubt and in no-time
+    <div class="col-9 no-trans text-center mb-4">
+      <h1 class="display-5">Priče</h1>
+      <h6 class="subtitle text-muted">
+        You can rely on our amazing features list and also our customer services will be a great experience for you without a doubt and in no time.
       </h6>
     </div>
     <!-- Column -->
   </div>
-  <div class="row m-t-40 justify-content-center">
-    <!-- Column -->
-    <div
-      class="col-9 no-trans border-bottom mb-4"
-      *ngFor="let bl of Blogs"
-    >
-      <hr>
-      <div class="card" data-aos="flip-left" data-aos-duration="1200">
-        <div class="row">
-          <div class="col-md-2 no-trans">
-            <span class="text-dark font-medium">{{ bl.blogDate }}</span>
-            <h6 class="card-subtitle font-12 mt-1">By John Deo</h6>
+  <div class="row justify-content-center">
+    <!-- Blog Cards -->
+    <div class="col-9 no-trans" *ngFor="let bl of Blogs">
+      <div class="card shadow-sm border-0 mb-4">
+        <div class="row g-0">
+          <div class="col-md-2 d-flex align-items-center p-3">
+            <div>
+              <span class="text-dark font-medium">{{ bl['createdAt'] }}</span>
+              <h6 class="card-subtitle font-12 text-muted mt-1"></h6>
+            </div>
           </div>
-          <div class="col-md-7 no-trans">
-            <h5 class="font-18 cursor-pointer" (click)="viewDetail(bl.id)">
-              {{ bl.heading.substring(0, 50) }}..
-            </h5>
-            <p class="font-14 m-t-20">
-              {{ bl.subHeading }}
-            </p>
+          <div class="col-md-7 d-flex align-items-center p-3">
+            <div>
+              <h5 class="font-18 cursor-pointer" (click)="viewDetail(bl.id)">
+                {{ bl.heading.substring(0, 50) }}..
+              </h5>
+              <p class="font-14 text-muted mt-2">
+                {{ bl.subHeading }}
+              </p>
+            </div>
           </div>
-          <div class="col-md-3 no-trans">
-            <a
-              class="linking font-medium text-themecolor m-t-10 cursor-pointer"
-            >
-              <span (click)="viewDetail(bl.id)">Detaljnije </span>
-              <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+          <div class="col-md-3 d-flex align-items-center justify-content-end p-3">
+            <a class="text-success font-medium cursor-pointer" (click)="viewDetail(bl.id)">
+              Detaljnije <i class="fa fa-long-arrow-right ms-2"></i>
             </a>
           </div>
         </div>

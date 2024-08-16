@@ -3,6 +3,9 @@ package com.master.myMaster.api.controller;
 import com.master.myMaster.api.request.AddBlogRequest;
 import com.master.myMaster.common.config.UserAuthProvider;
 import com.master.myMaster.domains.Blog;
+import com.master.myMaster.domains.BlogImage;
+import com.master.myMaster.domains.ServiceImage;
+import com.master.myMaster.service.BlogImageService;
 import com.master.myMaster.service.BlogService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class BlogController {
 
   private final BlogService blogService;
+  private final BlogImageService blogImageService;
   private final UserAuthProvider userAuthProvider;
   @PostMapping
   public ResponseEntity<Blog> createBlog(@RequestBody AddBlogRequest request) {
@@ -36,5 +40,14 @@ public class BlogController {
   @GetMapping
   public List<Blog> getAllBlogs() {
     return blogService.getAllBlogs();
+  }
+
+  @GetMapping("/{id}")
+  public ResponseEntity<Blog> getBlog(@PathVariable Long id) {
+    return ResponseEntity.ok(blogService.getBlog(id));
+  }
+  @GetMapping("/images/{id}")
+  public List<BlogImage> getImages(@PathVariable("id") Long id) {
+    return blogImageService.getImages(id);
   }
 }

@@ -10,5 +10,5 @@ public interface ServiceRepository extends JpaRepository<ServiceEntity, Long> {
 
     List<ServiceEntity> findByL1Category(String l1Category);
     List<ServiceEntity> findByL2Category(String l2Category);
-    List<ServiceEntity> findByUser(UserEntity user_id);
+    List<ServiceEntity> findByUserId(Long userId);
 }

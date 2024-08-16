@@ -30,7 +30,7 @@ public class BlogService {
     var blog = blogMapper.toBlog(request);
     var user = userService.findByEmail(principalUser.getEmail());
     blog.setCreatedAt(LocalDateTime.now());
-    user.addBlog(blog);
+    blog.setUser(user);
     var blogEntity = save(blog);
     for (var file : request.files()) {
       var blogImage = new BlogImage();
@@ -48,6 +48,11 @@ public class BlogService {
 
   public void deleteBlog(Long id) {
     blogRepository.deleteById(id);
+  }
+
+  @Transactional
+  public Blog getBlog(Long id) {
+    return blogRepository.findById(id).map(blogMapper::toBlog).orElseThrow();
   }
 
   @Transactional

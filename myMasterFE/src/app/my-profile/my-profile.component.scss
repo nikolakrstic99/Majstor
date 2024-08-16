@@ -53,10 +53,20 @@
   border-radius: 10px;
 
   img {
-    height: 300px;
-    margin: auto;
     border: 1px solid #ddd;
     border-radius: 4px;
     padding: 5px;
+    width: auto;
+    height: 100%;
+    objectFit: contain;
+  }
+}
+
+.contact {
+  i {
+    margin-right: 5px;
+  }
+  .text-center {
+    margin:5px;
   }
 }

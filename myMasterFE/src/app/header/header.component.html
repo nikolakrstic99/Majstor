@@ -18,6 +18,9 @@
           <a routerLink="contact">
             Kontakt
           </a>
+          <a [ngStyle]="{'display':isLoggedIn() === true?'inline':'none'}" routerLink="/myProfile">
+            Moj profil
+          </a>
           <a [ngStyle]="{'display':isLoggedIn() === true?'none':'inline'}" routerLink="/loginRegister">
             Prijavi se
           </a>

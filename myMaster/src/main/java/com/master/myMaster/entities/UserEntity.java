@@ -1,5 +1,6 @@
 package com.master.myMaster.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.master.myMaster.domains.UserStatus;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -21,7 +22,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name = "users")
 @Entity
 @Data
 @Builder
@@ -29,28 +29,36 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
+@Table(name = "users")
 public class UserEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
   @Column(nullable = false)
   private String firstName;
+
   @Column(nullable = false)
   private String lastName;
+
   @Column(nullable = false)
   private String email;
+
   @Column
   private String password;
+
   @Column(nullable = false)
   @Enumerated(EnumType.STRING)
   private UserStatus status;
+
   @Column(nullable = false)
   private String phone;
+
   @Column(nullable = false)
   private String location;
+
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JsonManagedReference // Ensure proper JSON serialization
   private Set<BlogEntity> blogs;
-//  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//  private Set<ServiceEntity> services;
 }

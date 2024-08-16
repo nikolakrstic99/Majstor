@@ -1,5 +1,6 @@
 package com.master.myMaster.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -31,8 +32,9 @@ public class BlogEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne
   @JoinColumn(name = "user_id", referencedColumnName = "id")
+  @JsonBackReference // Ensure proper JSON serialization
   private UserEntity user;
 
   @Column(nullable = false)
@@ -46,5 +48,4 @@ public class BlogEntity {
 
   @Column(nullable = false)
   private LocalDateTime createdAt;
-
 }

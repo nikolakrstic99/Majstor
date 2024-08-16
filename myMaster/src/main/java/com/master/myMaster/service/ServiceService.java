@@ -5,12 +5,10 @@ import com.master.myMaster.domains.Service;
 import com.master.myMaster.domains.ServiceImage;
 import com.master.myMaster.domains.User;
 import com.master.myMaster.entities.ServiceEntity;
-import com.master.myMaster.entities.UserEntity;
 import com.master.myMaster.mapper.ServiceImageMapper;
 import com.master.myMaster.mapper.ServiceMapper;
 import com.master.myMaster.mapper.UserMapper;
 import com.master.myMaster.repository.ServiceRepository;
-import com.master.myMaster.utils.Utils;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -72,9 +70,7 @@ public class ServiceService {
   }
 
   public List<Service> getServicesProvidedByUser(Integer userId) {
-    var user = userService.getUser(userId.longValue());
-    return serviceRepository
-            .findByUser(userMapper.toEntity(user))
+    return serviceRepository.findByUserId(userId.longValue())
             .stream()
             .map(serviceMapper::toDomain)
             .toList();

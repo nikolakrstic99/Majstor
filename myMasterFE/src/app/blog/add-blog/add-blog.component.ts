@@ -28,6 +28,7 @@ export class AddBlogComponent implements OnInit {
         reader.onload = (event: any) => {
           this.images.push(event.target.result);
         };
+        reader.readAsDataURL(event.target.files[i]);
       }
     }
   }
