@@ -26,9 +26,15 @@ import com.master.app.utils.decodeBase64ToBitmap
 @Composable
 fun Base64Image(
     base64Str: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    clickable: Boolean = true
 ) {
     var shouldEnlarge by remember { mutableStateOf(false) }
+    val clickableModifier =
+        if (clickable)
+            modifier.clickable { shouldEnlarge = !shouldEnlarge }
+        else
+            modifier
 
     val imageBitMap = decodeBase64ToBitmap(base64Str)?.asImageBitmap()
     if (imageBitMap != null) {
@@ -36,8 +42,7 @@ fun Base64Image(
             bitmap = imageBitMap,
             contentDescription = "Image",
             contentScale = ContentScale.Crop,
-            modifier = modifier
-                .clickable { shouldEnlarge = !shouldEnlarge }
+            modifier = clickableModifier
         )
         if (shouldEnlarge) {
             Dialog(

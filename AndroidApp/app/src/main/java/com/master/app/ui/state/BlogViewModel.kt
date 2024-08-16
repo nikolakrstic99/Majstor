@@ -29,9 +29,14 @@ class BlogViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            val blogs = blogsRepository.getAllBlogs()
+            val blog = blogsRepository.getAllBlogs().data
+                ?.find { it.id == blogId }
+                ?.copy(
+                    images = blogsRepository.getBlogImages(blogId).data ?: listOf()
+                )
+
             _uiState.value = _uiState.value.copy(
-                blog = blogs.data?.find { it.id == blogId }
+                blog = blog
             )
         }
     }

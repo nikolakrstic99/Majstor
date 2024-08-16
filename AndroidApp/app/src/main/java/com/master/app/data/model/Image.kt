@@ -1,6 +1,6 @@
 package com.master.app.data.model
 
-data class ServiceImage(
+data class Image(
     val data: String,
-    val serviceId: Int
+    val linkedId: Int
 )

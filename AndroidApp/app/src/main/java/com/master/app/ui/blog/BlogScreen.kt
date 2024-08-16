@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.master.app.R
+import com.master.app.ui.component.Base64Image
 import com.master.app.ui.state.BlogViewModel
 import com.master.app.ui.theme.AndroidAppTheme
 
@@ -49,17 +50,31 @@ fun BlogScreen(
             Divider()
             LazyRow {
                 items(
-                    items = listOf<String>()
+                    items = uiState.blog!!.images
                 ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_launcher_background),
-                        contentDescription = "Preview image",
+//                    Image(
+//                        painter = painterResource(id = R.drawable.ic_launcher_background),
+//                        contentDescription = "Preview image",
+//                        modifier = Modifier
+//                            .padding(5.dp)
+//                            .size(100.dp)
+//                            .clip(MaterialTheme.shapes.medium)
+//                    )
+                    Base64Image(
+                        base64Str = it.data,
                         modifier = Modifier
                             .padding(5.dp)
                             .size(100.dp)
                             .clip(MaterialTheme.shapes.medium)
                     )
                 }
+            }
+            if (uiState.blog!!.images.isEmpty()) {
+                Text(
+                    text = "No images attached",
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.secondary
+                )
             }
             Divider()
             Text(

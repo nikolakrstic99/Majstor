@@ -6,5 +6,6 @@ data class Blog(
     val description: String,
     val text: String,
     val author: User,
-    val createdAt: String
+    val createdAt: String,
+    val images: List<Image> = listOf()
 )
