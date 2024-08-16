@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
@@ -25,11 +24,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.master.app.common.UserType
+import com.master.app.data.model.Blog
 import com.master.app.data.model.Service
 import com.master.app.data.model.User
+import com.master.app.ui.blog.BlogPreview
 import com.master.app.ui.component.ClippedIconButton
 import com.master.app.ui.component.LabelValue
-import com.master.app.ui.component.RepairmanServices
+import com.master.app.ui.repairment.RepairmanServices
 import com.master.app.ui.repairment.RepairmanRatings
 import com.master.app.ui.theme.AndroidAppTheme
 
@@ -38,6 +39,7 @@ fun UserProfile(
     user: User,
     reviews: List<Int>,
     services: List<Service>,
+    blogs: List<Blog>,
     onLogoutClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -70,6 +72,10 @@ fun UserProfile(
             services = services,
             modifier = containerModifier
         )
+        UserBlogs(
+            blogs = blogs,
+            modifier = containerModifier
+        )
     }
 }
 
@@ -97,6 +103,14 @@ fun UserInfo(
         LabelValue(
             label = "User type",
             value = user.type.toString(),
+        )
+        LabelValue(
+            label = "Phone number",
+            value = user.phoneNumber,
+        )
+        LabelValue(
+            label = "Location",
+            value = user.location,
         )
         Spacer(modifier = Modifier.height(15.dp))
         RepairmanRatings(
@@ -129,6 +143,13 @@ fun UserServices(
             color = MaterialTheme.colorScheme.primary
         )
         RepairmanServices(providedServices = services)
+        if (services.isEmpty()) {
+            Text(
+                text = "No services added",
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.secondary
+            )
+        }
         ClippedIconButton(
             text = "Add new service",
             onClick = { showAddServiceDialog = true },
@@ -138,6 +159,38 @@ fun UserServices(
             AddServiceDialog(
                 onSubmit = { showAddServiceDialog = false },
                 onDismiss = { showAddServiceDialog = false }
+            )
+        }
+    }
+}
+
+@Composable
+fun UserBlogs(
+    blogs: List<Blog>,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(15.dp),
+        modifier = modifier
+            .padding(10.dp)
+            .fillMaxWidth()
+    ) {
+        Text(
+            text = "My blogs",
+            style = MaterialTheme.typography.titleLarge,
+            color = MaterialTheme.colorScheme.primary
+        )
+        for (blog in blogs) {
+            BlogPreview(
+                blog = blog
+            )
+        }
+        if (blogs.isEmpty()) {
+            Text(
+                text = "No blogs published",
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.secondary
             )
         }
     }
@@ -159,6 +212,7 @@ fun UserProfilePreview() {
                 "s",
                 "s"
             ),
+            listOf(),
             listOf(),
             listOf(),
             { }

@@ -8,7 +8,7 @@ import com.master.app.data.entity.LoginRequest
 import com.master.app.data.entity.RegisterRequest
 import com.master.app.data.entity.ReviewApiModel
 import com.master.app.data.entity.ServiceApiModel
-import com.master.app.data.entity.ServiceImageApiModel
+import com.master.app.data.entity.ImageApiModel
 import com.master.app.data.entity.UserApiModel
 import retrofit2.Response
 import retrofit2.http.Body
@@ -63,5 +63,8 @@ interface ApiService {
     suspend fun getServicesProvidedByUser(@Path("userId") userId: Int): Response<List<ServiceApiModel>>
 
     @GET("service/images/{id}")
-    suspend fun getServiceImages(@Path("id") id: Int): Response<List<ServiceImageApiModel>>
+    suspend fun getServiceImages(@Path("id") id: Int): Response<List<ImageApiModel>>
+
+    @GET("blog/images/{id}")
+    suspend fun getBlogImages(@Path("id") id: Int): Response<List<ImageApiModel>>
 }

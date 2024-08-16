@@ -2,11 +2,11 @@ package com.master.app.data.repository
 
 import com.master.app.data.entity.AddServiceRequest
 import com.master.app.data.model.Service
-import com.master.app.data.model.ServiceImage
+import com.master.app.data.model.Image
 import com.master.app.data.model.User
 import com.master.app.data.source.ApiService
+import com.master.app.data.utils.fromImageApiToImage
 import com.master.app.data.utils.fromServiceApiToService
-import com.master.app.data.utils.fromServiceImageApiToService
 import com.master.app.data.utils.fromUserApiToUser
 import javax.inject.Inject
 
@@ -99,13 +99,13 @@ class RepairmentRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getServiceImages(serviceId: Int): Resource<List<ServiceImage>> {
+    override suspend fun getServiceImages(serviceId: Int): Resource<List<Image>> {
         try {
             val response = apiService.getServiceImages(serviceId)
             if (!response.isSuccessful) {
                 return Resource.Error("Error: ${response.code()} - ${response.errorBody()?.string()}")
             }
-            return Resource.Success(response.body()!!.map { fromServiceImageApiToService(it) })
+            return Resource.Success(response.body()!!.map { fromImageApiToImage(it) })
         }
         catch (e: Exception) {
             return Resource.Error(e.toString())

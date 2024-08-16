@@ -30,7 +30,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.master.app.ui.component.CallButton
 import com.master.app.ui.component.MessageButton
-import com.master.app.ui.component.RepairmanServices
 import com.master.app.ui.state.RepairmanViewModel
 import com.master.app.ui.theme.AndroidAppTheme
 

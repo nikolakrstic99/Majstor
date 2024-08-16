@@ -2,6 +2,7 @@ package com.master.app.ui.blog
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -75,14 +76,14 @@ fun BlogsScreen(
                 items(
                     items = uiState.blogs?: listOf()
                 ) {
-                    BlogPreview(
-                        blog = it,
-                        Modifier
-                            .size(width = 500.dp, height = 150.dp)
-                            .clickable(onClick = {
-                                onNavigateToBlogScreen(it.id)
-                            })
-                    )
+                    Box(
+                        modifier = Modifier.clickable(onClick = { onNavigateToBlogScreen(it.id) })
+                    ) {
+                        BlogPreview(
+                            blog = it,
+                            Modifier.size(width = 500.dp, height = 150.dp)
+                        )
+                    }
                     Divider()
                 }
             }

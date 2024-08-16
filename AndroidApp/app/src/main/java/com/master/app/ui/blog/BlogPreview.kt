@@ -23,6 +23,7 @@ import com.master.app.R
 import com.master.app.common.UserType
 import com.master.app.data.model.Blog
 import com.master.app.data.model.User
+import com.master.app.ui.component.Base64Image
 import com.master.app.ui.theme.AndroidAppTheme
 import java.time.LocalDateTime
 
@@ -40,22 +41,26 @@ fun BlogPreview(
             modifier = Modifier.fillMaxHeight(),
             contentAlignment = Alignment.Center
         ) {
-//        AsyncImage(
-//            model = exampleImage,
-//            contentDescription = "Blog preview picture",
-//            modifier = Modifier
-//                .padding(10.dp)
-//                .size(100.dp)
-//                .clip(MaterialTheme.shapes.medium)
-//        )
-            Image(
-                painter = painterResource(id = R.drawable.ic_launcher_background),
-                contentDescription = "Preview image",
-                modifier = Modifier
-                    .padding(5.dp)
-                    .size(100.dp)
-                    .clip(MaterialTheme.shapes.medium)
-            )
+            if (blog.images.isNotEmpty()) {
+                Base64Image(
+                    base64Str = blog.images[0].data,
+                    clickable = false,
+                    modifier = Modifier
+                        .padding(5.dp)
+                        .size(100.dp)
+                        .clip(MaterialTheme.shapes.medium)
+                )
+            }
+            else {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_launcher_background),
+                    contentDescription = "Preview image",
+                    modifier = Modifier
+                        .padding(5.dp)
+                        .size(100.dp)
+                        .clip(MaterialTheme.shapes.medium)
+                )
+            }
         }
         Column(
             horizontalAlignment = Alignment.Start,

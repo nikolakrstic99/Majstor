@@ -6,5 +6,5 @@ data class Service(
     val category: String,
     val description: String,
     val user: User,
-    val images: List<ServiceImage> = listOf()
+    val images: List<Image> = listOf()
 )
