@@ -47,4 +47,4 @@
 </div>
 </body>
 </html>
-<app-add-service></app-add-service>
+<app-add-service *ngIf="this.axiosService.getAuthToken !== null"></app-add-service>

@@ -66,9 +66,13 @@ export class MyProfileComponent implements OnInit {
   currentImageIndex: number[] = this.services.map(() => 0);
 
   readMore = false;
-
+  readMoreServiceFlag = false;
   readMoreComments(flag: boolean) {
     this.readMore = flag;
+  }
+
+  readMoreService(flag: boolean) {
+    this.readMoreServiceFlag = flag;
   }
 
   calculateAverageRating() {

@@ -18,7 +18,8 @@
           <a routerLink="contact">
             Kontakt
           </a>
-          <a [ngStyle]="{'display':isLoggedIn() === true?'inline':'none'}" routerLink="/myProfile">
+          <a [ngStyle]="{'display':login === true?'inline':'none'}"
+             [routerLink]="['/profile', userId]">
             Moj profil
           </a>
           <a [ngStyle]="{'display':isLoggedIn() === true?'none':'inline'}" routerLink="/loginRegister">

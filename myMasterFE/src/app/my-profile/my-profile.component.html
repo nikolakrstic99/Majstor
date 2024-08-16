@@ -48,8 +48,8 @@
   <div class="row mt-4 services-section">
     <h2>Usluge</h2>
     <ul class="list-group">
-      <li *ngFor="let item of services" class="list-group-item ">
-        <div class="row align-items-center no-gutters">
+      <li *ngFor="let item of services; let i = index" class="list-group-item ">
+        <div *ngIf="i < 3 || this.readMoreServiceFlag" class="row align-items-center no-gutters">
           <!-- Left Arrow -->
           <div class="col-auto d-flex justify-content-center">
             <i
@@ -98,8 +98,14 @@
             </div>
           </div>
         </div>
-
       </li>
     </ul>
+    <button *ngIf="services.length > 3 && !readMoreServiceFlag" class="btn btn-outline-primary mt-3"
+            (click)="readMoreService(true)">Pročitaj više
+    </button>
+    <button *ngIf="services.length > 3 && readMoreServiceFlag" class="btn btn-outline-primary mt-3"
+            (click)="readMoreService(false)">Pročitaj manje
+    </button>
   </div>
 </div>
+<app-add-service style="margin-top: 60px"></app-add-service>

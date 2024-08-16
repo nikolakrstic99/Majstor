@@ -23,10 +23,20 @@ export class AxiosService {
     }
   }
 
-  isAdmin():boolean {
+  getToken() {
     const tokenDecoded = atob(this.getAuthToken().split('.')[1]);
-    const jsonToken = JSON.parse(tokenDecoded);
-    return jsonToken["status"] === "ADMIN";
+    return JSON.parse(tokenDecoded);
+  }
+
+
+  isAdmin():boolean {
+    let token = this.getToken();
+    return token["status"] === "ADMIN";
+  }
+
+  getUserId(): number {
+    let token = this.getToken();
+    return token["id"];
   }
 
   requestWithToken(method: string, uri: string, data: any): Promise<any> {

@@ -19,7 +19,7 @@ const routes: Routes = [
   {path: "addService", component: AddServiceComponent},
   {path: "", component: HomeComponent},
   {path: "l1Category/:l1category", component: L1CategoryComponent},
-  {path: "myProfile", component: MyProfileComponent}
+  {path: "profile/:userId", component: MyProfileComponent}
 ]
 
 @NgModule({

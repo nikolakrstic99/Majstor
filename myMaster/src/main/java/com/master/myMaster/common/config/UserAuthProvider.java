@@ -36,6 +36,7 @@ public class UserAuthProvider {
         .withIssuer(user.getEmail())
         .withIssuedAt(now)
         .withExpiresAt(validity)
+        .withClaim("userId", user.getId())
         .withClaim("firstName", user.getFirstName())
         .withClaim("lastName", user.getLastName())
         .withClaim("status", user.getStatus().name())
@@ -48,6 +49,7 @@ public class UserAuthProvider {
     DecodedJWT decodeJWT = verifier.verify(token);
     User user = User.builder()
         .email(decodeJWT.getIssuer())
+        .id(decodeJWT.getClaim("id").asLong())
         .firstName(decodeJWT.getClaim("firstName").asString())
         .lastName(decodeJWT.getClaim("lastName").asString())
         .status(UserStatus.valueOf(decodeJWT.getClaim("status").asString()))
