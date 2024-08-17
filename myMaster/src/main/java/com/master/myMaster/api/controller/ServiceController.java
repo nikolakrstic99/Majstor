@@ -55,4 +55,10 @@ public class ServiceController {
   public List<Service> getServicesProvidedByUser(@PathVariable Integer userId) {
     return serviceService.getServicesProvidedByUser(userId);
   }
+
+  @DeleteMapping("/{id}")
+  public void deleteService(@PathVariable Long id) {
+    serviceService.deleteService(id);
+    serviceImageService.deleteImagesWithServiceId(id);
+  }
 }

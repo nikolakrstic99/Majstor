@@ -34,7 +34,6 @@ export class AddBlogComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.images[0]);
     this.axiosService.requestWithToken("POST", "api/v1/blog", {
         heading: this.form.value.heading,
         subHeading: this.form.value.subHeading,
@@ -45,6 +44,7 @@ export class AddBlogComponent implements OnInit {
       this.utils.openSnackBar('Blog je dodat');
     }).catch(error => {
       this.utils.openSnackBar('Blog nije dodat');
+      this.images = [];
     });
   }
 

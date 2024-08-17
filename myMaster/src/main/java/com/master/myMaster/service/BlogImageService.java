@@ -27,4 +27,9 @@ public class BlogImageService {
         .toList();
   }
 
+  @Transactional
+  public void deleteImagesWithBlogId(Long id) {
+    blogImageRepository.deleteByBlogId(id);
+  }
+
 }

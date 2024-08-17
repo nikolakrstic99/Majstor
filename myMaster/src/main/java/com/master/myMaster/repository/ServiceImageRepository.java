@@ -8,4 +8,6 @@ public interface ServiceImageRepository extends JpaRepository<ServiceImageEntity
 
   List<ServiceImageEntity> findByServiceId(Long id);
 
+  void deleteByServiceId(Long id);
+
 }

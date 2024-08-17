@@ -15,12 +15,14 @@ export class L1CategoryComponent implements OnInit {
   services = [];
   serviceImageMap = new Map<string, string[]> ();
   serviceActiveSlideMap = new Map<string, boolean[]>();
+  isAdmin: boolean;
 
   constructor(private route: ActivatedRoute, private axiosService: AxiosService, private utils: UtilsService) {
   }
 
 
   ngOnInit(): void {
+    this.isAdmin = this.axiosService.isAdmin();
     this.route.params.subscribe(params => {
       this.l1Category = params['l1category'];
     });
@@ -74,6 +76,15 @@ export class L1CategoryComponent implements OnInit {
     activeSlide[activeIndex] = false;
     activeSlide[nextIndex] = true;
     this.serviceActiveSlideMap.set(serviceId, activeSlide);
+  }
+
+  delete(serviceId: string): void {
+    this.axiosService.request('DELETE', `api/v1/service/${serviceId}`, null).then(response => {
+      this.utils.openSnackBar('Usluga je obrisana');
+      window.location.href = '/l1Category/' + this.l1Category;
+    }).catch(error => {
+      this.utils.openSnackBar('Usluga nije obrisana');
+    });
   }
 
 }

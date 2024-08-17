@@ -60,7 +60,6 @@ export class AddServiceComponent implements OnInit {
         var reader = new FileReader();
 
         reader.onload = (event: any) => {
-          console.log(event.target.result);
           this.images.push(event.target.result);
         };
 
@@ -70,7 +69,6 @@ export class AddServiceComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.images[0]);
     this.axiosService.requestWithToken("POST", "api/v1/service", {
         l1Category: this.l1Selected,
         l2Category: this.l2Selected,
@@ -80,6 +78,7 @@ export class AddServiceComponent implements OnInit {
     ).then(response => {
       this.utils.openSnackBar('Usluga je dodata');
     }).catch(error => {
+      this.images = [];
       this.utils.openSnackBar('Usluga nije dodata');
     });
   }

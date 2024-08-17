@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @org.springframework.stereotype.Service
@@ -27,6 +28,7 @@ public class ServiceService {
   private final ServiceImageMapper serviceImageMapper;
   private final ServiceImageService serviceImageService;
 
+  @Transactional
   public Service addService(AddServiceRequest addServiceRequest, User principalUser) {
     var service = serviceMapper.toDomain(addServiceRequest);
     var user = userService.findByEmail(principalUser.getEmail());
@@ -42,10 +44,12 @@ public class ServiceService {
     return service;
   }
 
+  @Transactional
   public ServiceEntity save(ServiceEntity serviceEntity) {
     return serviceRepository.save(serviceEntity);
   }
 
+  @Transactional
   public List<Service> getUsersProvidingL1Category(String l1Category) {
     return serviceRepository
             .findByL1Category(l1Category)
@@ -61,6 +65,7 @@ public class ServiceService {
             .toList();
   }
 
+  @Transactional
   public List<Service> getUsersProvidingL2Category(String l2Category) {
     return serviceRepository
             .findByL2Category(l2Category)
@@ -69,10 +74,16 @@ public class ServiceService {
             .toList();
   }
 
+  @Transactional
   public List<Service> getServicesProvidedByUser(Integer userId) {
     return serviceRepository.findByUserId(userId.longValue())
             .stream()
             .map(serviceMapper::toDomain)
             .toList();
+  }
+
+  @Transactional
+  public void deleteService(Long id) {
+    serviceRepository.deleteById(id);
   }
 }

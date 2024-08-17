@@ -27,7 +27,6 @@ export class BlogComponent implements OnInit {
   ngOnInit(): void {
     this.axiosService.request('GET', 'api/v1/blog', null).then(response => {
       this.Blogs = response.data;
-      console.log(this.Blogs[0]);
     })
     .catch(error => {
       this.utils.openSnackBar('Greška prilikom dohvatanja blogova :(');

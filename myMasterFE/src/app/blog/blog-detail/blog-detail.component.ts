@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {AxiosService} from "../../services/axios.service";
+import {UtilsService} from "../../utils.service";
 
 @Component({
   selector: 'app-blog-detail',
@@ -12,12 +13,12 @@ export class BlogDetailComponent implements OnInit {
   id: number | null = null;
   blogDetail: null;
   images = [];
-  activeSlide: boolean[] = [true, false, false];
+  activeSlide = []
   activeIndex = 0;
   isAdmin: boolean;
   author: string;
 
-  constructor(private activatedRouter: ActivatedRoute, private axiosService: AxiosService) {
+  constructor(private activatedRouter: ActivatedRoute, private axiosService: AxiosService, private utils: UtilsService) {
     this.id = +this.activatedRouter.snapshot.paramMap.get('id')!;
 
   }
@@ -30,6 +31,8 @@ export class BlogDetailComponent implements OnInit {
       this.author = this.blogDetail['user']['firstName'] + ' ' + this.blogDetail['user']['lastName']
       this.axiosService.request('GET', `api/v1/blog/images/${this.id}`, null).then(response => {
         this.images = response.data;
+        this.activeSlide = Array(this.images.length).fill(false);
+        this.activeSlide[0] = true;
       }).catch(error => {});
     }).catch(error => {});
   }
@@ -41,6 +44,9 @@ export class BlogDetailComponent implements OnInit {
   }
 
   delete(): void {
-    // Implement delete functionality
+    this.axiosService.request('DELETE', `api/v1/blog/${this.id}`, null).then(response => {
+      this.utils.openSnackBar('Blog je obrisan');
+      window.location.href = '/blogs';
+    }).catch(error => {});
   }
 }

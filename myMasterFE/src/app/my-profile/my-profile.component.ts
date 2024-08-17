@@ -18,7 +18,6 @@ export class MyProfileComponent implements OnInit {
       this.user = response.data
       this.axiosService.requestWithToken('GET', `api/v1/service/user/${this.user.id}`, null).then(response => {
         this.services = response.data;
-        console.log(this.services)
         this.services.forEach(service => {
           this.axiosService.request('GET', `api/v1/service/images/${service.id}`, null).then(response => {
             const images: string[] = [];

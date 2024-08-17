@@ -8,4 +8,6 @@ public interface BlogImageRepository extends JpaRepository<BlogImageEntity, Long
 
   List<BlogImageEntity> findByBlogId(Long id);
 
+  void deleteByBlogId(Long id);
+
 }

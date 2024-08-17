@@ -17,6 +17,7 @@ public class ServiceImageService {
   private final ServiceImageRepository serviceImageRepository;
   private final ServiceImageMapper serviceImageMapper;
 
+  @Transactional
   public void save(ServiceImageEntity serviceImageEntity) {
     serviceImageRepository.save(serviceImageEntity);
   }
@@ -25,5 +26,10 @@ public class ServiceImageService {
   public List<ServiceImage> getImages(Long id) {
     return serviceImageRepository.findByServiceId(id).stream().map(serviceImageMapper::toDomain)
         .toList();
+  }
+
+  @Transactional
+  public void deleteImagesWithServiceId(Long id) {
+    serviceImageRepository.deleteByServiceId(id);
   }
 }
