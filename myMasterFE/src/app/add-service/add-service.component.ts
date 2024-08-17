@@ -79,7 +79,7 @@ export class AddServiceComponent implements OnInit {
       this.utils.openSnackBar('Usluga je dodata');
     }).catch(error => {
       this.images = [];
-      this.utils.openSnackBar('Usluga nije dodata');
+      this.utils.openSnackBar(error.response.data.message);
     });
   }
 

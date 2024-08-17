@@ -2,6 +2,8 @@ package com.master.myMaster.service;
 
 import com.master.myMaster.api.request.AddBlogRequest;
 import com.master.myMaster.api.request.AddReviewRequest;
+import com.master.myMaster.common.exception.BadRequestException;
+import com.master.myMaster.common.exception.Error;
 import com.master.myMaster.domains.Blog;
 import com.master.myMaster.domains.BlogImage;
 import com.master.myMaster.domains.Review;
@@ -26,6 +28,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ReviewService {
+
   private final ReviewRepository reviewRepository;
   private final ReviewMapper reviewMapper;
   private final UserService userService;
@@ -36,9 +39,12 @@ public class ReviewService {
   }
 
   public Review addReview(AddReviewRequest addReviewRequest, User principalUser) {
-    var review = reviewMapper.toDomain(addReviewRequest);
     var ratedUser = userService.getUser(addReviewRequest.ratedUserId());
     var creatorUser = userService.findByEmail(principalUser.getEmail());
+    if (reviewExists(creatorUser.getId(), ratedUser.getId())) {
+      throw new BadRequestException("Review already exists", Error.REVIEW_ALREADY_EXISTS);
+    }
+    var review = reviewMapper.toDomain(addReviewRequest);
     review.setRatedUser(ratedUser);
     review.setCreatorUser(creatorUser);
     review.setCreatedAt(LocalDateTime.now());
@@ -46,21 +52,25 @@ public class ReviewService {
     return review;
   }
 
+  private boolean reviewExists(Long creatorId, Long ratedId) {
+    return reviewRepository.existsByCreatorUserIdAndRatedUserId(creatorId, ratedId);
+  }
+
   public List<Review> getReviewsByRatedUser(Integer userId) {
     var user = userService.getUser(userId.longValue());
     return reviewRepository
-            .findByRatedUser(userMapper.toEntity(user))
-            .stream()
-            .map(reviewMapper::toDomain)
-            .toList();
+        .findByRatedUser(userMapper.toEntity(user))
+        .stream()
+        .map(reviewMapper::toDomain)
+        .toList();
   }
 
   public List<Review> getReviewsByCreatorUser(User principalUser) {
     var user = userService.findByEmail(principalUser.getEmail());
     return reviewRepository
-            .findByCreatorUser(userMapper.toEntity(user))
-            .stream()
-            .map(reviewMapper::toDomain)
-            .toList();
+        .findByCreatorUser(userMapper.toEntity(user))
+        .stream()
+        .map(reviewMapper::toDomain)
+        .toList();
   }
 }

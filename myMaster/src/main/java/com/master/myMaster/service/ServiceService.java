@@ -1,6 +1,8 @@
 package com.master.myMaster.service;
 
 import com.master.myMaster.api.request.AddServiceRequest;
+import com.master.myMaster.common.exception.BadRequestException;
+import com.master.myMaster.common.exception.Error;
 import com.master.myMaster.domains.Service;
 import com.master.myMaster.domains.ServiceImage;
 import com.master.myMaster.domains.User;
@@ -32,6 +34,9 @@ public class ServiceService {
   public Service addService(AddServiceRequest addServiceRequest, User principalUser) {
     var service = serviceMapper.toDomain(addServiceRequest);
     var user = userService.findByEmail(principalUser.getEmail());
+    if (serviceExists(user.getId(), service.getL2Category())) {
+      throw new BadRequestException("User already provides service in this category", Error.USER_ALREADY_EXISTS);
+    }
     service.setUser(user);
     user.addService(service);
     var serviceEntity = save(serviceMapper.toEntity(service));
@@ -44,6 +49,10 @@ public class ServiceService {
     return service;
   }
 
+  private boolean serviceExists(Long userId, String l2Category) {
+    return serviceRepository.existsByUserIdAndL2Category(userId, l2Category);
+  }
+
   @Transactional
   public ServiceEntity save(ServiceEntity serviceEntity) {
     return serviceRepository.save(serviceEntity);
@@ -52,34 +61,34 @@ public class ServiceService {
   @Transactional
   public List<Service> getUsersProvidingL1Category(String l1Category) {
     return serviceRepository
-            .findByL1Category(l1Category)
-            .stream()
-            .map(serviceMapper::toDomain)
-            .collect(Collectors.toMap(
-                    Service::getUser,
-                    Function.identity(),
-                    (existing, replacement) -> existing
-            ))
-            .values()
-            .stream()
-            .toList();
+        .findByL1Category(l1Category)
+        .stream()
+        .map(serviceMapper::toDomain)
+        .collect(Collectors.toMap(
+            Service::getUser,
+            Function.identity(),
+            (existing, replacement) -> existing
+        ))
+        .values()
+        .stream()
+        .toList();
   }
 
   @Transactional
   public List<Service> getUsersProvidingL2Category(String l2Category) {
     return serviceRepository
-            .findByL2Category(l2Category)
-            .stream()
-            .map(serviceMapper::toDomain)
-            .toList();
+        .findByL2Category(l2Category)
+        .stream()
+        .map(serviceMapper::toDomain)
+        .toList();
   }
 
   @Transactional
   public List<Service> getServicesProvidedByUser(Integer userId) {
     return serviceRepository.findByUserId(userId.longValue())
-            .stream()
-            .map(serviceMapper::toDomain)
-            .toList();
+        .stream()
+        .map(serviceMapper::toDomain)
+        .toList();
   }
 
   @Transactional

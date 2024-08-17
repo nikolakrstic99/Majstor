@@ -20,6 +20,8 @@ import { L1CategoryComponent } from './l1-category/l1-category.component';
 import {MatCardModule} from "@angular/material/card";
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import {NgxIntlTelInputModule} from "ngx-intl-tel-input";
+import { AddReviewComponent } from './add-review/add-review.component';
+import {MatSliderModule} from "@angular/material/slider";
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import {NgxIntlTelInputModule} from "ngx-intl-tel-input";
     AddServiceComponent,
     HomeComponent,
     L1CategoryComponent,
-    MyProfileComponent
+    MyProfileComponent,
+    AddReviewComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +49,7 @@ import {NgxIntlTelInputModule} from "ngx-intl-tel-input";
     HttpClientModule,
     MatSnackBarModule,
     MatCardModule,
-    NgxIntlTelInputModule
+    MatSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

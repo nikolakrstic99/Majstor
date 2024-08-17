@@ -9,4 +9,5 @@ import java.util.List;
 public interface ReviewRepository extends JpaRepository<ReviewEntity, Long> {
     List<ReviewEntity> findByRatedUser(UserEntity rated_user_id);
     List<ReviewEntity> findByCreatorUser(UserEntity creator_user_id);
+    Boolean existsByCreatorUserIdAndRatedUserId(Long creator_user_id, Long rated_user_id);
 }
