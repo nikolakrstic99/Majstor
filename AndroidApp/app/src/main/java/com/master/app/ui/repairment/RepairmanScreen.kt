@@ -58,13 +58,13 @@ fun RepairmanScreen(
                 },
                 navigationIcon = {
                     MessageButton(
-                        phoneNumber = "0621482242",
+                        phoneNumber = uiState.repairman?.phoneNumber ?: "000",
                         Modifier.padding(10.dp)
                     )
                 },
                 actions = {
                     CallButton(
-                        phoneNumber = "0621482242",
+                        phoneNumber = uiState.repairman?.phoneNumber ?: "000",
                         Modifier.padding(10.dp)
                     )
                 },
@@ -130,7 +130,9 @@ fun RepairmanScreen(
                 )
             }
             if (selectedItem == 2) {
-                RepairmanContactScreen()
+                RepairmanContactScreen(
+                    repairman = uiState.repairman
+                )
             }
         }
     }
