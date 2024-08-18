@@ -111,4 +111,17 @@ class RepairmentRepositoryImpl @Inject constructor(
             return Resource.Error(e.toString())
         }
     }
+
+    override suspend fun deleteService(serviceId: Int): Resource<Unit> {
+        try {
+            val response = apiService.deleteService(serviceId)
+            if (!response.isSuccessful) {
+                return Resource.Error("Error: ${response.code()} - ${response.errorBody()?.string()}")
+            }
+            return Resource.Success(Unit)
+        }
+        catch (e: Exception) {
+            return Resource.Error(e.toString())
+        }
+    }
 }

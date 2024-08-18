@@ -80,6 +80,7 @@ fun AppNavHost(
             )
         ) {
             BlogScreen(
+                navigateOnBlogDeleted = { navigationActions.navController.popBackStack() },
                 modifier = modifier
             )
         }

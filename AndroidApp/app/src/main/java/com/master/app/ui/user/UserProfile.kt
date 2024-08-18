@@ -47,6 +47,7 @@ fun UserProfile(
     onLogoutClicked: () -> Unit,
     navigateToBlogScreen: (Int) -> Unit,
     onAddService: () -> Unit,
+    onDeleteService: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val containerModifier = Modifier
@@ -77,6 +78,8 @@ fun UserProfile(
         UserServices(
             services = services,
             onSubmit = onAddService,
+            loggedUser = user,
+            onDeleteService = onDeleteService,
             modifier = containerModifier
         )
         UserBlogs(
@@ -84,11 +87,12 @@ fun UserProfile(
             navigateToBlogScreen = navigateToBlogScreen,
             modifier = containerModifier
         )
-        RepairmanReviews(
-            reviews = latestReviews,
-            title = "Latest reviews",
-            modifier = containerModifier
-        )
+//        RepairmanReviews(
+//            reviews = latestReviews,
+//            title = "Latest reviews",
+//            modifier = containerModifier
+//        )
+        UserReviews(latestReviews = latestReviews, modifier = containerModifier)
     }
 }
 
@@ -142,6 +146,8 @@ fun UserInfo(
 fun UserServices(
     services: List<Service>,
     onSubmit: () -> Unit,
+    loggedUser: User,
+    onDeleteService: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     var showAddServiceDialog by remember { mutableStateOf(false) }
@@ -156,7 +162,11 @@ fun UserServices(
             style = MaterialTheme.typography.titleLarge,
             color = MaterialTheme.colorScheme.primary
         )
-        RepairmanServices(providedServices = services)
+        RepairmanServices(
+            providedServices = services,
+            loggedUser = loggedUser,
+            onDeleteServiceClicked = onDeleteService
+        )
         if (services.isEmpty()) {
             Text(
                 text = "No services added",
@@ -215,35 +225,36 @@ fun UserBlogs(
     }
 }
 
-//@Composable
-//fun UserReviews(
-//    reviews: List<Review>,
-//    modifier: Modifier = Modifier
-//) {
-//    Column(
-//        horizontalAlignment = Alignment.CenterHorizontally,
-//        verticalArrangement = Arrangement.spacedBy(15.dp),
-//        modifier = modifier
-//            .padding(10.dp)
-//            .fillMaxWidth()
-//    ) {
-//        Text(
-//            text = "Latest reviews",
-//            style = MaterialTheme.typography.titleLarge,
-//            color = MaterialTheme.colorScheme.primary
-//        )
-//        for (review in reviews) {
-//
-//        }
-//        if (reviews.isEmpty()) {
-//            Text(
-//                text = "No reviews yet",
-//                style = MaterialTheme.typography.titleMedium,
-//                color = MaterialTheme.colorScheme.secondary
-//            )
-//        }
-//    }
-//}
+@Composable
+fun UserReviews(
+    latestReviews: List<Review>,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(15.dp),
+        modifier = modifier
+    ) {
+        Text(
+            text = "Latest reviews",
+            style = MaterialTheme.typography.titleLarge,
+            color = MaterialTheme.colorScheme.primary
+        )
+        if (latestReviews.isEmpty()) {
+            Text(
+                text = "No reviews yet",
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.secondary
+            )
+        }
+        else {
+            RepairmanReviews(
+                reviews = latestReviews,
+                title = ""
+            )
+        }
+    }
+}
 
 @Preview(showBackground = true)
 @Composable
@@ -267,7 +278,8 @@ fun UserProfilePreview() {
             listOf(),
             { },
             { _ -> },
-            { }
+            { },
+            { _ ->}
         )
     }
 }

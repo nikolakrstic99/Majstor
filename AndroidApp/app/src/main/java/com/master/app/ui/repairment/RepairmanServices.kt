@@ -10,7 +10,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Divider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,20 +24,28 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.master.app.common.UserType
 import com.master.app.data.model.Service
+import com.master.app.data.model.User
 import com.master.app.ui.component.Base64Image
 import com.master.app.ui.theme.AndroidAppTheme
 
 @Composable
 fun RepairmanServices(
     providedServices: List<Service>,
+    loggedUser: User?,
+    onDeleteServiceClicked: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         for (service in providedServices.sortedBy { it.topLevelCategory }) {
-            ServiceInfo(service = service)
+            ServiceInfo(
+                service = service,
+                onDeleteServiceClicked = onDeleteServiceClicked,
+                loggedUser = loggedUser
+            )
         }
     }
 }
@@ -40,6 +53,8 @@ fun RepairmanServices(
 @Composable
 fun ServiceInfo(
     service: Service,
+    loggedUser: User?,
+    onDeleteServiceClicked: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -81,17 +96,45 @@ fun ServiceInfo(
                 color = MaterialTheme.colorScheme.secondary
             )
         }
-        LazyRow{
-            items(
-                items = service.images
+        if (service.images.isNotEmpty()) {
+            LazyRow{
+                items(
+                    items = service.images
+                ) {
+                    Base64Image(
+                        base64Str = it.data,
+                        modifier = Modifier
+                            .padding(10.dp)
+                            .size(100.dp)
+                            .clip(MaterialTheme.shapes.medium)
+                    )
+                }
+            }
+        } 
+        else {
+            Row(
+                modifier = Modifier.padding(10.dp)
             ) {
-                Base64Image(
-                    base64Str = it.data,
-                    modifier = Modifier
-                        .padding(5.dp)
-                        .size(100.dp)
-                        .clip(MaterialTheme.shapes.medium)
+                Text(
+                    text = "No pictures attached",
+                    color = MaterialTheme.colorScheme.secondary,
+                    style = MaterialTheme.typography.titleMedium
                 )
+            }
+        }
+        if (loggedUser?.id == service.user.id || loggedUser?.type == UserType.ADMIN) {
+            Box(
+                contentAlignment = Alignment.BottomEnd,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                IconButton(
+                    onClick = { onDeleteServiceClicked(service.id) }
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.Delete,
+                        contentDescription = "Delete service"
+                    )
+                }
             }
         }
     }
@@ -102,7 +145,11 @@ fun ServiceInfo(
 fun RepairmanServicesPreview() {
     AndroidAppTheme {
         RepairmanServices(
-            providedServices = listOf()
+            providedServices = listOf(
+                Service(1, "Gradjevinski radovi", "Parketar", "Neki opis otkud znam bratee", User(1, "Andrej", "Jokic", "s", "s", UserType.REGULAR, "s", "s", "s", 5.0))
+            ),
+            User(1, "Andrej", "Jokic", "s", "s", UserType.REGULAR, "s", "s", "s", 5.0),
+            { _ -> }
         )
     }
 }

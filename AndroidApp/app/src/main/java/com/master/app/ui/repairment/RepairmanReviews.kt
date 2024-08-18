@@ -36,10 +36,12 @@ fun RepairmanReviews(
             .background(MaterialTheme.colorScheme.inverseOnSurface)
             .padding(10.dp)
     ) {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.titleLarge
-        )
+        if (title.isNotBlank()) {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleLarge
+            )
+        }
         Column(
             verticalArrangement = Arrangement.spacedBy(15.dp),
             modifier = Modifier.heightIn(0.dp, 500.dp)

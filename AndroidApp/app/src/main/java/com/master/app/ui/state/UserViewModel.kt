@@ -105,4 +105,11 @@ class UserViewModel @Inject constructor(
             _refresh()
         }
     }
+
+    fun deleteService(serviceId: Int) {
+        viewModelScope.launch {
+            repairmentRepository.deleteService(serviceId)
+            _refresh()
+        }
+    }
 }

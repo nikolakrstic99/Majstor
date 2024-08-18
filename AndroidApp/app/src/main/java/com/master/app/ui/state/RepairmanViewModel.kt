@@ -3,6 +3,7 @@ package com.master.app.ui.state
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.master.app.common.UserType
 import com.master.app.data.model.Review
 import com.master.app.data.model.Service
 import com.master.app.data.model.User
@@ -42,15 +43,7 @@ class RepairmanViewModel @Inject constructor(
         viewModelScope.launch {
             val loggedUser = userRepository.getLoggedUser()
             val repairman = userRepository.getUser(repairmanId)
-            val services = repairmentRepository
-                .getServicesProvidedByUser(repairmanId)
-                .data
-                ?.map {
-                    val images = repairmentRepository.getServiceImages(it.id).data
-                    it.copy(
-                        images = images ?: listOf()
-                    )
-                }
+            val services = getServices()
 
             _uiState.value = _uiState.value.copy(
                 loggedUser = loggedUser.data,
@@ -62,6 +55,17 @@ class RepairmanViewModel @Inject constructor(
             refreshReviews()
         }
     }
+
+    private suspend fun getServices() =
+        repairmentRepository
+            .getServicesProvidedByUser(repairmanId)
+            .data
+            ?.map {
+                val images = repairmentRepository.getServiceImages(it.id).data
+                it.copy(
+                    images = images ?: listOf()
+                )
+            }
 
     private fun canLoggedUserReviewRepairman(reviews: List<Review>?): Boolean {
         return uiState.value.loggedUser != null && uiState.value.repairman != null
@@ -85,6 +89,16 @@ class RepairmanViewModel @Inject constructor(
         viewModelScope.launch {
             reviewsRepository.addReview(repairmanId, text, rating)
             refreshReviews()
+        }
+    }
+
+    fun deleteService(serviceId: Int) {
+        viewModelScope.launch {
+            repairmentRepository.deleteService(serviceId)
+            val services = getServices()
+            _uiState.value = _uiState.value.copy(
+                services =  services
+            )
         }
     }
 }

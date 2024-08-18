@@ -27,6 +27,7 @@ fun ClippedIconButton(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    background: Color = MaterialTheme.colorScheme.onPrimary
 ) {
     Box(
         contentAlignment = Alignment.Center,
@@ -38,7 +39,7 @@ fun ClippedIconButton(
                 MaterialTheme.colorScheme.primary,
                 MaterialTheme.shapes.extraLarge
             )
-            .background(MaterialTheme.colorScheme.onPrimary)
+            .background(background)
             .size(width = 100.dp, height = 40.dp)
     ) {
         Text(

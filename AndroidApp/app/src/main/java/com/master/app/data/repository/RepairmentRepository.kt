@@ -23,4 +23,6 @@ interface RepairmentRepository {
     suspend fun getServicesProvidedByUser(userId: Int): Resource<List<Service>>
 
     suspend fun getServiceImages(serviceId: Int): Resource<List<Image>>
+
+    suspend fun deleteService(serviceId: Int): Resource<Unit>
 }

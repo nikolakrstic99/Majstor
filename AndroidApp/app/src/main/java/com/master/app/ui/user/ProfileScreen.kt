@@ -50,6 +50,7 @@ fun ProfileScreen(
                 latestReviews = uiState.latestReviewsOnLoggedUser ?: listOf(),
                 onLogoutClicked = viewModel::logout,
                 navigateToBlogScreen = navigateToBlogScreen,
+                onDeleteService = viewModel::deleteService,
                 onAddService = viewModel::refresh
             )
         }

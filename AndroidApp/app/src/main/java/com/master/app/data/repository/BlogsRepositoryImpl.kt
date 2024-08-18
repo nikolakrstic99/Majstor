@@ -52,4 +52,17 @@ class BlogsRepositoryImpl @Inject constructor(
             return Resource.Error(e.toString())
         }
     }
+
+    override suspend fun deleteBlog(blogId: Int): Resource<Unit> {
+        try {
+            val response = apiService.deleteBlog(blogId)
+            if (!response.isSuccessful) {
+                return Resource.Error("Error: ${response.code()} - ${response.errorBody()?.string()}")
+            }
+            return Resource.Success(Unit)
+        }
+        catch (e: Exception) {
+            return Resource.Error(e.toString())
+        }
+    }
 }

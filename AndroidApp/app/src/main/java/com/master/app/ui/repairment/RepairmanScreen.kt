@@ -119,7 +119,9 @@ fun RepairmanScreen(
         ) {
             if (selectedItem == 0) {
                 RepairmanServices(
-                    providedServices = uiState.services ?: listOf()
+                    providedServices = uiState.services ?: listOf(),
+                    onDeleteServiceClicked = viewModel::deleteService,
+                    loggedUser = uiState.loggedUser
                 )
             }
             if (selectedItem == 1) {
