@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,26 +25,27 @@ import com.master.app.ui.theme.AndroidAppTheme
 @Composable
 fun RepairmanReviews(
     reviews: List<Review>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    title: String = "Reviews from customers"
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(10.dp),
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .clip(MaterialTheme.shapes.small)
             .background(MaterialTheme.colorScheme.inverseOnSurface)
             .padding(10.dp)
     ) {
         Text(
-            text = "Reviews from customers",
+            text = title,
             style = MaterialTheme.typography.titleLarge
         )
-        LazyColumn(
+        Column(
             verticalArrangement = Arrangement.spacedBy(15.dp),
             modifier = Modifier.heightIn(0.dp, 500.dp)
         ) {
-            items(reviews) {
-                ReviewCard(review = it)
+            for (review in reviews) {
+                ReviewCard(review = review)
             }
         }
         if (reviews.isEmpty()) {

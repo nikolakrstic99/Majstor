@@ -16,6 +16,7 @@ import com.master.app.ui.state.UserViewModel
 
 @Composable
 fun ProfileScreen(
+    navigateToBlogScreen: (Int) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: UserViewModel = hiltViewModel()
 ) {
@@ -46,7 +47,10 @@ fun ProfileScreen(
                 reviews = uiState.reviewsOnLoggedUser ?: listOf(),
                 services = uiState.servicesByLoggedUser ?: listOf(),
                 blogs = uiState.blogsByLoggedUser ?: listOf(),
-                onLogoutClicked = viewModel::logout
+                latestReviews = uiState.latestReviewsOnLoggedUser ?: listOf(),
+                onLogoutClicked = viewModel::logout,
+                navigateToBlogScreen = navigateToBlogScreen,
+                onAddService = viewModel::refresh
             )
         }
     }

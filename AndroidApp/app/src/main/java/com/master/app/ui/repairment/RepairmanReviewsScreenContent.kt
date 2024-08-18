@@ -51,7 +51,7 @@ fun RepairmanReviewsScreenContent(
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(10.dp),
-        modifier = Modifier.verticalScroll(rememberScrollState())
+        // modifier = Modifier.verticalScroll(rememberScrollState())
     ) {
         RepairmanRatings(
             ratings = reviews.map { it.rating }

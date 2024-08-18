@@ -2,6 +2,7 @@ package com.master.app.ui.user
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -25,6 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.master.app.common.UserType
 import com.master.app.data.model.Blog
+import com.master.app.data.model.Review
 import com.master.app.data.model.Service
 import com.master.app.data.model.User
 import com.master.app.ui.blog.BlogPreview
@@ -32,6 +34,7 @@ import com.master.app.ui.component.ClippedIconButton
 import com.master.app.ui.component.LabelValue
 import com.master.app.ui.repairment.RepairmanServices
 import com.master.app.ui.repairment.RepairmanRatings
+import com.master.app.ui.repairment.RepairmanReviews
 import com.master.app.ui.theme.AndroidAppTheme
 
 @Composable
@@ -40,7 +43,10 @@ fun UserProfile(
     reviews: List<Int>,
     services: List<Service>,
     blogs: List<Blog>,
+    latestReviews: List<Review>,
     onLogoutClicked: () -> Unit,
+    navigateToBlogScreen: (Int) -> Unit,
+    onAddService: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val containerModifier = Modifier
@@ -70,10 +76,17 @@ fun UserProfile(
         )
         UserServices(
             services = services,
+            onSubmit = onAddService,
             modifier = containerModifier
         )
         UserBlogs(
             blogs = blogs,
+            navigateToBlogScreen = navigateToBlogScreen,
+            modifier = containerModifier
+        )
+        RepairmanReviews(
+            reviews = latestReviews,
+            title = "Latest reviews",
             modifier = containerModifier
         )
     }
@@ -128,6 +141,7 @@ fun UserInfo(
 @Composable
 fun UserServices(
     services: List<Service>,
+    onSubmit: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     var showAddServiceDialog by remember { mutableStateOf(false) }
@@ -157,7 +171,10 @@ fun UserServices(
         )
         if (showAddServiceDialog) {
             AddServiceDialog(
-                onSubmit = { showAddServiceDialog = false },
+                onSubmit = {
+                    showAddServiceDialog = false
+                    onSubmit()
+                },
                 onDismiss = { showAddServiceDialog = false }
             )
         }
@@ -167,6 +184,7 @@ fun UserServices(
 @Composable
 fun UserBlogs(
     blogs: List<Blog>,
+    navigateToBlogScreen: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -183,7 +201,8 @@ fun UserBlogs(
         )
         for (blog in blogs) {
             BlogPreview(
-                blog = blog
+                blog = blog,
+                modifier = Modifier.clickable { navigateToBlogScreen(blog.id) }
             )
         }
         if (blogs.isEmpty()) {
@@ -195,6 +214,36 @@ fun UserBlogs(
         }
     }
 }
+
+//@Composable
+//fun UserReviews(
+//    reviews: List<Review>,
+//    modifier: Modifier = Modifier
+//) {
+//    Column(
+//        horizontalAlignment = Alignment.CenterHorizontally,
+//        verticalArrangement = Arrangement.spacedBy(15.dp),
+//        modifier = modifier
+//            .padding(10.dp)
+//            .fillMaxWidth()
+//    ) {
+//        Text(
+//            text = "Latest reviews",
+//            style = MaterialTheme.typography.titleLarge,
+//            color = MaterialTheme.colorScheme.primary
+//        )
+//        for (review in reviews) {
+//
+//        }
+//        if (reviews.isEmpty()) {
+//            Text(
+//                text = "No reviews yet",
+//                style = MaterialTheme.typography.titleMedium,
+//                color = MaterialTheme.colorScheme.secondary
+//            )
+//        }
+//    }
+//}
 
 @Preview(showBackground = true)
 @Composable
@@ -215,6 +264,9 @@ fun UserProfilePreview() {
             listOf(),
             listOf(),
             listOf(),
+            listOf(),
+            { },
+            { _ -> },
             { }
         )
     }

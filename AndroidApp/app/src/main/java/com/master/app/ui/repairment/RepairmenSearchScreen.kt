@@ -37,6 +37,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.master.app.ui.component.ClippedIconButton
 import com.master.app.ui.component.SearchBar
 import com.master.app.ui.state.RepairmenSearchViewModel
@@ -50,7 +51,7 @@ fun RepairmenSearchScreen(
     modifier: Modifier = Modifier,
     viewModel: RepairmenSearchViewModel = hiltViewModel()
 ) {
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     var showFilterMenu by remember { mutableStateOf(false)}
 
     Column(

@@ -116,6 +116,7 @@ fun AppNavHost(
         }
         composable(route = NavigationRoute.PROFILE) {
             ProfileScreen(
+                navigateToBlogScreen = navigationActions::navigateToBlogScreen,
                 modifier = modifier
             )
         }

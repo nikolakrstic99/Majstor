@@ -3,6 +3,7 @@ package com.master.app.ui.blog
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
@@ -37,7 +38,7 @@ fun BlogScreen(
     if (uiState.blog != null) {
         Column(
             verticalArrangement = Arrangement.spacedBy(10.dp),
-            horizontalAlignment = Alignment.End,
+            horizontalAlignment = Alignment.Start,
             modifier = modifier
                 .padding(10.dp)
                 .verticalScroll(rememberScrollState())
@@ -52,14 +53,6 @@ fun BlogScreen(
                 items(
                     items = uiState.blog!!.images
                 ) {
-//                    Image(
-//                        painter = painterResource(id = R.drawable.ic_launcher_background),
-//                        contentDescription = "Preview image",
-//                        modifier = Modifier
-//                            .padding(5.dp)
-//                            .size(100.dp)
-//                            .clip(MaterialTheme.shapes.medium)
-//                    )
                     Base64Image(
                         base64Str = it.data,
                         modifier = Modifier
@@ -84,7 +77,8 @@ fun BlogScreen(
             )
             Divider()
             Column(
-                horizontalAlignment = Alignment.End
+                horizontalAlignment = Alignment.End,
+                modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
                     text = "${uiState.blog!!.author.firstName} ${uiState.blog!!.author.lastName}",
