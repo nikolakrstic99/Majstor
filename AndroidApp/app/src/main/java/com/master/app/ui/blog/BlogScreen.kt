@@ -1,8 +1,12 @@
 package com.master.app.ui.blog
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
@@ -18,17 +22,20 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.master.app.R
 import com.master.app.ui.component.Base64Image
+import com.master.app.ui.component.ClippedIconButton
 import com.master.app.ui.state.BlogViewModel
 import com.master.app.ui.theme.AndroidAppTheme
 
 @Composable
 fun BlogScreen(
+    navigateOnBlogDeleted: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: BlogViewModel = hiltViewModel()
 ) {
@@ -37,7 +44,7 @@ fun BlogScreen(
     if (uiState.blog != null) {
         Column(
             verticalArrangement = Arrangement.spacedBy(10.dp),
-            horizontalAlignment = Alignment.End,
+            horizontalAlignment = Alignment.Start,
             modifier = modifier
                 .padding(10.dp)
                 .verticalScroll(rememberScrollState())
@@ -52,14 +59,6 @@ fun BlogScreen(
                 items(
                     items = uiState.blog!!.images
                 ) {
-//                    Image(
-//                        painter = painterResource(id = R.drawable.ic_launcher_background),
-//                        contentDescription = "Preview image",
-//                        modifier = Modifier
-//                            .padding(5.dp)
-//                            .size(100.dp)
-//                            .clip(MaterialTheme.shapes.medium)
-//                    )
                     Base64Image(
                         base64Str = it.data,
                         modifier = Modifier
@@ -84,7 +83,8 @@ fun BlogScreen(
             )
             Divider()
             Column(
-                horizontalAlignment = Alignment.End
+                horizontalAlignment = Alignment.End,
+                modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
                     text = "${uiState.blog!!.author.firstName} ${uiState.blog!!.author.lastName}",
@@ -97,6 +97,16 @@ fun BlogScreen(
                     color = MaterialTheme.colorScheme.tertiary
                 )
             }
+            Spacer(modifier = Modifier.height(10.dp))
+            ClippedIconButton(
+                text = "Delete blog",
+                onClick = {
+                    viewModel.deleteBlog()
+                    navigateOnBlogDeleted()
+                },
+                background = MaterialTheme.colorScheme.errorContainer,
+                modifier = Modifier.fillMaxWidth()
+            )
         }
     }
 }
@@ -105,6 +115,6 @@ fun BlogScreen(
 @Composable
 fun BlogScreenPreview() {
     AndroidAppTheme {
-        BlogScreen()
+        BlogScreen({})
     }
 }

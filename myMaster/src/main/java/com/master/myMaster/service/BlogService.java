@@ -32,6 +32,7 @@ public class BlogService {
     blog.setCreatedAt(LocalDateTime.now());
     blog.setUser(user);
     var blogEntity = save(blog);
+    blog.setId(blogEntity.getId());
     for (var file : request.files()) {
       var blogImage = new BlogImage();
       blogImage.setBlogId(blogEntity.getId());

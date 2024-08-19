@@ -80,6 +80,7 @@ fun AppNavHost(
             )
         ) {
             BlogScreen(
+                navigateOnBlogDeleted = { navigationActions.navController.popBackStack() },
                 modifier = modifier
             )
         }
@@ -116,6 +117,7 @@ fun AppNavHost(
         }
         composable(route = NavigationRoute.PROFILE) {
             ProfileScreen(
+                navigateToBlogScreen = navigationActions::navigateToBlogScreen,
                 modifier = modifier
             )
         }

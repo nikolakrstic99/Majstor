@@ -9,4 +9,5 @@ interface BlogsRepository {
             Resource<Blog>
     suspend fun getAllBlogs(): Resource<List<Blog>>
     suspend fun getBlogImages(blogId: Int): Resource<List<Image>>
+    suspend fun deleteBlog(blogId: Int): Resource<Unit>
 }

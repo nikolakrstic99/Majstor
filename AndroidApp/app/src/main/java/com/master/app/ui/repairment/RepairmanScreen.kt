@@ -58,13 +58,13 @@ fun RepairmanScreen(
                 },
                 navigationIcon = {
                     MessageButton(
-                        phoneNumber = "0621482242",
+                        phoneNumber = uiState.repairman?.phoneNumber ?: "000",
                         Modifier.padding(10.dp)
                     )
                 },
                 actions = {
                     CallButton(
-                        phoneNumber = "0621482242",
+                        phoneNumber = uiState.repairman?.phoneNumber ?: "000",
                         Modifier.padding(10.dp)
                     )
                 },
@@ -119,7 +119,9 @@ fun RepairmanScreen(
         ) {
             if (selectedItem == 0) {
                 RepairmanServices(
-                    providedServices = uiState.services ?: listOf()
+                    providedServices = uiState.services ?: listOf(),
+                    onDeleteServiceClicked = viewModel::deleteService,
+                    loggedUser = uiState.loggedUser
                 )
             }
             if (selectedItem == 1) {
@@ -130,7 +132,9 @@ fun RepairmanScreen(
                 )
             }
             if (selectedItem == 2) {
-                RepairmanContactScreen()
+                RepairmanContactScreen(
+                    repairman = uiState.repairman
+                )
             }
         }
     }

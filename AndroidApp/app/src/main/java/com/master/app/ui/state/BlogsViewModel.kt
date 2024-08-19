@@ -32,17 +32,9 @@ class BlogsViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            val blogs =  blogsRepository.getAllBlogs()
-                .data
-                ?.map {
-                    it.copy(
-                        images = getBlogImages(it.id)
-                    )
-                }
-
             _uiState.value = _uiState.value.copy(
                 isUserLoggedIn = userRepository.isUserLoggedIn(),
-                blogs = blogs
+                blogs = getAllBlogs()
             )
         }
     }
@@ -51,23 +43,34 @@ class BlogsViewModel @Inject constructor(
         blogsRepository.getBlogImages(blogId).data ?: listOf()
 
 
+    private suspend fun getAllBlogs(): List<Blog> =
+        blogsRepository.getAllBlogs()
+            .data
+            ?.map {
+                it.copy(
+                    images = getBlogImages(it.id)
+                )
+            }
+            ?: listOf()
+
 
     fun createBlog(title: String, description: String, text: String, pictures: List<Uri>, context: Context) {
         viewModelScope.launch {
             val picturesIn64 = pictures.mapNotNull { uriToBase64(context, it) }
-            val blog = blogsRepository.createBlog(title, description, text, picturesIn64).data
+            blogsRepository.createBlog(title, description, text, picturesIn64).data
+            refresh()
+        }
+    }
 
-            val allBlogs = uiState.value.blogs?.toMutableList()
-            if (allBlogs != null && blog != null) {
-                allBlogs.add(
-                    blog.copy(
-                        images = getBlogImages(blog.id)
-                    )
-                )
-            }
-            _uiState.value = _uiState.value.copy(
-                blogs = allBlogs
-            )
+    private suspend fun _refresh() {
+        _uiState.value = _uiState.value.copy(
+            blogs = getAllBlogs()
+        )
+    }
+
+    fun refresh() {
+        viewModelScope.launch {
+            _refresh()
         }
     }
 }

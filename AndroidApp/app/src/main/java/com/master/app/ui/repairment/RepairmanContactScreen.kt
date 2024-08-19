@@ -23,10 +23,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.master.app.common.UserType
+import com.master.app.data.model.User
 import com.master.app.ui.theme.AndroidAppTheme
 
 @Composable
 fun RepairmanContactScreen(
+    repairman: User?,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -39,23 +42,12 @@ fun RepairmanContactScreen(
         InfoCard(
             title = "Contact number",
             icon = Icons.Filled.Call,
-            text = "0621482242"
+            text = repairman?.phoneNumber ?: "No info"
         )
         InfoCard(
             title = "Location",
             icon = Icons.Filled.LocationOn,
-            text = "Vladimira Popovica 46"
-        )
-        InfoCard(
-            title = "Business hours",
-            icon = Icons.Filled.DateRange,
-            text = "Monday: 09:00 - 17:00\n" +
-                    "Tuesday: 09:00 - 17:00\n" +
-                    "Wednesday: 09:00 - 17:00\n" +
-                    "Thursday: 09:00 - 17:00\n" +
-                    "Friday: 09:00 - 17:00\n" +
-                    "Saturday: 09:00 - 17:00\n" +
-                    "Sunday: 09:00 - 17:00"
+            text = repairman?.location ?: "No info"
         )
     }
 }
@@ -106,6 +98,8 @@ fun InfoCard(
 @Composable
 fun RepairmanContactScreenPreview() {
     AndroidAppTheme {
-        RepairmanContactScreen()
+        RepairmanContactScreen(
+            User(1, "Andrej", "Jokic", "s", "s", UserType.REGULAR, "s", "s", "s", 5.0)
+        )
     }
 }

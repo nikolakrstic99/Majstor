@@ -105,4 +105,12 @@ class RetrofitApiService: ApiService {
     override suspend fun getBlogImages(id: Int): Response<List<ImageApiModel>> {
         return api.getBlogImages(id)
     }
+
+    override suspend fun deleteBlog(id: Int): Response<Unit> {
+        return api.deleteBlog(id)
+    }
+
+    override suspend fun deleteService(id: Int): Response<Unit> {
+        return api.deleteService(id)
+    }
 }

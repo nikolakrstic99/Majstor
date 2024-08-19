@@ -21,6 +21,7 @@ data class UserProfileUiState(
     val reviewsOnLoggedUser: List<Int>? = null,
     val servicesByLoggedUser: List<Service>? = null,
     val blogsByLoggedUser: List<Blog>? = null,
+    val latestReviewsOnLoggedUser: List<Review>? = null,
     val errorMessage: String? = null
 )
 
@@ -37,11 +38,11 @@ class UserViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            refresh()
+            _refresh()
         }
     }
 
-    private suspend fun refresh() {
+    private suspend fun _refresh() {
         val user = userRepository.getLoggedUser().data
         val reviews =
             if (user != null)
@@ -58,34 +59,35 @@ class UserViewModel @Inject constructor(
                 blogsRepository.getAllBlogs().data?.filter { it.author.id == user.id }
             else
                 listOf()
+        val reviewsOnLoggedUser =
+            if (user != null)
+                reviewsRepository.getReviewsByRatedUser(user.id).data
+                    ?.sortedByDescending { it.id }
+                    ?.take(3)
+                    ?: listOf()
+            else
+                listOf()
 
         _uiState.value = _uiState.value.copy(
             userInfo = user,
             reviewsOnLoggedUser = reviews,
             servicesByLoggedUser = services,
-            blogsByLoggedUser = blogs
+            blogsByLoggedUser = blogs,
+            latestReviewsOnLoggedUser = reviewsOnLoggedUser
         )
     }
 
     fun login(email: String, password: String) {
         viewModelScope.launch {
             val user = userRepository.login(email, password)
-//            _uiState.value = _uiState.value.copy(
-//                userInfo = user.data,
-//                errorMessage = user.message
-//            )
-            refresh()
+            _refresh()
         }
     }
 
     fun register(firstName: String, lastName: String, email: String, password: String, phoneNumber: String, location: String) {
         viewModelScope.launch {
             val user = userRepository.register(firstName, lastName, email, password, phoneNumber, location)
-//            _uiState.value = _uiState.value.copy(
-//                userInfo = user.data,
-//                errorMessage = user.message
-//            )
-            refresh()
+            _refresh()
         }
     }
 
@@ -96,5 +98,18 @@ class UserViewModel @Inject constructor(
             reviewsOnLoggedUser = null,
             errorMessage = null
         )
+    }
+
+    fun refresh() {
+        viewModelScope.launch {
+            _refresh()
+        }
+    }
+
+    fun deleteService(serviceId: Int) {
+        viewModelScope.launch {
+            repairmentRepository.deleteService(serviceId)
+            _refresh()
+        }
     }
 }

@@ -12,6 +12,7 @@ import com.master.app.data.entity.ImageApiModel
 import com.master.app.data.entity.UserApiModel
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -67,4 +68,10 @@ interface ApiService {
 
     @GET("blog/images/{id}")
     suspend fun getBlogImages(@Path("id") id: Int): Response<List<ImageApiModel>>
+
+    @DELETE("blog/{id}")
+    suspend fun deleteBlog(@Path("id") id: Int): Response<Unit>
+
+    @DELETE("service/{id}")
+    suspend fun deleteService(@Path("id") id: Int): Response<Unit>
 }
