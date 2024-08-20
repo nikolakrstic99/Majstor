@@ -3,11 +3,14 @@
     <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
       <li class="nav-item" role="presentation">
         <button [ngClass]="active == 'login' ? 'btn btn-primary' : 'btn btn-light'" id="tab-login"
-                (click)="onLoginTab()" >Login</button>
+                (click)="onLoginTab()">Login
+        </button>
       </li>
       <li class="nav-item" role="presentation">
-        <button [ngClass]="active == 'register' ? 'btn btn-primary' : 'btn btn-light'" id="tab-register"
-                (click)="onRegisterTab()" >Register</button>
+        <button [ngClass]="active == 'register' ? 'btn btn-primary' : 'btn btn-light'"
+                id="tab-register"
+                (click)="onRegisterTab()">Register
+        </button>
       </li>
     </ul>
 
@@ -16,12 +19,14 @@
         <form (ngSubmit)="onSubmitLogin()" #loginForm="ngForm">
 
           <div class="form-outline mb-4">
-            <input type="login" id="loginName" name= "login" class="form-control" [(ngModel)]="login" />
+            <input type="login" id="loginName" name="login" class="form-control"
+                   [(ngModel)]="login"/>
             <label class="form-label" for="loginName">Email</label>
           </div>
 
           <div class="form-outline mb-4">
-            <input type="password" id="loginPassword" name="password" class="form-control" [(ngModel)]="password" />
+            <input type="password" id="loginPassword" name="password" class="form-control"
+                   [(ngModel)]="password"/>
             <label class="form-label" for="loginPassword">Password</label>
           </div>
 
@@ -33,37 +38,46 @@
         <form (ngSubmit)="onSubmitRegister()" #registerForm="ngForm">
 
           <div class="form-outline mb-4">
-            <input type="text" id="firstName" name="firstName" class="form-control" [(ngModel)]="firstName" />
+            <input type="text" id="firstName" name="firstName" class="form-control"
+                   [(ngModel)]="firstName"/>
             <label class="form-label" for="firstName">First name</label>
           </div>
 
           <div class="form-outline mb-4">
-            <input type="text" id="lastName" name="lastName" class="form-control" [(ngModel)]="lastName" />
+            <input type="text" id="lastName" name="lastName" class="form-control"
+                   [(ngModel)]="lastName"/>
             <label class="form-label" for="lastName">Last name</label>
           </div>
 
           <div class="form-outline mb-4">
-            <input type="text" id="login" name="login" class="form-control" [(ngModel)]="login" />
+            <input type="text" id="login" name="login" class="form-control" [(ngModel)]="login"/>
             <label class="form-label" for="login">Email</label>
           </div>
 
           <div class="form-outline mb-4">
-            <input type="text" id="phoneNumber" name="password" class="form-control" [(ngModel)]="phone" />
+            <input type="text" id="phoneNumber" name="password" class="form-control"
+                   [(ngModel)]="phone"/>
             <label class="form-label" for="phoneNumber">Telefon</label>
           </div>
 
           <div class="form-outline mb-4">
-            <input type="text" id="location" name="password" class="form-control" [(ngModel)]="location" />
+            <input type="text" id="location" name="password" class="form-control"
+                   [(ngModel)]="location"/>
             <label class="form-label" for="location">Grad</label>
           </div>
 
           <div class="form-outline mb-4">
-            <input type="password" id="registerPassword" name="password" class="form-control" [(ngModel)]="password" />
+            <input type="password" id="registerPassword" name="password" class="form-control"
+                   required minlength="8" [(ngModel)]="password" #passwordInput="ngModel"/>
             <label class="form-label" for="registerPassword">Password</label>
+            <div *ngIf="passwordInput.invalid && passwordInput.touched" class="text-danger">
+              <div *ngIf="passwordInput.errors?.['required']">Sifra je obavezna</div>
+              <div *ngIf="passwordInput.errors?.['minlength']">Sifra mora biti minimalne duzine 8</div>
+            </div>
           </div>
 
 
-          <button type="submit" class="btn btn-primary btn-block mb-3">
+          <button type="submit" class="btn btn-primary btn-block mb-3" [disabled]="registerForm.invalid">
             <span *ngIf="active == 'register'">Sign up</span>
             <span *ngIf="active == 'login'">Sign in</span></button>
         </form>
