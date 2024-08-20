@@ -15,7 +15,8 @@ start server: mysql.server start
 stop server:  mysql.server stop
 
 insertovanje create_service_image.sql:
-	mysql -u root -p mymaster < create_service_image.sql
+	mac: mysql -u root -p mymaster < create_service_image.sql
+	windows: & cmd.exe /c "mysql -u root -p mymaster < create_service_image.sql"
 
 Mobile:
 
