@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { Router } from "@angular/router";
-import { AxiosService } from "../services/axios.service";
+import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
+import {Router} from "@angular/router";
+import {AxiosService} from "../services/axios.service";
 import {UtilsService} from "../utils.service";
+import {FormGroup, NgForm, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-login-register',
@@ -33,7 +34,10 @@ export class LoginRegisterComponent {
   }
 
   onSubmitLogin(): void {
-    this.axiosService.request("POST", "api/v1/login", {email: this.login, password: this.password}).then(
+    this.axiosService.request("POST", "api/v1/login", {
+      email: this.login,
+      password: this.password
+    }).then(
       response => {
         this.axiosService.setAuthToken(response.data.token);
         this.router.navigate(["/"]);
