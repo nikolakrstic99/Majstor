@@ -1,7 +1,7 @@
 create table service_image
 (
     id bigint primary key AUTO_INCREMENT not null,
-    image_data blob not null,
+    image_data mediumblob not null,
     service_id bigint
 );
 
