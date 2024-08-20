@@ -14,6 +14,9 @@ Java 17
 start server: mysql.server start
 stop server:  mysql.server stop
 
+insertovanje create_service_image.sql:
+	mysql -u root -p mymaster < create_service_image.sql
+
 Mobile:
 
 
