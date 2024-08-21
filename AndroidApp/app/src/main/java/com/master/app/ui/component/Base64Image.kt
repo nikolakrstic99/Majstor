@@ -7,6 +7,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -47,12 +48,15 @@ fun Base64Image(
         if (shouldEnlarge) {
             Dialog(
                 onDismissRequest = { shouldEnlarge = false },
-                properties = DialogProperties(usePlatformDefaultWidth = false)
+                properties = DialogProperties(usePlatformDefaultWidth = false),
             ) {
                 Image(
                     bitmap = imageBitMap,
                     contentDescription = "Image",
-                    contentScale = ContentScale.Crop
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(30.dp)
                 )
             }
         }
