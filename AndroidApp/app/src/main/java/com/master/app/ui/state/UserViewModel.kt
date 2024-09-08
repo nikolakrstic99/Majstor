@@ -51,12 +51,26 @@ class UserViewModel @Inject constructor(
                 listOf()
         val services =
             if (user != null)
-                repairmentRepository.getServicesProvidedByUser(user.id).data ?: listOf()
+                repairmentRepository.getServicesProvidedByUser(user.id).data
+                    ?.map {
+                        val images = repairmentRepository.getServiceImages(it.id).data ?: listOf()
+                        it.copy(
+                            images = images
+                        )
+                    }
+                    ?: listOf()
             else
                 listOf()
         val blogs =
             if (user != null)
-                blogsRepository.getAllBlogs().data?.filter { it.author.id == user.id }
+                blogsRepository.getAllBlogs().data
+                    ?.filter { it.author.id == user.id }
+                    ?.map {
+                        val images = blogsRepository.getBlogImages(it.id).data ?: listOf()
+                        it.copy(
+                            images = images
+                        )
+                    }
             else
                 listOf()
         val reviewsOnLoggedUser =

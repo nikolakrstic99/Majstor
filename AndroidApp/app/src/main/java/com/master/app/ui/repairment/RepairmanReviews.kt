@@ -43,8 +43,7 @@ fun RepairmanReviews(
             )
         }
         Column(
-            verticalArrangement = Arrangement.spacedBy(15.dp),
-            modifier = Modifier.heightIn(0.dp, 500.dp)
+            verticalArrangement = Arrangement.spacedBy(15.dp)
         ) {
             for (review in reviews) {
                 ReviewCard(review = review)
