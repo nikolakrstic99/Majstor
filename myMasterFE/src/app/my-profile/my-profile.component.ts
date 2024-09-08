@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AxiosService} from "../services/axios.service";
 import {UtilsService} from "../utils.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-my-profile',
@@ -9,11 +10,32 @@ import {UtilsService} from "../utils.service";
 })
 export class MyProfileComponent implements OnInit {
 
-  constructor(private axiosService: AxiosService, private utils: UtilsService) {
+  user = null;
+  firstName = 'John';
+  lastName = 'Doe';
+  mobilePhone = '123-456-7890';
+  averageReview = 0.00;
+  stars = [1, 2, 3, 4, 5];
+  comments = [];
+  services = [];
+  serviceImageMap = new Map<string, string[]>();
+  serviceActiveSlideMap = new Map<string, boolean[]>();
+
+  // Initialize currentImageIndex array
+  currentImageIndex: number[] = this.services.map(() => 0);
+
+  readMore = false;
+  readMoreServiceFlag = false;
+  userId: number;
+
+  constructor(private route: ActivatedRoute, private axiosService: AxiosService, private utils: UtilsService) {
   }
 
   ngOnInit(): void {
-    this.axiosService.requestWithToken('GET', 'api/v1/user', null)
+    this.route.params.subscribe(params => {
+      this.userId = params['userId'];
+    });
+    this.axiosService.requestWithToken('GET', `api/v1/user/${this.userId}`, null)
     .then(response => {
       this.user = response.data
       this.axiosService.requestWithToken('GET', `api/v1/service/user/${this.user.id}`, null).then(response => {
@@ -50,22 +72,6 @@ export class MyProfileComponent implements OnInit {
 
   }
 
-  user = null;
-  firstName = 'John';
-  lastName = 'Doe';
-  mobilePhone = '123-456-7890';
-  averageReview = 0.00;
-  stars = [1, 2, 3, 4, 5];
-  comments = [];
-  services = [];
-  serviceImageMap = new Map<string, string[]>();
-  serviceActiveSlideMap = new Map<string, boolean[]>();
-
-  // Initialize currentImageIndex array
-  currentImageIndex: number[] = this.services.map(() => 0);
-
-  readMore = false;
-  readMoreServiceFlag = false;
   readMoreComments(flag: boolean) {
     this.readMore = flag;
   }

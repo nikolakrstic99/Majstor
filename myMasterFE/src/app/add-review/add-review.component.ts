@@ -11,12 +11,14 @@ import {UtilsService} from "../utils.service";
 export class AddReviewComponent implements OnInit {
   reviewForm: FormGroup;
   @Input() userId: number;
-
+  loggedInUserId: number;
   constructor(private fb: FormBuilder, private axiosService: AxiosService, private utils: UtilsService) {
     this.reviewForm = this.fb.group({
       grade: ['', Validators.required],
       description: ['', Validators.required]
     });
+
+    this.loggedInUserId = this.axiosService.getUserId();
   }
 
   onSubmit() {

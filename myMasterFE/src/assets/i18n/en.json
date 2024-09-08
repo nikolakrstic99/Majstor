@@ -1,0 +1,14 @@
+{
+  "login": {
+    "login": "Login",
+    "email": "Email",
+    "password": "Password",
+    "register": "Register"
+  },
+  "home": {
+    "workers": "Workers",
+    "services": "Services",
+    "workersStories": "Workers Stories"
+  }
+
+}

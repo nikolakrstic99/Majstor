@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import axios from "axios";
 
 @Injectable({
@@ -11,37 +11,9 @@ export class AxiosService {
     axios.defaults.headers.post['Content-Type'] = 'application/json';
   }
 
-  getAuthToken(): string | null {
-    return window.localStorage.getItem("auth_token");
-  }
-
-  setAuthToken(token: string | null): void {
-    if (token !== null) {
-      window.localStorage.setItem("auth_token", token);
-    } else {
-      window.localStorage.removeItem("auth_token");
-    }
-  }
-
-  getToken() {
-    const tokenDecoded = atob(this.getAuthToken().split('.')[1]);
-    return JSON.parse(tokenDecoded);
-  }
-
-
-  isAdmin():boolean {
-    let token = this.getToken();
-    return token["status"] === "ADMIN";
-  }
-
-  getUserId(): number {
-    let token = this.getToken();
-    return token["id"];
-  }
-
   requestWithToken(method: string, uri: string, data: any): Promise<any> {
     let headers = {};
-    if(this.getAuthToken() !== null) {
+    if (this.getAuthToken() !== null) {
       headers = {
         Authorization: "Bearer " + this.getAuthToken()
       };
@@ -62,5 +34,40 @@ export class AxiosService {
       data: data,
       headers: headers
     });
+  }
+
+  getAuthToken(): string | null {
+    return window.localStorage.getItem("auth_token");
+  }
+
+  setAuthToken(token: string | null): void {
+    if (token !== null) {
+      window.localStorage.setItem("auth_token", token);
+    } else {
+      window.localStorage.removeItem("auth_token");
+    }
+  }
+
+  getToken() {
+    let token = this.getAuthToken();
+    if (token === null) return null;
+    const tokenDecoded = atob(token.split('.')[1]);
+    return JSON.parse(tokenDecoded);
+  }
+
+  isAdmin(): boolean {
+    if (this.getAuthToken() == null) return false;
+    let token = this.getToken();
+    return token["role"] === "ADMIN";
+  }
+
+  getUserId(): number {
+    let token = this.getToken();
+    if(token === null) return -1;
+    return token["id"];
+  }
+
+  isLoggedIn() {
+    return this.getAuthToken() !== null;
   }
 }

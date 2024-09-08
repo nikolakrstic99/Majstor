@@ -1,0 +1,14 @@
+{
+  "login": {
+    "login": "Uloguj se",
+    "email": "Email",
+    "password": "Šifra",
+    "register": "Registruj se"
+  },
+  "home": {
+    "workers": "Majstori",
+    "services": "Usloge",
+    "workersStories": "Majstorske priče"
+  }
+
+}

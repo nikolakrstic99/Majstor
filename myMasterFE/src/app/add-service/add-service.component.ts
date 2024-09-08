@@ -48,16 +48,10 @@ export class AddServiceComponent implements OnInit {
   }
 
   onFileSelected(event) {
-    //this.userFile = event.target.result;
     if (event.target.files && event.target.files[0]) {
       this.imagesOk = true;
-      // if (event.target.files.length < 3 || event.target.files.length > 6) {
-      //   this.imagesOk = false;
-      //   this.openSnackBar('Please select 3-6 images');
-      //   return;
-      // }
       for (let i = 0; i < event.target.files.length; i++) {
-        var reader = new FileReader();
+        const reader = new FileReader();
 
         reader.onload = (event: any) => {
           this.images.push(event.target.result);

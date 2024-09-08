@@ -17,6 +17,8 @@ export class BlogDetailComponent implements OnInit {
   activeIndex = 0;
   isAdmin: boolean;
   author: string;
+  userId: number;
+  authorId: number;
 
   constructor(private activatedRouter: ActivatedRoute, private axiosService: AxiosService, private utils: UtilsService) {
     this.id = +this.activatedRouter.snapshot.paramMap.get('id')!;
@@ -24,11 +26,14 @@ export class BlogDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userId = this.axiosService.getUserId();
     this.isAdmin = this.axiosService.isAdmin();
     this.axiosService.request('GET', `api/v1/blog/${this.id}`, null).then(response => {
       this.blogDetail = response.data;
       // @ts-ignore
       this.author = this.blogDetail['user']['firstName'] + ' ' + this.blogDetail['user']['lastName']
+      // @ts-ignore
+      this.authorId = this.blogDetail['user']['id'];
       this.axiosService.request('GET', `api/v1/blog/images/${this.id}`, null).then(response => {
         this.images = response.data;
         this.activeSlide = Array(this.images.length).fill(false);

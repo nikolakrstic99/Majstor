@@ -21,16 +21,22 @@
           <div class="form-outline mb-4">
             <input type="login" id="loginName" name="login" class="form-control"
                    [(ngModel)]="login"/>
-            <label class="form-label" for="loginName">Email</label>
+            <label class="form-label" for="loginName">Stara šifra</label>
           </div>
 
           <div class="form-outline mb-4">
             <input type="password" id="loginPassword" name="password" class="form-control"
                    [(ngModel)]="password"/>
-            <label class="form-label" for="loginPassword">Password</label>
+            <label class="form-label" for="loginPassword">Nova šifra</label>
           </div>
 
-          <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+          <div class="form-outline mb-4">
+            <input type="password" id="loginPassword2" name="password" class="form-control"
+                   [(ngModel)]="password"/>
+            <label class="form-label" for="loginPassword">Nova šifra</label>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block mb-4">Izmeni</button>
 
         </form>
       </div>

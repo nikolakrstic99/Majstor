@@ -1,4 +1,5 @@
-<form [formGroup]="reviewForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="reviewForm" (ngSubmit)="onSubmit()"
+      [ngStyle]="{display: loggedInUserId == userId || loggedInUserId == -1 ? 'inline' : 'inline'}">
   <div class="form-group">
     <label for="description">Komentar na usluge majstora</label>
     <textarea id="description"

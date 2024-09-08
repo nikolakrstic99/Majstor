@@ -9,7 +9,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AddBlogComponent } from './blog/add-blog/add-blog.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {MatSnackBarModule} from "@angular/material/snack-bar";
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { LoginRegisterComponent } from './login-register/login-register.component';
@@ -18,10 +17,11 @@ import { AddServiceComponent } from './add-service/add-service.component';
 import { HomeComponent } from './home/home.component';
 import { L1CategoryComponent } from './l1-category/l1-category.component';
 import {MatCardModule} from "@angular/material/card";
-import { MyProfileComponent } from './my-profile/my-profile.component';
-import {NgxIntlTelInputModule} from "ngx-intl-tel-input";
-import { AddReviewComponent } from './add-review/add-review.component';
 import {MatSliderModule} from "@angular/material/slider";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import { MyProfileComponent } from './my-profile/my-profile.component';
+import {TranslateModule} from '@ngx-translate/core';
+import { AddReviewComponent } from './add-review/add-review.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +49,8 @@ import {MatSliderModule} from "@angular/material/slider";
     HttpClientModule,
     MatSnackBarModule,
     MatCardModule,
-    MatSliderModule
+    MatSliderModule,
+    TranslateModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

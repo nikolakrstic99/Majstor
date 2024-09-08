@@ -80,7 +80,7 @@
             <i class="fa-brands fa-x-twitter"></i> Twitter
           </button>
           <button type="button" class="btn bg-twitter btn-rounded share-item"
-                  *ngIf="isAdmin"
+                  *ngIf="isAdmin || this.authorId == this.userId"
                   (click)="delete()">
             <i
               class="fa-solid fa-trash cursor-pointer"

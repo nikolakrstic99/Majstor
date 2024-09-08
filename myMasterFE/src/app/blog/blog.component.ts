@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Blog } from '../models/blog';
 import { Router } from '@angular/router';
-import {Observable, of} from "rxjs";
-import {blogs} from "./blog-data";
 import {AxiosService} from "../services/axios.service";
 import {UtilsService} from "../utils.service";
 
@@ -21,10 +18,11 @@ export class BlogComponent implements OnInit {
     private utils: UtilsService
   ) {
     this.showEdit = false;
-    this.Blogs = blogs;
   }
 
+  isLogged: boolean;
   ngOnInit(): void {
+    this.isLogged = this.axiosService.isLoggedIn();
     this.axiosService.request('GET', 'api/v1/blog', null).then(response => {
       this.Blogs = response.data;
     })
@@ -33,22 +31,7 @@ export class BlogComponent implements OnInit {
     });
   }
 
-  public getBlog(): Observable<any> {
-    return of(blogs);
-  }
-
-  loginClick() {
-   // this.router.navigate(['/login']);
-  }
-
-  newPost() {
-    //this.router.navigate(['/post']);
-  }
-
   viewDetail(id: number) {
-   // this.service.detailId = id;
-
-    ///if (this.service.loginStatusService) this.service.showEdit = true;
 
     this.router.navigate(['/blogDetail', id]);
   }
